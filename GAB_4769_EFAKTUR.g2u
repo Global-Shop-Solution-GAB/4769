@@ -1,0 +1,1975 @@
+﻿Program.Sub.ScreenSU.Start
+Gui.F_EFaktur..Create
+Gui.F_EFaktur..Caption("E-Faktur")
+Gui.F_EFaktur..Size(14025,9165)
+Gui.F_EFaktur..MinX(0)
+Gui.F_EFaktur..MinY(0)
+Gui.F_EFaktur..Position(0,0)
+Gui.F_EFaktur..FontSize(9)
+Gui.F_EFaktur..BackColor(-2147483633)
+Gui.F_EFaktur..MousePointer(0)
+Gui.F_EFaktur..Event(UnLoad,Unload)
+Gui.F_EFaktur.txtEFaktur.Create(TextBox,"1234567890123456789",True,2265,315,0,90,375,True,0,"Arial",9,-2147483643,1)
+Gui.F_EFaktur.txtEFaktur.MaxLength(19)
+Gui.F_EFaktur.lbl1.Create(Label,"E-Faktur No.",True,1935,255,0,60,150,True,0,"Arial",9,-2147483633,0)
+Gui.F_EFaktur.lbl2.Create(Label,"E-Faktur Date",True,1560,255,0,2445,150,True,0,"Arial",9,-2147483633,0)
+Gui.F_EFaktur.dtpDateFaktur.Create(DatePicker)
+Gui.F_EFaktur.dtpDateFaktur.Size(1515,285)
+Gui.F_EFaktur.dtpDateFaktur.Position(2475,375)
+Gui.F_EFaktur.lbl3.Create(Label,"Transaction Type (Jenis Transaksi)",True,3090,255,0,90,870,True,0,"Arial",9,-2147483633,0)
+Gui.F_EFaktur.ddlTransType.Create(DropDownList)
+Gui.F_EFaktur.ddlTransType.Size(4770,345)
+Gui.F_EFaktur.ddlTransType.Position(90,1095)
+Gui.F_EFaktur.ddlTransType.FontSize(9)
+Gui.F_EFaktur.ddlTransType.Event(SelectedIndexChanged,ddlTransType_Click)
+Gui.F_EFaktur.ddlExtra.Create(DropDownList)
+Gui.F_EFaktur.ddlExtra.Visible(False)
+Gui.F_EFaktur.ddlExtra.Size(4770,345)
+Gui.F_EFaktur.ddlExtra.Position(90,1845)
+Gui.F_EFaktur.ddlExtra.FontSize(9)
+Gui.F_EFaktur.lblExtra.Create(Label,"Addl Info (Keterangan Tambahan)",False,4470,255,0,90,1620,True,0,"Arial",9,-2147483633,0)
+Gui.F_EFaktur.txtRev.Create(TextBox,"",True,765,300,0,4095,375,True,2,"Arial",8,-2147483643,1)
+Gui.F_EFaktur.txtRev.Locked(True)
+Gui.F_EFaktur.lbl4.Create(Label,"Rev",True,750,255,0,4065,150,True,0,"Arial",9,-2147483633,0)
+Gui.F_EFaktur.GsGCLine.Create(GsGridControl)
+Gui.F_EFaktur.GsGCLine.Size(13605,4800)
+Gui.F_EFaktur.GsGCLine.Position(105,3750)
+Gui.F_EFaktur.GsGCLine.Event(CellValueChanged,GsGCLine_CellValueChanged)
+Gui.F_EFaktur.GsGCLine.Event(RowCellClick,GsGCLine_RowCellClick)
+Gui.F_EFaktur.frame1.Create(Frame)
+Gui.F_EFaktur.frame1.Size(6165,3570)
+Gui.F_EFaktur.frame1.Position(5205,45)
+Gui.F_EFaktur.frame1.Caption("E-Faktur Summary")
+Gui.F_EFaktur.frame1.FontSize(9)
+Gui.F_EFaktur.GsGCAmount.Create(GsGridControl)
+Gui.F_EFaktur.GsGCAmount.Size(5970,3225)
+Gui.F_EFaktur.GsGCAmount.Position(105,240)
+Gui.F_EFaktur.GsGCAmount.Parent("frame1")
+Gui.F_EFaktur.GsGCAmount.Event(CellValueChanged,GsGCAmount_CellValueChanged)
+Gui.F_EFaktur.cmdAdd.Create(Button)
+Gui.F_EFaktur.cmdAdd.Size(2220,480)
+Gui.F_EFaktur.cmdAdd.Position(11490,2415)
+Gui.F_EFaktur.cmdAdd.Caption("Add Invoice")
+Gui.F_EFaktur.cmdAdd.FontSize(9)
+Gui.F_EFaktur.cmdAdd.Event(Click,cmdAddInvoice_Click)
+Gui.F_EFaktur.cmdUpdate.Create(Button)
+Gui.F_EFaktur.cmdUpdate.Size(2220,480)
+Gui.F_EFaktur.cmdUpdate.Position(11490,885)
+Gui.F_EFaktur.cmdUpdate.Caption("Update")
+Gui.F_EFaktur.cmdUpdate.FontSize(9)
+Gui.F_EFaktur.cmdUpdate.Event(Click,cmdUpdate_Click)
+Gui.F_EFaktur.cmdSave.Create(Button)
+Gui.F_EFaktur.cmdSave.Size(2220,480)
+Gui.F_EFaktur.cmdSave.Position(11490,135)
+Gui.F_EFaktur.cmdSave.Caption("Save")
+Gui.F_EFaktur.cmdSave.FontSize(9)
+Gui.F_EFaktur.cmdSave.Event(Click,cmdSave_Click)
+Gui.F_EFaktur.cmdCSV.Create(Button)
+Gui.F_EFaktur.cmdCSV.Size(2220,480)
+Gui.F_EFaktur.cmdCSV.Position(11490,1650)
+Gui.F_EFaktur.cmdCSV.Caption("CSV")
+Gui.F_EFaktur.cmdCSV.FontSize(9)
+Gui.F_EFaktur.cmdCSV.Event(Click,cmdCSV_click)
+Gui.F_EFaktur.txtUserID.Create(TextBox,"",True,1605,315,0,90,3285,True,0,"Arial",9,-2147483643,1)
+Gui.F_EFaktur.txtUserID.Locked(True)
+Gui.F_EFaktur.lbl8.Create(Label,"Created By",True,1665,255,0,90,3075,True,0,"Arial",9,-2147483633,0)
+Gui.F_EFaktur.txtCustomer.Create(TextBox,"",True,1095,315,0,90,2580,True,0,"Arial",9,-2147483643,1)
+Gui.F_EFaktur.txtCustomer.Locked(True)
+Gui.F_EFaktur.lbl5.Create(Label,"Customer",True,900,255,0,90,2355,True,0,"Arial",9,-2147483633,0)
+Gui.F_EFaktur.txtCustName.Create(TextBox,"",True,3585,315,0,1275,2580,True,0,"Arial",9,-2147483643,1)
+Gui.F_EFaktur.txtCustName.Locked(True)
+Gui.F_EFaktur.cmdOpen.Create(Button)
+Gui.F_EFaktur.cmdOpen.Size(2220,480)
+Gui.F_EFaktur.cmdOpen.Position(11490,3135)
+Gui.F_EFaktur.cmdOpen.Caption("Open")
+Gui.F_EFaktur.cmdOpen.FontSize(9)
+Gui.F_EFaktur.cmdOpen.Visible(False)
+Gui.F_EFaktur.cmdOpen.Event(Click,cmdOpen_Click)
+Program.Sub.ScreenSU.End
+
+Program.Sub.Preflight.Start
+V.Global.dInvoiceDate.Declare(Date)
+V.Global.iFakturID.Declare
+V.Global.iInvoiceID.Declare
+V.Global.iRound.Declare
+Program.Sub.Preflight.End
+
+Program.Sub.Main.Start
+V.Local.bExist.Declare
+V.Local.sType.Declare
+F.Intrinsic.Control.If(V.Caller.Hook,=,34901)
+	'Invoicing populate hook
+	V.Passed.000006.Set("New E-Faktur")
+	V.Passed.000007.Set("Add to E-Faktur")
+F.Intrinsic.Control.ElseIf(V.Caller.Hook,=,34910)
+	'Invoicing script 1 hook
+	Gui.F_EFaktur.cmdCSV.Visible(False)
+	Gui.F_EFaktur.cmdUpdate.Visible(False)
+'	F.ODBC.Connection!Conx.OpenConnection(V.Ambient.PDSN,V.Ambient.PUser,V.Ambient.PPass)
+	F.ODBC.Connection!conx.OpenCompanyConnection(300)
+	
+	F.ODBC.Connection!conx.TableExists("GAB_4769_ROUNDING",V.Local.bExist)
+	F.Intrinsic.Control.If(V.Local.bExist,=,False)
+		F.Intrinsic.UI.Msgbox("Please setup rounding decimal type first from System Support > Administration > Setup Rounding Decimal (4769) before running this menu.","Indonesian E-faktur (4769)")
+		F.Intrinsic.Control.CallSub(Unload)
+	F.Intrinsic.Control.Else
+		F.ODBC.Connection!conx.ExecuteAndReturn("SELECT * FROM GAB_4769_ROUNDING",V.Local.sType)
+		F.Intrinsic.Control.If(V.Local.sType,=,"2")
+			V.Global.iRound.Set(0)
+		F.Intrinsic.Control.Else
+			V.Global.iRound.Set(1)
+		F.Intrinsic.Control.EndIf
+	F.Intrinsic.Control.EndIf
+	
+	F.Intrinsic.Control.CallSub(checkcustomtable)
+	F.Intrinsic.Control.CallSub(newe-faktur)
+	F.Intrinsic.Control.CallSub(initiatescreen)
+F.Intrinsic.Control.ElseIf(V.Caller.Hook,=,34920)
+	'Invoicing script 2 hook
+'	F.ODBC.Connection!Conx.OpenConnection(V.Ambient.PDSN,V.Ambient.PUser,V.Ambient.PPass)
+	F.ODBC.Connection!conx.OpenCompanyConnection(300)
+	
+	F.ODBC.Connection!conx.TableExists("GAB_4769_ROUNDING",V.Local.bExist)
+	F.Intrinsic.Control.If(V.Local.bExist,=,False)
+		F.Intrinsic.UI.Msgbox("Please setup rounding decimal type first from System Support > Administration > Setup Rounding Decimal (4769) before running this menu.","Indonesian E-faktur (4769)")
+		F.Intrinsic.Control.CallSub(Unload)
+	F.Intrinsic.Control.Else
+		F.ODBC.Connection!conx.ExecuteAndReturn("SELECT * FROM GAB_4769_ROUNDING",V.Local.sType)
+		F.Intrinsic.Control.If(V.Local.sType,=,"2")
+			V.Global.iRound.Set(0)
+		F.Intrinsic.Control.Else
+			V.Global.iRound.Set(1)
+		F.Intrinsic.Control.EndIf	
+	F.Intrinsic.Control.EndIf
+	
+	F.Intrinsic.Control.CallSub(checkcustomtable)
+	F.Intrinsic.Control.CallSub(adde-faktur)
+	F.Intrinsic.Control.CallSub(initiatescreen)
+F.Intrinsic.Control.Else
+	'Custom hook
+'	F.ODBC.Connection!Conx.OpenConnection(V.Ambient.PDSN,V.Ambient.PUser,V.Ambient.PPass)
+	F.ODBC.Connection!conx.OpenCompanyConnection(300)
+	
+	F.ODBC.Connection!conx.TableExists("GAB_4769_ROUNDING",V.Local.bExist)
+	F.Intrinsic.Control.If(V.Local.bExist,=,False)
+		F.Intrinsic.UI.Msgbox("Please setup rounding decimal type first from System Support > Administration > Setup Rounding Decimal (4769) before running this menu.","Indonesian E-faktur (4769)")
+		F.Intrinsic.Control.CallSub(Unload)
+	F.Intrinsic.Control.Else
+		F.ODBC.Connection!conx.ExecuteAndReturn("SELECT * FROM GAB_4769_ROUNDING",V.Local.sType)
+		F.Intrinsic.Control.If(V.Local.sType,=,"2")
+			V.Global.iRound.Set(0)
+		F.Intrinsic.Control.Else
+			V.Global.iRound.Set(1)
+		F.Intrinsic.Control.EndIf	
+	F.Intrinsic.Control.EndIf
+	
+	Gui.F_EFaktur.txtEFaktur.Text("")
+	Gui.F_EFaktur.txtEFaktur.Locked(True)
+	Gui.F_EFaktur.cmdAdd.Visible(False)
+	Gui.F_EFaktur.cmdUpdate.Visible(False)
+	Gui.F_EFaktur.cmdOpen.Visible(True)
+	F.Intrinsic.Control.CallSub(checkcustomtable)
+	F.Intrinsic.Control.CallSub(initiatescreen)
+F.Intrinsic.Control.EndIf
+Program.Sub.Main.End
+
+Program.Sub.Unload.Start
+F.Intrinsic.Control.If(V.DataTable.dtInvoice.Exists,=,True)
+	F.Data.DataTable.Close("dtInvoice")
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.If(V.DataTable.dtInvLine.Exists,=,True)
+	F.Data.DataTable.Close("dtInvLine")
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.If(V.DataTable.dtSummary.Exists,=,True)
+	F.Data.DataTable.Close("dtSummary")
+F.Intrinsic.Control.EndIf
+
+F.ODBC.Connection!Conx.Close
+F.Intrinsic.Control.End
+
+Program.Sub.Unload.End
+
+Program.Sub.ddlTransType_Click.Start
+V.Local.iIndex.Declare
+
+V.Local.iIndex.Set(V.Screen.F_EFaktur!ddlTransType.ListIndex)
+
+'f.Intrinsic.UI.Msgbox(v.Local.iIndex)
+
+'07-Penyerahan yang PPNnya tidak dipungut
+F.Intrinsic.Control.If(V.Local.iIndex,=,5)
+	Gui.F_EFaktur.ddlExtra.ClearItems
+	Gui.F_EFaktur.ddlExtra.AddItem("Untuk Kawasan Bebas",0)
+	Gui.F_EFaktur.ddlExtra.AddItem("Untuk Tempat Penimbunan Berikat",1)
+	Gui.F_EFaktur.ddlExtra.AddItem("Untuk Hibah dan Bantuan Luar Negeri",2)
+	Gui.F_EFaktur.ddlExtra.AddItem("Untuk Avtur",3)
+	Gui.F_EFaktur.ddlExtra.AddItem("Untuk Lainnya",4)
+	Gui.F_EFaktur.ddlExtra.AddItem("Untuk Kontraktor Perjanjian Karya Pengusahaan Pertambangan Batubara Generasi I",5)
+	Gui.F_EFaktur.ddlExtra.Visible(True)
+	Gui.F_EFaktur.lblExtra.Visible(True)
+
+'08-Penyerahan yang PPNnya dibebaskan
+F.Intrinsic.Control.ElseIf(V.Local.iIndex,=,6)
+	Gui.F_EFaktur.ddlExtra.ClearItems
+	Gui.F_EFaktur.ddlExtra.AddItem("Untuk BKP dan JKP Tertentu",0)
+	Gui.F_EFaktur.ddlExtra.AddItem("Untuk BKP Tertentu Yang Bersifat Strategis",1)
+	Gui.F_EFaktur.ddlExtra.AddItem("Untuk Jasa Kebandarudaraan",2)
+	Gui.F_EFaktur.ddlExtra.AddItem("Untuk Lainnya",3)
+	Gui.F_EFaktur.ddlExtra.Visible(True)
+	Gui.F_EFaktur.lblExtra.Visible(True)
+F.Intrinsic.Control.Else
+		Gui.F_EFaktur.ddlExtra.Visible(False)
+		Gui.F_EFaktur.lblExtra.Visible(False)
+F.Intrinsic.Control.EndIf
+
+Program.Sub.ddlTransType_Click.End
+
+Program.Sub.cmdOpen_Click.Start
+V.Local.bExist.Declare
+V.Local.dFaktur.Declare(Date)
+V.Local.fPPN.Declare
+V.Local.fRate.Declare
+V.Local.fSubtotal.Declare
+V.Local.i1.Declare
+V.Local.iRet.Declare
+V.Local.iRev.Declare
+V.Local.iWidths.Declare
+V.Local.sCustomer.Declare
+V.Local.sCustomerName.Declare
+V.Local.sExtra.Declare
+V.Local.sFaktur.Declare
+V.Local.sFilter.Declare
+V.Local.sInvoice.Declare
+V.Local.sRet.Declare
+V.Local.sSQL.Declare
+V.Local.sTitles.Declare
+V.Local.sTransType.Declare
+V.Local.sType.Declare
+V.Local.fPPNBM.Declare
+
+'F.Intrinsic.Control.If(V.DataTable.dtInvLine.Exists,=,True)
+'	'E-faktur has been created before, check if the data have been saved
+'	F.Intrinsic.Control.If(V.Global.iFakturID,=,0)
+'		'Data have not been saved
+'		F.Intrinsic.UI.Msgbox("New E-Faktur has not been saved","E-Faktur [APAC]",4,V.Local.iRet)
+'		
+'		F.Intrinsic.Control.If(V.Local.iRet,=,6)
+'			'Save before open
+'			'Check e-faktur number, transaction type and additional reference has been inputted
+'			V.Local.sFaktur.Set(V.Screen.F_EFaktur!txtEFaktur.Text)
+'			F.Intrinsic.Control.If(V.Local.sFaktur.Trim,=,"")
+'				F.Intrinsic.UI.Msgbox("Please enter E-Faktur number","E-Faktur [APAC]")
+'				F.Intrinsic.Control.ExitSub
+'			F.Intrinsic.Control.Else
+'				V.Local.sTransType.Set(V.Screen.F_EFaktur!ddlTransType.Text)
+'				F.Intrinsic.Control.If(V.Local.sTransType.Trim,=,"")
+'					F.Intrinsic.UI.Msgbox("Please select transaction type","E-Faktur [APAC]")
+'					F.Intrinsic.Control.ExitSub
+'				F.Intrinsic.Control.Else
+'					F.Intrinsic.Control.If(V.Local.sTransType.Trim,=,"Penyerahan yang PPN-nya Tidak Dipungut")
+'						V.Local.sExtra.Set(V.Screen.F_EFaktur!ddlExtra.Text)
+'						F.Intrinsic.Control.If(V.Local.sExtra.Trim,=,"")
+'							F.Intrinsic.UI.Msgbox("Please select additional info","E-Faktur [APAC]")
+'							F.Intrinsic.Control.ExitSub
+'						F.Intrinsic.Control.Else
+'							'Save data
+'							F.Intrinsic.Control.CallSub(cmdsave_click)
+'						F.Intrinsic.Control.EndIf
+'					F.Intrinsic.Control.ElseIf(V.Local.sTransType.Trim,=,"Penyerahan yang PPN-nya Dibebaskan")
+'						V.Local.sExtra.Set(V.Screen.F_EFaktur!ddlExtra.Text)
+'						F.Intrinsic.Control.If(V.Local.sExtra.Trim,=,"")
+'							F.Intrinsic.UI.Msgbox("Please select additional info","E-Faktur [APAC]")
+'							F.Intrinsic.Control.ExitSub
+'						F.Intrinsic.Control.Else
+'							'Save data
+'							F.Intrinsic.Control.CallSub(cmdsave_click)
+'						F.Intrinsic.Control.EndIf
+'					F.Intrinsic.Control.Else
+'						'Save data
+'						F.Intrinsic.Control.CallSub(cmdsave_click)
+'					F.Intrinsic.Control.EndIf
+'				F.Intrinsic.Control.EndIf
+'			F.Intrinsic.Control.EndIf
+'		F.Intrinsic.Control.EndIf
+'	F.Intrinsic.Control.EndIf
+'F.Intrinsic.Control.EndIf
+
+F.Intrinsic.String.Split("E-Faktur*!*E-Faktur Date*!*Revision*!*Customer*!*ID*!*Created By","*!*",V.Local.sTitles)
+F.Intrinsic.String.Split("1500*!*1200*!*600*!*700*!*400*!*700","*!*",V.Local.iWidths)
+V.Local.sSQL.Set("select e_faktur, date_faktur, revision, customer, id, userid from gab_4769_efaktur_hf order by e_faktur desc")
+'F.Intrinsic.String.Build("select id, e_faktur, date_faktur, revision from gab_4769_efaktur_hf order by e_faktur desc",V.Local.sCustomer.Trim,V.Local.sSQL)
+
+'F.Intrinsic.String.Split("E-Faktur*!*Date*!*Invoice*!*Customer*!*Customer Name*!*ID*!*Rev","*!*",V.Local.sTitles)
+'F.Intrinsic.String.Split("1000*!*1000*!*1000*!*1000*!*2000*!*300*!*300","*!*",V.Local.iWidths)
+'V.Local.sSQL.Set("select EF.e_faktur, EF.date_faktur, EF.invoice, EF.customer, CT.name_customer, EF.id, EF.revision from GAB_4769_EFAKTUR_HF EF left join v_customer_master CT on EF.customer = CT.customer order by EF.e_faktur")
+
+F.Intrinsic.UI.SetBrowserHotTypeAhead(True)
+F.Intrinsic.UI.Browser("Select an E-Faktur","conx",V.Local.sSQL,V.Local.sTitles,V.Local.iWidths,V.Local.sRet)
+
+F.Intrinsic.Control.If(V.Local.sRet,<>,"***CANCEL***")
+	'Get table ID and retrieve header information
+	F.Intrinsic.String.Split(V.Local.sRet,"*!*",V.Local.sRet)
+	V.Global.iFakturID.Set(V.Local.sRet(4))
+	'Lock e-faktur textbox so it cannot be modified
+	Gui.F_EFaktur.txtEFaktur.Locked(True)
+	Gui.F_EFaktur.txtEFaktur.Text(V.Local.sRet(0).Trim)
+	V.Local.dFaktur.Set(V.Local.sRet(1))
+	Gui.F_EFaktur.dtpDateFaktur.Value(V.Local.dFaktur)
+'	Gui.F_EFaktur.txtInvoice.Text(V.Local.sRet(2).Trim)
+'	V.Local.sInvoice.Set(V.Local.sRet(2).Trim)
+	Gui.F_EFaktur.txtCustomer.Text(V.Local.sRet(3).Trim)
+	V.Local.sCustomer.Set(V.Local.sRet(3).Trim)
+	Gui.F_EFaktur.txtUserID.Text(V.Local.sRet(5).Trim)
+	
+	'Initiate transaction type
+	Gui.F_EFaktur.ddlTransType.ClearItems
+	Gui.F_EFaktur.ddlTransType.AddItem("Kepada Pihak yang Bukan Pemungut PPN",0)
+	Gui.F_EFaktur.ddlTransType.AddItem("Kepada Pemungut Bendaharawan",1)
+	Gui.F_EFaktur.ddlTransType.AddItem("Kepada Pemungut Selain Bendaharawan",2)
+	Gui.F_EFaktur.ddlTransType.AddItem("DPP Nilai Lain",3)
+	Gui.F_EFaktur.ddlTransType.AddItem("Penyerahan Lainnya, termasuk penyerahan kepada turis asing dalam rangka VAT refund",4)
+	Gui.F_EFaktur.ddlTransType.AddItem("Penyerahan yang PPN-nya Tidak Dipungut",5)
+	Gui.F_EFaktur.ddlTransType.AddItem("Penyerahan yang PPN-nya Dibebaskan",6)
+	Gui.F_EFaktur.ddlTransType.AddItem("Penyerahan Aktiva (Pasal 16D UU PPN)",7)
+	
+	'Retrieve e-faktur transaction type
+	F.Intrinsic.String.Build("select trans_type, extra_id from gab_4769_efaktur_hf where id = {0}",V.Local.sRet(4),V.Local.sSQL)
+	F.ODBC.Connection!Conx.OpenLocalRecordsetRO("rst",V.Local.sSQL)
+	'Transaction type and additional info
+	F.Intrinsic.Control.If(V.ODBC.Conx!rst.FieldValLong!trans_type,=,1)
+		Gui.F_EFaktur.ddlTransType.Text("Kepada Pihak yang Bukan Pemungut PPN")
+	F.Intrinsic.Control.ElseIf(V.ODBC.Conx!rst.FieldValLong!trans_type,=,2)
+		Gui.F_EFaktur.ddlTransType.Text("Kepada Pemungut Bendaharawan")
+	F.Intrinsic.Control.ElseIf(V.ODBC.Conx!rst.FieldValLong!trans_type,=,3)
+		Gui.F_EFaktur.ddlTransType.Text("Kepada Pemungut Selain Bendaharawan")
+	F.Intrinsic.Control.ElseIf(V.ODBC.Conx!rst.FieldValLong!trans_type,=,4)
+		Gui.F_EFaktur.ddlTransType.Text("DPP Nilai Lain")
+	F.Intrinsic.Control.ElseIf(V.ODBC.Conx!rst.FieldValLong!trans_type,=,6)
+		Gui.F_EFaktur.ddlTransType.Text("Penyerahan Lainnya, termasuk penyerahan kepada turis asing dalam rangka VAT refund")
+	F.Intrinsic.Control.ElseIf(V.ODBC.Conx!rst.FieldValLong!trans_type,=,7)
+		Gui.F_EFaktur.ddlTransType.Text("Penyerahan yang PPN-nya Tidak Dipungut")
+		F.Intrinsic.Control.If(V.ODBC.Conx!rst.FieldValLong!extra_id,=,1)
+			Gui.F_EFaktur.ddlExtra.Text("Untuk Kawasan Bebas")
+		F.Intrinsic.Control.ElseIf(V.ODBC.Conx!rst.FieldValLong!extra_id,=,2)
+			Gui.F_EFaktur.ddlExtra.Text("Untuk Tempat Penimbunan Berikat")
+		F.Intrinsic.Control.ElseIf(V.ODBC.Conx!rst.FieldValLong!extra_id,=,3)
+			Gui.F_EFaktur.ddlExtra.Text("Untuk Hibah dan Bantuan Luar Negeri")
+		F.Intrinsic.Control.ElseIf(V.ODBC.Conx!rst.FieldValLong!extra_id,=,4)
+			Gui.F_EFaktur.ddlExtra.Text("Untuk Avtur")
+		F.Intrinsic.Control.ElseIf(V.ODBC.Conx!rst.FieldValLong!extra_id,=,5)
+			Gui.F_EFaktur.ddlExtra.Text("Untuk Lainnya")
+		F.Intrinsic.Control.ElseIf(V.ODBC.Conx!rst.FieldValLong!extra_id,=,6)
+			Gui.F_EFaktur.ddlExtra.Text("Untuk Kontraktor Perjanjian Karya Pengusahaan Pertambangan Batubara Generasi I")
+		F.Intrinsic.Control.EndIf
+	F.Intrinsic.Control.ElseIf(V.ODBC.Conx!rst.FieldValLong!trans_type,=,8)
+		Gui.F_EFaktur.ddlTransType.Text("Penyerahan yang PPN-nya Dibebaskan")
+		F.Intrinsic.Control.If(V.ODBC.Conx!rst.FieldValLong!extra_id,=,1)
+			Gui.F_EFaktur.ddlExtra.Text("Untuk BKP dan JKP Tertentu")
+		F.Intrinsic.Control.ElseIf(V.ODBC.Conx!rst.FieldValLong!extra_id,=,2)
+			Gui.F_EFaktur.ddlExtra.Text("Untuk BKP Tertentu Yang Bersifat Strategis")
+		F.Intrinsic.Control.ElseIf(V.ODBC.Conx!rst.FieldValLong!extra_id,=,3)
+			Gui.F_EFaktur.ddlExtra.Text("Untuk Jasa Kebandarudaraan")
+		F.Intrinsic.Control.ElseIf(V.ODBC.Conx!rst.FieldValLong!extra_id,=,4)
+			Gui.F_EFaktur.ddlExtra.Text("Untuk Lainnya")
+		F.Intrinsic.Control.EndIf
+	F.Intrinsic.Control.ElseIf(V.ODBC.Conx!rst.FieldValLong!trans_type,=,9)
+		Gui.F_EFaktur.ddlTransType.Text("Penyerahan Aktiva (Pasal 16D UU PPN)")
+	F.Intrinsic.Control.EndIf
+	F.ODBC.Conx!rst.Close
+	Gui.F_EFaktur.dtpDateFaktur.Value(V.Local.sRet(1))
+	Gui.F_EFaktur.dtpDateFaktur.Enabled(True)
+	
+	Gui.F_EFaktur.txtCustomer.Text(V.Local.sCustomer.Trim)
+	F.Intrinsic.String.Build("select name_customer from v_customer_master where customer = '{0}'",V.Local.sCustomer.Trim,V.Local.sSQL)
+	F.ODBC.Connection!Conx.OpenLocalRecordsetRO("rstCust",V.Local.sSQL)
+	F.ODBC.Connection!Conx.TableExists("GAB_Customer_Long",V.Local.bExist)
+	F.Intrinsic.Control.If(V.Local.bExist,=,True)
+		F.Intrinsic.String.Build("select customerlong from gab_customer_long where customer = '{0}' and rtrim(customerlong) <> ''",V.Local.sCustomer.Trim,V.Local.sSQL)
+		F.ODBC.Connection!Conx.OpenLocalRecordsetRO("rstGAB",V.Local.sSQL)
+		F.Intrinsic.Control.If(V.ODBC.Conx!rstGAB.EOF,=,False)
+			Gui.F_EFaktur.txtCustName.Text(V.ODBC.Conx!rstGAB.FieldValTrim!customerlong)
+		F.Intrinsic.Control.Else
+			Gui.F_EFaktur.txtCustName.Text(V.ODBC.Conx!rstCust.FieldValTrim!name_customer)
+		F.Intrinsic.Control.EndIf
+		F.ODBC.Conx!rstGAB.Close
+	F.Intrinsic.Control.Else
+		Gui.F_EFaktur.txtCustName.Text(V.ODBC.Conx!rstCust.FieldValTrim!name_customer)
+		F.ODBC.Conx!rstCust.Close
+	F.Intrinsic.Control.EndIf
+	
+	F.Intrinsic.Control.If(V.DataTable.dtInvoice.Exists,=,True)
+		F.Data.DataTable.Close("dtInvoice")
+	F.Intrinsic.Control.EndIf
+	
+	F.Intrinsic.Control.If(V.DataTable.dtInvLine.Exists,=,True)
+		F.Data.DataTable.Close("dtInvLine")
+	F.Intrinsic.Control.EndIf
+	
+	'Retrieve invoice header information based on the selected e-faktur
+'	V.Global.iFakturID.Set(V.Local.iID)
+	F.Intrinsic.String.Build("select distinct(Invoice) as Invoice, date_invoice as InvoiceDate from gab_4769_efaktur_ln where id = {0} order by line",V.Local.sRet(4),V.Local.sSQL)
+	F.Data.DataTable.CreateFromSQL("dtInvoice","conx",V.Local.sSQL,True)
+	F.Data.DataTable.AddColumn("dtInvoice","Subtotal","Float",0)
+	F.Data.DataTable.AddColumn("dtInvoice","PPN","Float",0)
+	F.Data.DataTable.AddColumn("dtInvoice","PPNBM","Float",0)
+	F.Data.DataTable.AddColumn("dtInvoice","Type","String","")
+	F.Data.DataTable.AddColumn("dtInvoice","Delete","Long")
+	
+	'Prepare datatable for invoice line
+'	F.Intrinsic.String.Build("select iv.invoice as Invoice, iv.order_no as SO, iv.order_suffix as Suffix, iv.order_line as SOLine, hist.part as Part, hist.description as Description, iv.quantity as Quantity, iv.price as Price, iv.discount as Discount, hist.line_type as Type, rate_ppnbm as PPNBMRate from gab_4769_efaktur_ln iv left join v_order_hist_line hist on iv.invoice = hist.invoice and iv.order_no = hist.order_no and iv.order_suffix = hist.order_suffix and iv.order_line = hist.order_line where iv.id = {0}",V.Local.sRet(4),V.Local.sSQL)
+	F.Intrinsic.Control.If(V.Global.iRound,=,1)
+		F.Intrinsic.String.Build("select iv.invoice+iv.order_no+iv.order_suffix+iv.order_line as IOSL, iv.invoice as Invoice, iv.order_no as SO, iv.order_suffix as Suffix, iv.order_line as SOLine, '' as Part, '' as Description, iv.quantity as Quantity, Round(iv.price,0) as Price, iv.discount as Discount, convert(0, sql_float) as Rate, '' as Type, rate_ppnbm as PPNBMRate, iv.Date_Invoice from gab_4769_efaktur_ln iv where iv.id = {0}",V.Local.sRet(4),V.Local.sSQL)
+	F.Intrinsic.Control.Else
+		F.Intrinsic.String.Build("select iv.invoice+iv.order_no+iv.order_suffix+iv.order_line as IOSL, iv.invoice as Invoice, iv.order_no as SO, iv.order_suffix as Suffix, iv.order_line as SOLine, '' as Part, '' as Description, iv.quantity as Quantity, Floor(iv.price) as Price, iv.discount as Discount, convert(0, sql_float) as Rate, '' as Type, rate_ppnbm as PPNBMRate, iv.Date_Invoice from gab_4769_efaktur_ln iv where iv.id = {0}",V.Local.sRet(4),V.Local.sSQL)
+	F.Intrinsic.Control.EndIf
+	F.Data.DataTable.CreateFromSQL("dtInvLine","conx",V.Local.sSQL,True)
+	
+	F.Intrinsic.String.Build("select OH.invoice+OH.order_no+OH.order_suffix+OH.order_line as IOSL, OH.Part From V_Order_Hist_Line OH Where OH.Invoice = '{0}' and OH.Date_Invoice = '{1}' and OH.Order_No = '{2}' and OH.Order_Suffix = '{3}' Union All select SL.invoice+SL.order_no+SL.order_suffix+SL.order_rec, SL.Part From V_Shipment_Lines SL Left Join v_inv_batch_ctrl IBC on SL.ivc_batch = IBC.number Where SL.Invoice = '{0}' and IBC.Inv_Date = '{1}' and SL.Order_No = '{2}' and SL.Order_Suffix = '{3}';", V.DataTable.dtInvLine(0).Invoice!FieldValTrim, V.DataTable.dtInvLine(0).Date_Invoice!FieldValPervasiveDate, V.DataTable.dtInvLine(0).SO!FieldValTrim, V.DataTable.dtInvLine(0).Suffix!FieldValTrim, V.Local.sSQL)
+	F.Data.Dictionary.CreateFromSQL("dic",conx,V.Local.sSQL)
+	F.Data.Dictionary.SetDefaultReturn("dic","")
+	F.Data.DataTable.FillFromDictionary("dtInvLine","dic","IOSL","Part")
+	F.Data.Dictionary.Close("dic")
+	
+	F.Intrinsic.String.Build("select OH.invoice+OH.order_no+OH.order_suffix+OH.order_line as IOSL, OH.Description From V_Order_Hist_Line OH Where OH.Invoice = '{0}' and OH.Date_Invoice = '{1}' and OH.Order_No = '{2}' and OH.Order_Suffix = '{3}' Union All select SL.invoice+SL.order_no+SL.order_suffix+SL.order_rec, SL.Order_Desc From V_Shipment_Lines SL Left Join v_inv_batch_ctrl IBC on SL.ivc_batch = IBC.number Where SL.Invoice = '{0}' and IBC.Inv_Date = '{1}' and SL.Order_No = '{2}' and SL.Order_Suffix = '{3}';", V.DataTable.dtInvLine(0).Invoice!FieldValTrim, V.DataTable.dtInvLine(0).Date_Invoice!FieldValPervasiveDate, V.DataTable.dtInvLine(0).SO!FieldValTrim, V.DataTable.dtInvLine(0).Suffix!FieldValTrim, V.Local.sSQL)
+	F.Data.Dictionary.CreateFromSQL("dic",conx,V.Local.sSQL)
+	F.Data.Dictionary.SetDefaultReturn("dic","")
+	F.Data.DataTable.FillFromDictionary("dtInvLine","dic","IOSL","Description")
+	F.Data.Dictionary.Close("dic")
+	
+	F.Intrinsic.String.Build("select OH.invoice+OH.order_no+OH.order_suffix+OH.order_line as IOSL, OH.Line_Type From V_Order_Hist_Line OH Where OH.Invoice = '{0}' and OH.Date_Invoice = '{1}' and OH.Order_No = '{2}' and OH.Order_Suffix = '{3}' Union All select SL.invoice+SL.order_no+SL.order_suffix+SL.order_rec, SL.Line_Type From V_Shipment_Lines SL Left Join v_inv_batch_ctrl IBC on SL.ivc_batch = IBC.number Where SL.Invoice = '{0}' and IBC.Inv_Date = '{1}' and SL.Order_No = '{2}' and SL.Order_Suffix = '{3}';", V.DataTable.dtInvLine(0).Invoice!FieldValTrim, V.DataTable.dtInvLine(0).Date_Invoice!FieldValPervasiveDate, V.DataTable.dtInvLine(0).SO!FieldValTrim, V.DataTable.dtInvLine(0).Suffix!FieldValTrim, V.Local.sSQL)
+	F.Data.Dictionary.CreateFromSQL("dic",conx,V.Local.sSQL)
+	F.Data.Dictionary.SetDefaultReturn("dic","")
+	F.Data.DataTable.FillFromDictionary("dtInvLine","dic","IOSL","Type")
+	F.Data.Dictionary.Close("dic")
+	
+	F.Intrinsic.String.Build("select OH.invoice+OH.order_no+OH.order_suffix+OH.order_line as IOSL, OH.Tax_Rate_1 as Rate From V_Order_Hist_Line OH Where OH.Invoice = '{0}' and OH.Date_Invoice = '{1}' and OH.Order_No = '{2}' and OH.Order_Suffix = '{3}' Union All select SL.invoice+SL.order_no+SL.order_suffix+SL.order_rec, If(TAX.Rate<>'', TAX.Rate, 0) as Rate From V_Shipment_Lines SL Left Join v_inv_batch_ctrl IBC on SL.ivc_batch = IBC.number Left Join v_ar_tax_tables TAX on SL.Tax_1 = TAX.Auth and SL.Tax_Zone_1 = TAX.Zone Where SL.Invoice = '{0}' and IBC.Inv_Date = '{1}' and SL.Order_No = '{2}' and SL.Order_Suffix = '{3}';", V.DataTable.dtInvLine(0).Invoice!FieldValTrim, V.DataTable.dtInvLine(0).Date_Invoice!FieldValPervasiveDate, V.DataTable.dtInvLine(0).SO!FieldValTrim, V.DataTable.dtInvLine(0).Suffix!FieldValTrim, V.Local.sSQL)
+	F.Data.Dictionary.CreateFromSQL("dic",conx,V.Local.sSQL)
+	F.Data.Dictionary.SetDefaultReturn("dic",0)
+	F.Data.DataTable.FillFromDictionary("dtInvLine","dic","IOSL","Rate")
+	F.Data.Dictionary.Close("dic")
+	
+	F.Data.DataTable.RemoveColumn("dtInvLine","Date_Invoice")
+	F.Data.DataTable.RemoveColumn("dtInvLine","IOSL")
+	F.Data.DataTable.AddExpressionColumn("dtInvLine","Extension","Float","(Quantity*Price)-Discount")
+	F.Data.DataTable.AddExpressionColumn("dtInvLine","PPN","Float","Rate*Extension")
+	F.Data.DataTable.AddExpressionColumn("dtInvLine","PPNBM","Float","(PPNBMRate*Extension)/100")
+		
+	F.Intrinsic.Control.For(V.Local.i1,0,V.DataTable.dtInvoice.RowCount--,1)
+		F.Intrinsic.String.Build("Invoice = '{0}'",V.DataTable.dtInvoice(V.Local.i1).Invoice!FieldValTrim,V.Local.sFilter)
+		F.Data.DataTable.Compute("dtInvLine","SUM(Extension)",V.Local.sFilter,V.Local.fSubtotal)
+		F.Intrinsic.Math.Round(V.Local.fSubtotal,0,V.Global.iRound,V.Local.fSubtotal)
+		F.Data.DataTable.Compute("dtInvLine","SUM(PPN)",V.Local.sFilter,V.Local.fPPN)
+		F.Intrinsic.Math.Round(V.Local.fPPN,0,V.Global.iRound,V.Local.fPPN)
+		F.Data.DataTable.Compute("dtInvLine","SUM(PPNbm)",V.Local.sFilter,V.Local.fPPNBM)
+		F.Intrinsic.Math.Round(V.Local.fPPNBM,0,V.Global.iRound,V.Local.fPPNBM)
+
+		'Check invoice type
+		F.Data.DataTable.Select("dtInvLine","Type = 'P'",V.Local.sRet)
+		F.Intrinsic.Control.If(V.Local.sRet,=,"***NORETURN***")
+			V.Local.sType.Set("Regular")
+		F.Intrinsic.Control.Else
+			F.Intrinsic.String.Split(V.Local.sRet,"*!*",V.Local.sRet)
+			F.Intrinsic.Control.If(V.Local.sRet.UBound,=,V.DataTable.dtInvLine.RowCount--)
+				V.Local.sType.Set("Progress")
+			F.Intrinsic.Control.Else
+				V.Local.sType.Set("Final")
+			F.Intrinsic.Control.EndIf
+		F.Intrinsic.Control.EndIf
+		F.Data.DataTable.SetValue("dtInvoice",V.Local.i1,"Subtotal",V.Local.fSubtotal, "PPN",V.Local.fPPN, "PPNBM",V.Local.fPPNBM, "Type",V.Local.sType)
+	F.Intrinsic.Control.Next(V.Local.i1)
+	
+	F.Data.DataTable.Clone("dtInvLine","dtInvoice$dtLine",True)
+	F.Data.DataTable.Merge("dtInvLine","dtInvoice$dtLine",False,2)
+
+	F.Data.DataTable.AddRelation("dtInvoice","Invoice","dtInvoice$dtLine","Invoice")
+	F.Data.DataView.Create("dtInvoice","dvInvoice")
+	F.Data.DataView.Create("dtInvoice$dtLine","dvLine")
+	Gui.F_EFaktur.GsGCLine.AddGridviewFromDataview("gvInvoice","dtInvoice","dvInvoice")
+	Gui.F_EFaktur.GsGCLine.AddGridviewFromDataview("gvLine","dtInvoice","dvLine")
+	Gui.F_EFaktur.GsGCLine.MainView("gvInvoice")
+	F.Data.DataTable.Close("dtInvLine")
+	
+	Gui.F_EFaktur.GsGCLine.SetGridviewProperty("gvLine","Editable",True)
+	Gui.F_EFaktur.txtRev.Text(V.Local.sRet(2))
+	F.Intrinsic.Control.CallSub(gvlineformat)
+	F.Intrinsic.Control.CallSub(e-fakturrecap)
+'	'Get table ID and retrieve header information
+'	F.Intrinsic.String.Split(V.Local.sRet,"*!*",V.Local.sRet)
+'	V.Global.iFakturID.Set(V.Local.sRet(5))
+'	'Lock e-faktur textbox so it cannot be modified
+'	Gui.F_EFaktur.txtEFaktur.Locked(True)
+'	Gui.F_EFaktur.txtEFaktur.Text(V.Local.sRet(0).Trim)
+'	V.Local.dFaktur.Set(V.Local.sRet(1))
+'	Gui.F_EFaktur.dtpDateFaktur.Value(V.Local.dFaktur)
+''	Gui.F_EFaktur.txtInvoice.Text(V.Local.sRet(2).Trim)
+'	V.Local.sInvoice.Set(V.Local.sRet(2).Trim)
+'	Gui.F_EFaktur.txtCustomer.Text(V.Local.sRet(3).Trim)
+'	'Retrieve customer name
+'	F.ODBC.Connection!Conx.TableExists("GAB_Customer_Long",V.Local.bExist)
+'	F.Intrinsic.Control.If(V.Local.bExist,=,True)
+'		F.Intrinsic.String.Build("select customerlong from gab_customer_long where customer = '{0}'",V.Local.sRet(3).Trim,V.Local.sSQL)
+'		F.ODBC.Connection!Conx.OpenLocalRecordsetRO("rst",V.Local.sSQL)
+'		F.Intrinsic.Control.If(V.ODBC.Conx!rst.EOF,=,False)
+'			Gui.F_EFaktur.txtCustName.Text(V.ODBC.Conx!rst.FieldValTrim!customerlong)
+'		F.Intrinsic.Control.Else
+'			Gui.F_EFaktur.txtCustName.Text(V.Local.sRet(4).Trim)
+'		F.Intrinsic.Control.EndIf
+'		F.ODBC.Conx!rst.Close
+'	F.Intrinsic.Control.Else
+'		Gui.F_EFaktur.txtCustName.Text(V.Local.sRet(4).Trim)
+'	F.Intrinsic.Control.EndIf
+'	F.Intrinsic.String.Build("select date_invoice, trans_type, revision, extra_id, faktur_id, total_dpp, total_ppn, total_ppnbm, dp_dpp, dp_ppn, dp_ppnbm, userid from GAB_4769_EFAKTUR_HF where id = {0}",V.Global.iFakturID,V.Local.sSQL)
+'	F.ODBC.Connection!Conx.OpenLocalRecordsetRO("rst",V.Local.sSQL)
+'	V.Global.dInvoiceDate.Set(V.ODBC.Conx!rst.FieldVal!date_invoice)
+'	Gui.F_EFaktur.txtUserID.Text(V.ODBC.Conx!rst.FieldValTrim!userid)
+'	'Increase revision by 1
+'	F.Intrinsic.Math.Add(V.ODBC.Conx!rst.FieldValLong!revision,1,V.Local.iRev)
+'	Gui.F_EFaktur.txtRev.Text(V.Local.iRev)
+'	'Transaction type and additional info
+'	F.Intrinsic.Control.If(V.ODBC.Conx!rst.FieldValLong!trans_type,=,1)
+'		Gui.F_EFaktur.ddlTransType.Text("Kepada Pihak yang Bukan Pemungut PPN")
+'	F.Intrinsic.Control.ElseIf(V.ODBC.Conx!rst.FieldValLong!trans_type,=,2)
+'		Gui.F_EFaktur.ddlTransType.Text("Kepada Pemungut Bendaharawan")
+'	F.Intrinsic.Control.ElseIf(V.ODBC.Conx!rst.FieldValLong!trans_type,=,3)
+'		Gui.F_EFaktur.ddlTransType.Text("Kepada Pemungut Selain Bendaharawan")
+'	F.Intrinsic.Control.ElseIf(V.ODBC.Conx!rst.FieldValLong!trans_type,=,4)
+'		Gui.F_EFaktur.ddlTransType.Text("DPP Nilai Lain")
+'	F.Intrinsic.Control.ElseIf(V.ODBC.Conx!rst.FieldValLong!trans_type,=,6)
+'		Gui.F_EFaktur.ddlTransType.Text("Penyerahan Lainnya, termasuk penyerahan kepada turis asing dalam rangka VAT refund")
+'	F.Intrinsic.Control.ElseIf(V.ODBC.Conx!rst.FieldValLong!trans_type,=,7)
+'		Gui.F_EFaktur.ddlTransType.Text("Penyerahan yang PPN-nya Tidak Dipungut")
+'		F.Intrinsic.Control.If(V.ODBC.Conx!rst.FieldValLong!extra_id,=,1)
+'			Gui.F_EFaktur.ddlExtra.Text("Untuk Kawasan Bebas")
+'		F.Intrinsic.Control.ElseIf(V.ODBC.Conx!rst.FieldValLong!extra_id,=,2)
+'			Gui.F_EFaktur.ddlExtra.Text("Untuk Tempat Penimbunan Berikat")
+'		F.Intrinsic.Control.ElseIf(V.ODBC.Conx!rst.FieldValLong!extra_id,=,3)
+'			Gui.F_EFaktur.ddlExtra.Text("Untuk Hibah dan Bantuan Luar Negeri")
+'		F.Intrinsic.Control.ElseIf(V.ODBC.Conx!rst.FieldValLong!extra_id,=,4)
+'			Gui.F_EFaktur.ddlExtra.Text("Untuk Avtur")
+'		F.Intrinsic.Control.ElseIf(V.ODBC.Conx!rst.FieldValLong!extra_id,=,5)
+'			Gui.F_EFaktur.ddlExtra.Text("Untuk Lainnya")
+'		F.Intrinsic.Control.ElseIf(V.ODBC.Conx!rst.FieldValLong!extra_id,=,6)
+'			Gui.F_EFaktur.ddlExtra.Text("Untuk Kontraktor Perjanjian Karya Pengusahaan Pertambangan Batubara Generasi I")
+'		F.Intrinsic.Control.EndIf
+'	F.Intrinsic.Control.ElseIf(V.ODBC.Conx!rst.FieldValLong!trans_type,=,8)
+'		Gui.F_EFaktur.ddlTransType.Text("Penyerahan yang PPN-nya Dibebaskan")
+'		F.Intrinsic.Control.If(V.ODBC.Conx!rst.FieldValLong!extra_id,=,1)
+'			Gui.F_EFaktur.ddlExtra.Text("Untuk BKP dan JKP Tertentu")
+'		F.Intrinsic.Control.ElseIf(V.ODBC.Conx!rst.FieldValLong!extra_id,=,2)
+'			Gui.F_EFaktur.ddlExtra.Text("Untuk BKP Tertentu Yang Bersifat Strategis")
+'		F.Intrinsic.Control.ElseIf(V.ODBC.Conx!rst.FieldValLong!extra_id,=,3)
+'			Gui.F_EFaktur.ddlExtra.Text("Untuk Jasa Kebandarudaraan")
+'		F.Intrinsic.Control.ElseIf(V.ODBC.Conx!rst.FieldValLong!extra_id,=,4)
+'			Gui.F_EFaktur.ddlExtra.Text("Untuk Lainnya")
+'		F.Intrinsic.Control.EndIf
+'	F.Intrinsic.Control.ElseIf(V.ODBC.Conx!rst.FieldValLong!trans_type,=,9)
+'		Gui.F_EFaktur.ddlTransType.Text("Penyerahan Aktiva (Pasal 16D UU PPN)")
+'	F.Intrinsic.Control.EndIf
+'	
+'	'Invoice summary
+'	F.Intrinsic.Control.If(V.DataTable.dtSummary.Exists,=,True)
+'		F.Data.DataTable.Close("dtSummary")
+'	F.Intrinsic.Control.EndIf
+'	F.Data.DataTable.Create("dtSummary",True)
+'	F.Data.DataTable.AddColumn("dtSummary","Title","String")
+'	F.Data.DataTable.AddColumn("dtSummary","Value","Float")
+'	F.Data.DataTable.AddRow("dtSummary","Title","Invoice Total","Value",V.ODBC.Conx!rst.FieldValFloat!total_dpp)
+'	F.Data.DataTable.AddRow("dtSummary","Title","Invoice PPN Total","Value",V.ODBC.Conx!rst.FieldValFloat!total_ppn)
+'	F.Data.DataTable.AddRow("dtSummary","Title","Invoice PPNBM Total","Value",V.ODBC.Conx!rst.FieldValFloat!total_ppnbm)
+'	F.Data.DataTable.AddRow("dtSummary","Title","Downpayment (DP) Total","Value",V.ODBC.Conx!rst.FieldValFloat!dp_dpp)
+'	F.Data.DataTable.AddRow("dtSummary","Title","DP PPN Total","Value",V.ODBC.Conx!rst.FieldValFloat!dp_ppn)
+'	F.Data.DataTable.AddRow("dtSummary","Title","DP PPNBM Total","Value",V.ODBC.Conx!rst.FieldValFloat!dp_ppnbm)
+'	Gui.F_EFaktur.GsGCAmount.AddGridviewFromDatatable("gvSummary","dtSummary")
+'	Gui.F_EFaktur.GsGCAmount.MainView("gvSummary")
+'	Gui.F_EFaktur.GsGCAmount.SetColumnProperty("gvSummary","Title","HeaderHAlignment","Center")
+'	Gui.F_EFaktur.GsGCAmount.SetColumnProperty("gvSummary","Value","HeaderHAlignment","Center")
+'	Gui.F_EFaktur.GsGCAmount.SetColumnProperty("gvSummary","Value","DisplayCustomNumeric","###,###,###,##0.00")
+'	Gui.F_EFaktur.GsGCAmount.SetColumnProperty("gvSummary","Value","AllowEdit",True)
+'	V.Global.iInvoiceID.Set(V.ODBC.Conx!rst.FieldValLong!faktur_id)
+'	F.ODBC.Conx!rst.Close
+'	
+'	'Invoice line
+'	F.Intrinsic.Control.If(V.DataTable.dtInvLine.Exists,=,True)
+'		F.Data.DataTable.Close("dtInvLine")
+'	F.Intrinsic.Control.EndIf
+'	
+'	F.Intrinsic.String.Build("select EF.order_no as SO, EF.order_suffix as Suffix, EF.order_line as SOLine, OL.Part as Part, OL.Description as Description, EF.Quantity as Quantity, EF.Price as Price, EF.Discount as Discount from GAB_4769_EFAKTUR_LN EF left join v_order_hist_line OL on OL.invoice = '{1}' and OL.order_no = EF.order_no and OL.order_suffix = EF.order_suffix and OL.order_line = EF.order_line where EF.id = {0} order by EF.line",V.Global.iFakturID,V.Local.sInvoice.Trim,V.Local.sSQL)
+'	F.Data.DataTable.CreateFromSQL("dtInvLine","conx",V.Local.sSQL,True)
+'	F.Data.DataTable.AddExpressionColumn("dtInvLine","Extension","Float","(Quantity*Price)-Discount")
+'	F.Data.DataTable.AddExpressionColumn("dtInvLine","PPN","Float","0.1*Extension")
+'	F.Data.DataTable.AddColumn("dtInvLine","PPNBMRate","Float")
+'	F.Data.DataTable.AddExpressionColumn("dtInvLine","PPNBM","Float","(PPNBMRate*Extension)/100")
+'	F.Intrinsic.Control.For(V.Local.i1,0,V.DataTable.dtInvLine.RowCount--,1)
+'		F.Intrinsic.String.Build("select rate_ppnbm from GAB_4769_EFAKTUR_LN where id = {0} and order_no = '{1}' and order_suffix = '{2}' and order_line = '{3}'",V.Global.iFakturID,V.DataTable.dtInvLine(V.Local.i1).SO!FieldValTrim,V.DataTable.dtInvLine(V.Local.i1).Suffix!FieldValTrim,V.DataTable.dtInvLine(V.Local.i1).SOLine!FieldValTrim,V.Local.sSQL)
+'		F.ODBC.Connection!Conx.ExecuteAndReturn(V.Local.sSQL,V.Local.fRate)
+'		F.Data.DataTable.SetValue("dtInvLine",V.Local.i1,"PPNBMRate",V.Local.fRate)
+'	F.Intrinsic.Control.Next(V.Local.i1)
+'	Gui.F_EFaktur.GsGCLine.AddGridviewFromDatatable("gvLine","dtInvLine")
+'	Gui.F_EFaktur.GsGCLine.MainView("gvLine")
+'	F.Intrinsic.Control.CallSub(gvlineformat)
+'	Gui.F_EFaktur.cmdSave.Visible(True)
+'	Gui.F_EFaktur.cmdCSV.Visible(True)
+F.Intrinsic.Control.EndIf
+Program.Sub.cmdOpen_Click.End
+
+Program.Sub.gvLineFormat.Start
+V.Local.i1.Declare
+
+'Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvInvoice","Rate","Visible",False)
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvInvoice","Invoice","HeaderHAlignment","Center")
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvInvoice","InvoiceDate","HeaderHAlignment","Center")
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvInvoice","Subtotal","HeaderHAlignment","Center")
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvInvoice","PPN","HeaderHAlignment","Center")
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvInvoice","PPNBM","HeaderHAlignment","Center")
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvInvoice","Type","HeaderHAlignment","Center")
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvInvoice","Invoice","CellHAlignment","Center")
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvInvoice","InvoiceDate","CellHAlignment","Center")
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvInvoice","Type","HeaderHAlignment","Center")
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvInvoice","Invoice","HeaderFontBold",True)
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvInvoice","InvoiceDate","HeaderFontBold",True)
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvInvoice","Subtotal","HeaderFontBold",True)
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvInvoice","PPN","HeaderFontBold",True)
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvInvoice","PPNBM","HeaderFontBold",True)
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvInvoice","Type","HeaderFontBold",True)
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvInvoice","Type","HeaderFontBold",True)
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvInvoice","InvoiceDate","Caption","Invoice Date")
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvInvoice","Subtotal","DisplayCustomNumeric","###,###,###,##0.00")
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvInvoice","PPN","DisplayCustomNumeric","###,###,###,##0.00")
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvInvoice","PPNBM","DisplayCustomNumeric","###,###,###,##0.00")
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvInvoice","InvoiceDate","DisplayCustomDatetime","d")
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvInvoice","Invoice","MinWidth","70")
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvInvoice","InvoiceDate","MinWidth","110")
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvInvoice","Subtotal","MinWidth","90")
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvInvoice","PPN","MinWidth","90")
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvInvoice","PPNBM","MinWidth","90")
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvInvoice","Type","MinWidth","70")
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvInvoice","Delete","MinWidth","60")
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvInvoice","Delete","ShowCaption",False)
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvInvoice","Delete","AllowEdit",False)
+Gui.F_EFaktur.GsGCLine.ColumnEdit("gvInvoice","Delete","EditorButton","Delete")
+
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvLine","Invoice","Visible",False)
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvLine","Type","Visible",False)
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvLine","Rate","Visible",False)
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvLine","SOLine","Caption","SO Line")
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvLine","PPNBMRate","Caption","PPNBM Rate")
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvLine","SO","HeaderHAlignment","Center")
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvLine","Suffix","HeaderHAlignment","Center")
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvLine","SOLine","HeaderHAlignment","Center")
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvLine","Part","HeaderHAlignment","Center")
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvLine","Description","HeaderHAlignment","Center")
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvLine","Quantity","HeaderHAlignment","Center")
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvLine","Price","HeaderHAlignment","Center")
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvLine","Discount","HeaderHAlignment","Center")
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvLine","Extension","HeaderHAlignment","Center")
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvLine","PPN","HeaderHAlignment","Center")
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvLine","PPNBMRate","HeaderHAlignment","Center")
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvLine","PPNBM","HeaderHAlignment","Center")
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvLine","SO","HeaderFontBold",True)
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvLine","Suffix","HeaderFontBold",True)
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvLine","SOLine","HeaderFontBold",True)
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvLine","Part","HeaderFontBold",True)
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvLine","Description","HeaderFontBold",True)
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvLine","Quantity","HeaderFontBold",True)
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvLine","Price","HeaderFontBold",True)
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvLine","Discount","HeaderFontBold",True)
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvLine","Extension","HeaderFontBold",True)
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvLine","PPN","HeaderFontBold",True)
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvLine","PPNBMRate","HeaderFontBold",True)
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvLine","PPNBM","HeaderFontBold",True)
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvLine","Quantity","DisplayCustomNumeric","###,###,###,##0.00")
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvLine","Price","DisplayCustomNumeric","###,###,###,##0.00")
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvLine","Discount","DisplayCustomNumeric","###,###,###,##0")
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvLine","Extension","DisplayCustomNumeric","###,###,###,##0")
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvLine","PPN","DisplayCustomNumeric","###,###,###,##0")
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvLine","PPNBMRate","DisplayCustomNumeric","###,###,###,##0")
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvLine","PPNBM","DisplayCustomNumeric","###,###,###,##0")
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvLine","SO","CellHAlignment","Center")
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvLine","Suffix","CellHAlignment","Center")
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvLine","SOLine","CellHAlignment","Center")
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvLine","Price","AllowEdit",True)
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvLine","Discount","AllowEdit",True)
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvLine","PPNBMRate","AllowEdit",True)
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvLine","Price","ReadOnly",False)
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvLine","Discount","ReadOnly",False)
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvLine","PPNBMRate","ReadOnly",False)
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvLine","SO","MinWidth","70")
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvLine","Suffix","MinWidth","60")
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvLine","SOLine","MinWidth","60")
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvLine","Part","MinWidth","110")
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvLine","Description","MinWidth","180")
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvLine","Quantity","MinWidth","80")
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvLine","Price","MinWidth","90")
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvLine","Discount","MinWidth","90")
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvLine","Extension","MinWidth","90")
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvLine","PPN","MinWidth","90")
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvLine","PPNBMRate","MinWidth","90")
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvLine","PPNBM","MinWidth","90")
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvLine","SO","Fixed","Left")
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvLine","Suffix","Fixed","Left")
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvLine","SOLine","Fixed","Left")
+Gui.F_EFaktur.GsGCLine.SetColumnProperty("gvLine","Part","Fixed","Left")
+
+F.Intrinsic.Control.for(V.Local.i1,0,V.DataTable.dtInvoice$dtLine.RowCount--,1)
+	Gui.F_EFaktur.GsGCLine.SetRowAppearance("gvLine",V.Local.i1,"backcolor",V.Color.LtGray)
+F.Intrinsic.Control.Next(V.Local.i1)
+Program.Sub.gvLineFormat.End
+
+Program.Sub.cmdSave_Click.Start
+V.Local.dFaktur.Declare(Date)
+V.Local.fDiscount.Declare
+V.Local.fExtension.Declare
+V.Local.fPPN.Declare
+V.Local.fPPNBM.Declare
+V.Local.fPrice.Declare
+V.Local.fTotalInvoice.Declare
+V.Local.fTotalPPNInvoice.Declare
+V.Local.fTotalPPNBMInvoice.Declare
+V.Local.fTotalProgress.Declare
+V.Local.fTotalPPNProgress.Declare
+V.Local.fTotalPPNBMProgress.Declare
+V.Local.i1.Declare
+V.Local.i2.Declare
+V.Local.iExtra.Declare
+V.Local.iLine.Declare
+V.Local.iRev.Declare
+V.Local.iTransType.Declare
+V.Local.sCustomer.Declare
+V.Local.sExtra.Declare
+V.Local.sFaktur.Declare
+V.Local.sFilter.Declare
+V.Local.sInvoice.Declare
+V.Local.sRet.Declare
+V.Local.sSQL.Declare
+V.Local.sTransType.Declare
+V.Local.sUserID.Declare
+
+'Check all required fields have been filled up
+V.Local.sFaktur.Set(V.Screen.F_EFaktur!txtEFaktur.Text)
+F.Intrinsic.Control.If(V.Local.sFaktur.Trim,=,"")
+	F.Intrinsic.UI.Msgbox("Please enter E-Faktur number","E-Faktur [APAC]")
+	F.Intrinsic.Control.ExitSub
+F.Intrinsic.Control.Else
+	'Check E-Faktur duplication
+	F.Intrinsic.Control.If(V.Caller.Hook,=,34910)
+		F.Intrinsic.String.Build("select id from GAB_4769_EFAKTUR_HF where e_faktur = '{0}'",V.Local.sFaktur.Trim,V.Local.sSQL)
+		F.ODBC.Connection!Conx.OpenLocalRecordsetRO("rst",V.Local.sSQL)
+		F.Intrinsic.Control.If(V.ODBC.Conx!rst.EOF,=,False)
+			F.Intrinsic.UI.Msgbox("E-Faktur number has been used. Please enter a different one.","E-Faktur [APAC]")
+			F.ODBC.Conx!rst.Close
+			F.Intrinsic.Control.ExitSub
+		F.Intrinsic.Control.EndIf
+		F.ODBC.Conx!rst.Close
+	F.Intrinsic.Control.EndIf
+	V.Local.sTransType.Set(V.Screen.F_EFaktur!ddlTransType.Text)
+	F.Intrinsic.Control.If(V.Local.sTransType.Trim,=,"")
+		F.Intrinsic.UI.Msgbox("Please select transaction type","E-Faktur [APAC]")
+		F.Intrinsic.Control.ExitSub
+	F.Intrinsic.Control.Else
+		F.Intrinsic.Control.If(V.Local.sTransType.Trim,=,"Penyerahan yang PPN-nya Tidak Dipungut")
+			V.Local.sExtra.Set(V.Screen.F_EFaktur!ddlExtra.Text)
+			F.Intrinsic.Control.If(V.Local.sExtra.Trim,=,"")
+				F.Intrinsic.UI.Msgbox("(Penyerahan yang PPN-nya Tidak Dipungut) Please select additional info","E-Faktur [APAC]")
+				F.Intrinsic.Control.ExitSub
+			F.Intrinsic.Control.EndIf
+		F.Intrinsic.Control.ElseIf(V.Local.sTransType.Trim,=,"Penyerahan yang PPN-nya Dibebaskan")
+			V.Local.sExtra.Set(V.Screen.F_EFaktur!ddlExtra.Text)
+			F.Intrinsic.Control.If(V.Local.sExtra.Trim,=,"")
+				F.Intrinsic.UI.Msgbox("(Penyerahan yang PPN-nya Dibebaskan) Please select additional info","E-Faktur [APAC]")
+				F.Intrinsic.Control.ExitSub
+			F.Intrinsic.Control.EndIf
+		F.Intrinsic.Control.EndIf
+	F.Intrinsic.Control.EndIf
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.UI.InvokeWaitDialog("Saving header information","E-Faktur [APAC]")
+'Store header info
+V.Local.iRev.Set(V.Screen.F_EFaktur!txtRev.Text)
+V.Local.sCustomer.Set(V.Screen.F_EFaktur!txtCustomer.Text)
+V.Local.dFaktur.Set(V.Screen.F_EFaktur!dtpDateFaktur.Value)
+V.Local.iTransType.Set(V.Screen.F_EFaktur!ddlTransType.ListIndex)
+F.Intrinsic.Math.Round(V.DataTable.dtSummary(0).Value!FieldValFloat,0,V.Global.iRound,V.Local.fTotalInvoice)
+F.Intrinsic.Math.Round(V.DataTable.dtSummary(1).Value!FieldValFloat,0,V.Global.iRound,V.Local.fTotalPPNInvoice)
+F.Intrinsic.Math.Round(V.DataTable.dtSummary(2).Value!FieldValFloat,0,V.Global.iRound,V.Local.fTotalPPNBMInvoice)
+F.Intrinsic.Math.Round(V.DataTable.dtSummary(3).Value!FieldValFloat,0,V.Global.iRound,V.Local.fTotalProgress)
+F.Intrinsic.Math.Round(V.DataTable.dtSummary(4).Value!FieldValFloat,0,V.Global.iRound,V.Local.fTotalPPNProgress)
+F.Intrinsic.Math.Round(V.DataTable.dtSummary(5).Value!FieldValFloat,0,V.Global.iRound,V.Local.fTotalPPNBMProgress)
+V.Local.sUserID.Set(V.Caller.User)
+'Check if it's 07 or 08 transaction type to set extra_id
+F.Intrinsic.Control.If(V.Local.iTransType,=,5)
+	V.Local.iExtra.Set(V.Screen.F_EFaktur!ddlExtra.ListIndex)
+	F.Intrinsic.Math.Add(V.Local.iExtra,1,V.Local.iExtra)
+F.Intrinsic.Control.ElseIf(V.Local.iTransType,=,6)
+	V.Local.iExtra.Set(V.Screen.F_EFaktur!ddlExtra.ListIndex)
+	F.Intrinsic.Math.Add(V.Local.iExtra,1,V.Local.iExtra)
+F.Intrinsic.Control.Else
+	V.Local.iExtra.Set(0)
+F.Intrinsic.Control.EndIf
+'Convert transaction type
+F.Intrinsic.Math.Add(V.Local.iTransType,1,V.Local.iTransType)
+F.Intrinsic.Control.If(V.Local.iTransType,>,4)
+	F.Intrinsic.Math.Add(V.Local.iTransType,1,V.Local.iTransType)
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.If(V.Global.iFakturID,=,0)
+	'It's new, get a new ID
+	F.ODBC.Connection!conx.ExecuteAndReturn("SELECT TOP 1 ID FROM GAB_4769_EFAKTUR_HF ORDER BY ID DESC",V.Global.iFakturID)
+	F.Intrinsic.Math.Add(V.Global.iFakturID,1,V.Global.iFakturID)
+	F.Intrinsic.String.Build("insert into GAB_4769_EFAKTUR_HF(id,trans_type,revision,e_faktur,date_faktur,customer,extra_id,faktur_id,total_dpp,total_ppn,total_ppnbm,dp_dpp,dp_ppn,dp_ppnbm,userid,cancelled) values({0},{1},{2},'{3}','{4}','{5}',{6},{7},{8},{9},{10},{11},{12},{13},'{14}',0);",V.Global.iFakturID,V.Local.iTransType,V.Local.iRev,V.Local.sFaktur.Trim,V.Local.dFaktur.PervasiveDate,V.Local.sCustomer.Trim,V.Local.iExtra,V.Global.iInvoiceID,V.Local.fTotalInvoice,V.Local.fTotalPPNInvoice,V.Local.fTotalPPNBMInvoice,V.Local.fTotalProgress,V.Local.fTotalPPNProgress,V.Local.fTotalPPNBMProgress,V.Local.sUserID.Trim,V.Local.sSQL)
+	F.ODBC.Connection!Conx.Execute(V.Local.sSQL)
+	
+	F.Intrinsic.UI.ChangeWaitStatus("Saving line information")
+	
+	V.Local.iLine.Set(0)
+	F.Intrinsic.Control.For(V.Local.i1,0,V.DataTable.dtInvoice.RowCount--,1)
+		F.Intrinsic.String.Build("Invoice = '{0}'",V.DataTable.dtInvoice(V.Local.i1).Invoice!FieldValTrim,V.Local.sFilter)
+		F.Data.DataTable.Select("dtInvoice$dtLine",V.Local.sFilter,V.Local.sRet)
+		F.Intrinsic.String.Split(V.Local.sRet,"*!*",V.Local.sRet)
+		F.Intrinsic.Control.For(V.Local.i2,0,V.Local.sRet.UBound,1)
+			F.Intrinsic.Math.Add(V.Local.iLine,1,V.Local.iLine)
+			F.Intrinsic.Math.Round(V.DataTable.dtInvoice$dtLine(V.Local.sRet(V.Local.i2)).Price!FieldValFloat,0,V.Global.iRound,V.Local.fPrice)
+			F.Intrinsic.Math.Round(V.DataTable.dtInvoice$dtLine(V.Local.sRet(V.Local.i2)).Discount!FieldValFloat,0,V.Global.iRound,V.Local.fDiscount)
+			F.Intrinsic.Math.Round(V.DataTable.dtInvoice$dtLine(V.Local.sRet(V.Local.i2)).Extension!FieldValFloat,0,V.Global.iRound,V.Local.fExtension)
+			F.Intrinsic.Math.Round(V.DataTable.dtInvoice$dtLine(V.Local.sRet(V.Local.i2)).PPN!FieldValFloat,0,V.Global.iRound,V.Local.fPPN)
+			F.Intrinsic.Math.Round(V.DataTable.dtInvoice$dtLine(V.Local.sRet(V.Local.i2)).PPNBM!FieldValFloat,0,V.Global.iRound,V.Local.fPPNBM)
+			F.Intrinsic.String.Build("insert into GAB_4769_EFAKTUR_LN(id,line,invoice,date_invoice,order_no,order_suffix,order_line,quantity,price,discount,extension,ext_ppn,rate_ppnbm,ext_ppnbm) values({0},{1},'{2}','{3}','{4}','{5}','{6}',{7},{8},{9},{10},{11},{12},{13});",V.Global.iFakturID,V.Local.iLine,V.DataTable.dtInvoice(V.Local.i1).Invoice!FieldValTrim,V.DataTable.dtInvoice(V.Local.i1).InvoiceDate!FieldValPervasiveDate,V.DataTable.dtInvoice$dtLine(V.Local.sRet(V.Local.i2)).SO!FieldValTrim,V.DataTable.dtInvoice$dtLine(V.Local.sRet(V.Local.i2)).Suffix!FieldValTrim,V.DataTable.dtInvoice$dtLine(V.Local.sRet(V.Local.i2)).SOLine!FieldValTrim,V.DataTable.dtInvoice$dtLine(V.Local.sRet(V.Local.i2)).Quantity!FieldValFloat,V.Local.fPrice,V.Local.fDiscount,V.Local.fExtension,V.Local.fPPN,V.DataTable.dtInvoice$dtLine(V.Local.sRet(V.Local.i2)).PPNBMRate!FieldValLong,V.Local.fPPNBM,V.Local.sSQL)
+			F.ODBC.Connection!Conx.Execute(V.Local.sSQL)
+		F.Intrinsic.Control.Next(V.Local.i2)
+	F.Intrinsic.Control.Next(V.Local.i1)
+F.Intrinsic.Control.Else
+	'It's open, update some data in GAB_4769_EFAKTUR_HF
+	F.Intrinsic.String.Build("update GAB_4769_EFAKTUR_HF set trans_type={1},revision={2},date_faktur='{3}',extra_id={4},total_dpp={5},total_ppn={6},total_ppnbm={7},dp_dpp={8},dp_ppn={9},dp_ppnbm={10} where id = {0}",V.Global.iFakturID,V.Local.iTransType,1,V.Local.dFaktur.PervasiveDate,V.Local.iExtra,V.Local.fTotalInvoice,V.Local.fTotalPPNInvoice,V.Local.fTotalPPNBMInvoice,V.Local.fTotalProgress,V.Local.fTotalPPNProgress,V.Local.fTotalPPNBMProgress,V.Local.sSQL)
+	F.ODBC.Connection!Conx.Execute(V.Local.sSQL)
+	
+	F.Intrinsic.UI.ChangeWaitStatus("Saving line information")
+	
+	'Remove all data in GAB_4769_EFAKTUR_LN
+	F.Intrinsic.String.Build("delete from GAB_4769_EFAKTUR_LN where id = {0}",V.Global.iFakturID,V.Local.sSQL)
+	F.ODBC.Connection!Conx.Execute(V.Local.sSQL)
+	V.Local.iLine.Set(0)
+	F.Intrinsic.Control.For(V.Local.i1,0,V.DataTable.dtInvoice.RowCount--,1)
+		F.Intrinsic.String.Build("Invoice = '{0}'",V.DataTable.dtInvoice(V.Local.i1).Invoice!FieldValTrim,V.Local.sFilter)
+		F.Data.DataTable.Select("dtInvoice$dtLine",V.Local.sFilter,V.Local.sRet)
+		F.Intrinsic.String.Split(V.Local.sRet,"*!*",V.Local.sRet)
+		F.Intrinsic.Control.For(V.Local.i2,0,V.Local.sRet.UBound,1)
+			F.Intrinsic.Math.Add(V.Local.iLine,1,V.Local.iLine)
+			F.Intrinsic.Math.Round(V.DataTable.dtInvoice$dtLine(V.Local.sRet(V.Local.i2)).Price!FieldValFloat,0,V.Global.iRound,V.Local.fPrice)
+			F.Intrinsic.Math.Round(V.DataTable.dtInvoice$dtLine(V.Local.sRet(V.Local.i2)).Discount!FieldValFloat,0,V.Global.iRound,V.Local.fDiscount)
+			F.Intrinsic.Math.Round(V.DataTable.dtInvoice$dtLine(V.Local.sRet(V.Local.i2)).Extension!FieldValFloat,0,V.Global.iRound,V.Local.fExtension)
+			F.Intrinsic.Math.Round(V.DataTable.dtInvoice$dtLine(V.Local.sRet(V.Local.i2)).PPN!FieldValFloat,0,V.Global.iRound,V.Local.fPPN)
+			F.Intrinsic.Math.Round(V.DataTable.dtInvoice$dtLine(V.Local.sRet(V.Local.i2)).PPNBM!FieldValFloat,0,V.Global.iRound,V.Local.fPPNBM)
+			F.Intrinsic.String.Build("insert into GAB_4769_EFAKTUR_LN(id,line,invoice,date_invoice,order_no,order_suffix,order_line,quantity,price,discount,extension,ext_ppn,rate_ppnbm,ext_ppnbm) values({0},{1},'{2}','{3}','{4}','{5}','{6}',{7},{8},{9},{10},{11},{12},{13});",V.Global.iFakturID,V.Local.iLine,V.DataTable.dtInvoice(V.Local.i1).Invoice!FieldValTrim,V.DataTable.dtInvoice(V.Local.i1).InvoiceDate!FieldValPervasiveDate,V.DataTable.dtInvoice$dtLine(V.Local.sRet(V.Local.i2)).SO!FieldValTrim,V.DataTable.dtInvoice$dtLine(V.Local.sRet(V.Local.i2)).Suffix!FieldValTrim,V.DataTable.dtInvoice$dtLine(V.Local.sRet(V.Local.i2)).SOLine!FieldValTrim,V.DataTable.dtInvoice$dtLine(V.Local.sRet(V.Local.i2)).Quantity!FieldValFloat,V.Local.fPrice,V.Local.fDiscount,V.Local.fExtension,V.Local.fPPN,V.DataTable.dtInvoice$dtLine(V.Local.sRet(V.Local.i2)).PPNBMRate!FieldValLong,V.Local.fPPNBM,V.Local.sSQL)
+			F.ODBC.Connection!Conx.Execute(V.Local.sSQL)
+		F.Intrinsic.Control.Next(V.Local.i2)
+	F.Intrinsic.Control.Next(V.Local.i1)
+F.Intrinsic.Control.EndIf
+
+Gui.F_EFaktur.cmdCSV.Visible(True)
+F.Intrinsic.UI.CloseWaitDialog
+Program.Sub.cmdSave_Click.End
+
+Program.Sub.cmdCSV_click.Start
+V.Local.sGABPath.Declare
+F.Global.General.SetPassedDataElement("iID",V.Global.iFakturID)
+F.Intrinsic.String.Build("{0}GAB_4769_EFAKTUR_CSV.g2u",V.Caller.GasDir,V.Local.sGABPath)
+'F.Intrinsic.String.Build("{0}PT Pudak Scientific\E-Faktur [4769]\E-Faktur\1.2\GAB_4769_EFAKTUR_CSV.g2u",V.Caller.GasDir,V.Local.sGABPath)
+F.Global.General.CallSyncGAS(V.Local.sGABPath)
+Program.Sub.cmdCSV_click.End
+
+Program.Sub.GsGCLine_CellValueChanged.Start
+V.Local.fDiff1.Declare
+V.Local.fDiff2.Declare
+V.Local.fDiff3.Declare
+V.Local.fExtension.Declare
+V.Local.fPPN.Declare
+V.Local.fPPNBM.Declare
+V.Local.fTotalInvoice.Declare
+V.Local.fTotalPPNInvoice.Declare
+V.Local.fTotalPPNBMInvoice.Declare
+V.Local.sFilter.Declare
+V.Local.sRet.Declare
+
+F.Intrinsic.String.Build("Invoice = '{0}'",V.DataTable.dtInvoice$dtLine(V.Args.RowIndex).Invoice!FieldValTrim,V.Local.sFilter)
+F.Data.DataTable.Select("dtInvoice",V.Local.sFilter,V.Local.sRet)
+F.Intrinsic.String.Split(V.Local.sRet,"*!*",V.Local.sRet)
+
+F.Intrinsic.Control.If(V.Args.Column,=,"Price")
+	'Calculate price, PPN, and PPNBM difference
+	F.Intrinsic.Math.Mult(V.DataTable.dtInvoice$dtLine(V.Args.RowIndex).Quantity!FieldValFloat,V.DataTable.dtInvoice$dtLine(V.Args.RowIndex).Price!FieldValFloat,V.Local.fExtension)
+	F.Intrinsic.Math.Sub(V.Local.fExtension,V.DataTable.dtInvoice$dtLine(V.Args.RowIndex).Discount!FieldValFloat,V.Local.fExtension)
+	F.Intrinsic.Math.Mult(.1,V.Local.fExtension,V.Local.fPPN)
+	F.Intrinsic.Math.Mult(V.DataTable.dtInvoice$dtLine(V.Args.RowIndex).PPNBMRate!FieldValFloat,V.Local.fExtension,V.Local.fPPNBM)
+	F.Intrinsic.Math.Div(V.Local.fPPNBM,100,V.Local.fPPNBM)
+	F.Intrinsic.Math.Sub(V.Local.fExtension,V.DataTable.dtInvoice$dtLine(V.Args.RowIndex).Extension!FieldValFloat,V.Local.fDiff1)
+	F.Intrinsic.Math.Sub(V.Local.fPPN,V.DataTable.dtInvoice$dtLine(V.Args.RowIndex).PPN!FieldValFloat,V.Local.fDiff2)
+	F.Intrinsic.Math.Sub(V.Local.fPPNBM,V.DataTable.dtInvoice$dtLine(V.Args.RowIndex).PPNBM!FieldValFloat,V.Local.fDiff3)
+	F.Intrinsic.Math.Round(V.Local.fDiff1,0,V.Global.iRound,V.Local.fDiff1)
+	F.Intrinsic.Math.Round(V.Local.fDiff2,0,V.Global.iRound,V.Local.fDiff2)
+	F.Intrinsic.Math.Round(V.Local.fDiff3,0,V.Global.iRound,V.Local.fDiff3)
+	'Update Subtotal and PPN in dtInvoice
+	F.Intrinsic.Math.Add(V.DataTable.dtInvoice(V.Local.sRet(0)).Subtotal!FieldVal,V.Local.fDiff1,V.Local.fExtension)
+	F.Intrinsic.Math.Add(V.DataTable.dtInvoice(V.Local.sRet(0)).PPN!FieldVal,V.Local.fDiff2,V.Local.fPPN)
+	F.Intrinsic.Math.Add(V.DataTable.dtInvoice(V.Local.sRet(0)).PPNBM!FieldVal,V.Local.fDiff3,V.Local.fPPNBM)
+	F.Data.DataTable.SetValue("dtInvoice",V.Local.sRet(0),"Subtotal",V.Local.fExtension,"PPN",V.Local.fPPN,"PPNBM",V.Local.fPPNBM)
+	F.Data.DataTable.AcceptChanges("dtInvoice$dtLine")
+F.Intrinsic.Control.ElseIf(V.Args.Column,=,"Discount")
+	'Calculate price, PPN, and PPNBM difference
+	F.Intrinsic.Math.Mult(V.DataTable.dtInvoice$dtLine(V.Args.RowIndex).Quantity!FieldValFloat,V.DataTable.dtInvoice$dtLine(V.Args.RowIndex).Price!FieldValFloat,V.Local.fExtension)
+	F.Intrinsic.Math.Sub(V.Local.fExtension,V.DataTable.dtInvoice$dtLine(V.Args.RowIndex).Discount!FieldValFloat,V.Local.fExtension)
+	F.Intrinsic.Math.Mult(.1,V.Local.fExtension,V.Local.fPPN)
+	F.Intrinsic.Math.Mult(V.DataTable.dtInvoice$dtLine(V.Args.RowIndex).PPNBMRate!FieldValFloat,V.Local.fExtension,V.Local.fPPNBM)
+	F.Intrinsic.Math.Div(V.Local.fPPNBM,100,V.Local.fPPNBM)
+	F.Intrinsic.Math.Sub(V.Local.fExtension,V.DataTable.dtInvoice$dtLine(V.Args.RowIndex).Extension!FieldValFloat,V.Local.fDiff1)
+	F.Intrinsic.Math.Sub(V.Local.fPPN,V.DataTable.dtInvoice$dtLine(V.Args.RowIndex).PPN!FieldValFloat,V.Local.fDiff2)
+	F.Intrinsic.Math.Sub(V.Local.fPPNBM,V.DataTable.dtInvoice$dtLine(V.Args.RowIndex).PPNBM!FieldValFloat,V.Local.fDiff3)
+	F.Intrinsic.Math.Round(V.Local.fDiff1,0,V.Global.iRound,V.Local.fDiff1)
+	F.Intrinsic.Math.Round(V.Local.fDiff2,0,V.Global.iRound,V.Local.fDiff2)
+	F.Intrinsic.Math.Round(V.Local.fDiff3,0,V.Global.iRound,V.Local.fDiff3)
+	'Update Subtotal and PPN in dtInvoice
+	F.Intrinsic.Math.Add(V.DataTable.dtInvoice(V.Local.sRet(0)).Subtotal!FieldVal,V.Local.fDiff1,V.Local.fExtension)
+	F.Intrinsic.Math.Add(V.DataTable.dtInvoice(V.Local.sRet(0)).PPN!FieldVal,V.Local.fDiff2,V.Local.fPPN)
+	F.Intrinsic.Math.Add(V.DataTable.dtInvoice(V.Local.sRet(0)).PPNBM!FieldVal,V.Local.fDiff3,V.Local.fPPNBM)
+	F.Data.DataTable.SetValue("dtInvoice",V.Local.sRet(0),"Subtotal",V.Local.fExtension,"PPN",V.Local.fPPN,"PPNBM",V.Local.fPPNBM)
+	F.Data.DataTable.AcceptChanges("dtInvoice$dtLine")
+F.Intrinsic.Control.ElseIf(V.Args.Column,=,"PPNBMRate")
+	'Calculate PPNBM difference
+	F.Intrinsic.Math.Mult(V.DataTable.dtInvoice$dtLine(V.Args.RowIndex).PPNBMRate!FieldValFloat,V.DataTable.dtInvoice$dtLine(V.Args.RowIndex).Extension!FieldValFloat,V.Local.fPPNBM)
+	F.Intrinsic.Math.Div(V.Local.fPPNBM,100,V.Local.fPPNBM)
+	F.Intrinsic.Math.Sub(V.Local.fPPNBM,V.DataTable.dtInvoice$dtLine(V.Args.RowIndex).PPNBM!FieldValFloat,V.Local.fDiff3)
+	F.Intrinsic.Math.Round(V.Local.fDiff3,0,V.Global.iRound,V.Local.fDiff3)
+	F.Intrinsic.Math.Add(V.DataTable.dtInvoice(V.Local.sRet(0)).PPNBM!FieldVal,V.Local.fDiff3,V.Local.fPPNBM)
+'	F.Intrinsic.Debug.ShowCallerInfo
+	F.Data.DataTable.SetValue("dtInvoice",V.Local.sRet(0),"PPNBM",V.Local.fPPNBM)
+	F.Data.DataTable.AcceptChanges("dtInvoice$dtLine")
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.CallSub(e-fakturrecap)
+Program.Sub.GsGCLine_CellValueChanged.End
+
+Program.Sub.GsGCAmount_CellValueChanged.Start
+V.Local.fTotalInvoice.Declare
+V.Local.fTotalPPNInvoice.Declare
+V.Local.fTotalPPNBMInvoice.Declare
+
+F.Intrinsic.Control.If(V.DataTable.dtSummary(V.Args.RowIndex).Title!FieldValTrim,=,"Invoice Total")
+	F.Data.DataTable.Compute("dtInvLine","SUM(Extension)","",V.Local.fTotalInvoice)
+	F.Intrinsic.Math.Round(V.Local.fTotalInvoice,0,V.Global.iRound,V.Local.fTotalInvoice)
+	F.Data.DataTable.SetValue("dtSummary",0,"Value",V.Local.fTotalInvoice)
+F.Intrinsic.Control.ElseIf(V.DataTable.dtSummary(V.Args.RowIndex).Title!FieldValTrim,=,"Invoice PPN Total")
+	F.Data.DataTable.Compute("dtInvLine","SUM(PPN)","",V.Local.fTotalPPNInvoice)
+	F.Intrinsic.Math.Round(V.Local.fTotalPPNInvoice,0,V.Global.iRound,V.Local.fTotalPPNInvoice)
+	F.Data.DataTable.SetValue("dtSummary",1,"Value",V.Local.fTotalPPNInvoice)
+F.Intrinsic.Control.ElseIf(V.DataTable.dtSummary(V.Args.RowIndex).Title!FieldValTrim,=,"Invoice PPNBM Total")
+	F.Data.DataTable.Compute("dtInvLine","SUM(PPNBM)","",V.Local.fTotalPPNBMInvoice)
+	F.Intrinsic.Math.Round(V.Local.fTotalPPNBMInvoice,0,V.Global.iRound,V.Local.fTotalPPNBMInvoice)
+	F.Data.DataTable.SetValue("dtSummary",2,"Value",V.Local.fTotalPPNBMInvoice)
+F.Intrinsic.Control.EndIf
+Program.Sub.GsGCAmount_CellValueChanged.End
+
+Program.Sub.CheckCustomTable.Start
+V.Local.bExist.Declare
+F.ODBC.Connection!Conx.TableExists("GAB_4769_EFAKTUR_HF",V.Local.bExist)
+F.Intrinsic.Control.If(V.Local.bExist,=,False)
+	F.Intrinsic.UI.InvokeWaitDialog("E-Faktur program is run for the first time. Please wait while custom tables are generated.","E-Faktur [APAC]")
+	F.ODBC.Connection!Conx.Execute("CREATE TABLE GAB_4769_EFAKTUR_HF (ID IDENTITY NOT NULL, TRANS_TYPE INTEGER, REVISION INTEGER, E_FAKTUR VARCHAR(19), DATE_FAKTUR DATE, CUSTOMER VARCHAR(6), EXTRA_ID INTEGER, FAKTUR_ID INTEGER, TOTAL_DPP DOUBLE, TOTAL_PPN DOUBLE, TOTAL_PPNBM DOUBLE, DP_DPP DOUBLE, DP_PPN DOUBLE, DP_PPNBM DOUBLE, USERID VARCHAR(8), CANCELLED INTEGER, PRIMARY KEY (ID));")
+	F.ODBC.Connection!Conx.Execute("CREATE TABLE GAB_4769_EFAKTUR_LN (ID INTEGER, LINE INTEGER, INVOICE VARCHAR(6), DATE_INVOICE DATE, ORDER_NO VARCHAR(7), ORDER_SUFFIX VARCHAR(4), ORDER_LINE VARCHAR(4), QUANTITY INTEGER, PRICE DOUBLE, DISCOUNT DOUBLE, EXTENSION DOUBLE, EXT_PPN DOUBLE, RATE_PPNBM INTEGER, EXT_PPNBM DOUBLE, PRIMARY KEY (ID,LINE));")
+	F.Intrinsic.UI.CloseWaitDialog
+F.Intrinsic.Control.EndIf
+Program.Sub.CheckCustomTable.End
+
+Program.Sub.InitiateScreen.Start
+V.Local.sIcon.Declare
+F.Intrinsic.String.Build("{0}\GSS2.ico",V.Caller.GasDir,V.Local.sIcon)
+Gui.F_EFaktur..Icon(V.Local.sIcon)
+Gui.F_EFaktur.GsGCLine.Anchor(15)
+
+Gui.F_EFaktur..Show
+Program.Sub.InitiateScreen.End
+
+Program.Sub.NewE-Faktur.Start
+V.Local.bExist.Declare
+V.Local.dInvoiceDate.Declare(Date)
+V.Local.fPPN.Declare
+V.Local.iPPN.Declare
+V.Local.fSubtotal.Declare
+V.Local.iSubtotal.Declare
+V.Local.i1.Declare
+V.Local.iWidths.Declare
+V.Local.sBatch.Declare
+V.Local.sCustomer.Declare
+V.Local.sCustomerName.Declare
+V.Local.sFilter.Declare
+V.Local.sRet.Declare
+V.Local.sSQL.Declare
+V.Local.sTitles.Declare
+V.Local.sType.Declare
+V.Local.dFaktur.Declare
+V.Local.sPPN.Declare
+
+'Retrieve passed variable
+F.Intrinsic.Date.ConvertDString(V.Passed.009005,"YYYYMmDd",V.Local.dInvoiceDate)
+V.Local.sBatch.Set(V.Passed.009000)
+
+'UserID
+Gui.F_EFaktur.txtUserID.Text(V.Caller.User)
+
+'Check whether the E-Faktur has been created for this invoice
+F.Intrinsic.String.Build("select rtrim(SH.Customer)+rtrim(SH.Invoice)+rtrim(convert(IBC.Inv_Date, sql_char)) as CID, '' as E_Faktur, Convert('1900-01-01', sql_date) as Date_Faktur, '' as Revision, SH.Customer, convert(0, sql_numeric) as ID, SH.Invoice, IBC.Inv_Date, '' as UserID from v_shipment_header SH left join v_inv_batch_ctrl IBC on SH.ivc_batch = IBC.number where SH.ivc_batch = '{0}'",V.Local.sBatch.Trim,V.Local.sSQL)
+F.Data.DataTable.CreateFromSQL("dtCheck","conx",V.Local.sSQL)
+
+F.Intrinsic.String.Build("select GH.CUSTOMER+GL.INVOICE+convert(GL.DATE_INVOICE, sql_char) as CID, GH.E_Faktur FROM gab_4769_efaktur_hf GH left Join gab_4769_efaktur_ln GL on GH.ID = GL.ID Where GH.Customer = '{0}' and GL.Invoice = '{1}' and GL.Date_Invoice = '{2}' group by CID, E_Faktur;", V.DataTable.dtCheck(0).Customer!FieldValTrim, V.DataTable.dtCheck(0).Invoice!FieldValTrim, V.DataTable.dtCheck(0).Inv_Date!FieldValPervasiveDate, V.Local.sSQL)
+F.Data.Dictionary.CreateFromSQL("dic",conx,V.Local.sSQL)
+F.Data.Dictionary.SetDefaultReturn("dic","")
+F.Data.DataTable.FillFromDictionary("dtCheck","dic","CID","E_Faktur")
+F.Data.Dictionary.Close("dic")
+
+F.Intrinsic.String.Build("select GH.CUSTOMER+GL.INVOICE+convert(GL.DATE_INVOICE, sql_char) as CID, GH.Date_Faktur FROM gab_4769_efaktur_hf GH left Join gab_4769_efaktur_ln GL on GH.ID = GL.ID Where GH.Customer = '{0}' and GL.Invoice = '{1}' and GL.Date_Invoice = '{2}' group by CID, Date_Faktur;", V.DataTable.dtCheck(0).Customer!FieldValTrim, V.DataTable.dtCheck(0).Invoice!FieldValTrim, V.DataTable.dtCheck(0).Inv_Date!FieldValPervasiveDate, V.Local.sSQL)
+F.Data.Dictionary.CreateFromSQL("dic",conx,V.Local.sSQL)
+F.Data.Dictionary.SetDefaultReturn("dic","1900-01-01")
+F.Data.DataTable.FillFromDictionary("dtCheck","dic","CID","Date_Faktur")
+F.Data.Dictionary.Close("dic")
+
+F.Intrinsic.String.Build("select GH.CUSTOMER+GL.INVOICE+convert(GL.DATE_INVOICE, sql_char) as CID, GH.Revision FROM gab_4769_efaktur_hf GH left Join gab_4769_efaktur_ln GL on GH.ID = GL.ID Where GH.Customer = '{0}' and GL.Invoice = '{1}' and GL.Date_Invoice = '{2}' group by CID, Revision;", V.DataTable.dtCheck(0).Customer!FieldValTrim, V.DataTable.dtCheck(0).Invoice!FieldValTrim, V.DataTable.dtCheck(0).Inv_Date!FieldValPervasiveDate, V.Local.sSQL)
+F.Data.Dictionary.CreateFromSQL("dic",conx,V.Local.sSQL)
+F.Data.Dictionary.SetDefaultReturn("dic","")
+F.Data.DataTable.FillFromDictionary("dtCheck","dic","CID","Revision")
+F.Data.Dictionary.Close("dic")
+
+F.Intrinsic.String.Build("select GH.CUSTOMER+GL.INVOICE+convert(GL.DATE_INVOICE, sql_char) as CID, GH.ID FROM gab_4769_efaktur_hf GH left Join gab_4769_efaktur_ln GL on GH.ID = GL.ID Where GH.Customer = '{0}' and GL.Invoice = '{1}' and GL.Date_Invoice = '{2}' group by CID, GH.ID;", V.DataTable.dtCheck(0).Customer!FieldValTrim, V.DataTable.dtCheck(0).Invoice!FieldValTrim, V.DataTable.dtCheck(0).Inv_Date!FieldValPervasiveDate, V.Local.sSQL)
+F.Data.Dictionary.CreateFromSQL("dic",conx,V.Local.sSQL)
+F.Data.Dictionary.SetDefaultReturn("dic",0)
+F.Data.DataTable.FillFromDictionary("dtCheck","dic","CID","ID")
+F.Data.Dictionary.Close("dic")
+
+F.Intrinsic.String.Build("select GH.CUSTOMER+GL.INVOICE+convert(GL.DATE_INVOICE, sql_char) as CID, GH.USERID FROM gab_4769_efaktur_hf GH left Join gab_4769_efaktur_ln GL on GH.ID = GL.ID Where GH.Customer = '{0}' and GL.Invoice = '{1}' and GL.Date_Invoice = '{2}' group by CID, GH.USERID;", V.DataTable.dtCheck(0).Customer!FieldValTrim, V.DataTable.dtCheck(0).Invoice!FieldValTrim, V.DataTable.dtCheck(0).Inv_Date!FieldValPervasiveDate, V.Local.sSQL)
+F.Data.Dictionary.CreateFromSQL("dic",conx,V.Local.sSQL)
+F.Data.Dictionary.SetDefaultReturn("dic",0)
+F.Data.DataTable.FillFromDictionary("dtCheck","dic","CID","USERID")
+F.Data.Dictionary.Close("dic")
+
+F.Intrinsic.Control.If(V.DataTable.dtCheck(0).E_Faktur!FieldValTrim,=,"")
+	'Check how many customers in 1 invoice batch
+	F.Intrinsic.String.Build("select distinct(shp.customer) as customer, cust.name_customer as name from v_shipment_header shp left join v_customer_master cust on shp.customer = cust.customer where shp.ivc_batch = '{0}'",V.Local.sBatch.Trim,V.Local.sSQL)
+	F.Data.DataTable.CreateFromSQL("dtCustomer","conx",V.Local.sSQL)
+	F.Intrinsic.Control.If(V.DataTable.dtCustomer.RowCount,=,1)
+		V.Local.sCustomer.Set(V.DataTable.dtCustomer(0).customer!FieldValTrim)
+		V.Local.sCustomerName.Set(V.DataTable.dtCustomer(0).name!FieldValTrim)	
+		
+	F.Intrinsic.Control.Else
+		F.Intrinsic.String.Split("Customer*!*Customer Name","*!*",V.Local.sTitles)
+		F.Intrinsic.String.Split("800*!*2000","*!*",V.Local.iWidths)
+		F.Intrinsic.UI.SetBrowserHotTypeAhead(True)
+		F.Intrinsic.UI.Browser("Select a Customer","conx",V.Local.sSQL,V.Local.sTitles,V.Local.iWidths,V.Local.sRet)
+		F.Intrinsic.Control.If(V.Local.sRet,<>,"***CANCEL***")
+			F.Intrinsic.String.Split(V.Local.sRet,"*!*",V.Local.sRet)
+			V.Local.sCustomer.Set(V.Local.sRet(0).Trim)
+			V.Local.sCustomerName.Set(V.Local.sRet(1).Trim)
+		F.Intrinsic.Control.Else
+			F.Intrinsic.UI.Msgbox("A customer must be selected","E-Faktur [APAC]")
+			F.Intrinsic.Control.CallSub(unload)
+		F.Intrinsic.Control.EndIf
+	F.Intrinsic.Control.EndIf
+	F.Data.DataTable.Close("dtCustomer")
+	
+	'Process customer name
+	Gui.F_EFaktur.txtCustomer.Text(V.Local.sCustomer.Trim)
+	F.ODBC.Connection!Conx.TableExists("GAB_Customer_Long",V.Local.bExist)
+	F.Intrinsic.Control.If(V.Local.bExist,=,True)
+		F.Intrinsic.String.Build("select customerlong from gab_customer_long where customer = '{0}' and rtrim(customerlong) <> ''",V.Local.sCustomer.Trim,V.Local.sSQL)
+		F.ODBC.Connection!Conx.OpenLocalRecordsetRO("rstCust",V.Local.sSQL)
+		F.Intrinsic.Control.If(V.ODBC.Conx!rstCust.EOF,=,False)
+			Gui.F_EFaktur.txtCustName.Text(V.ODBC.Conx!rstCust.FieldValTrim!customerlong)
+		F.Intrinsic.Control.Else
+			Gui.F_EFaktur.txtCustName.Text(V.Local.sCustomerName.Trim)
+		F.Intrinsic.Control.EndIf
+		F.ODBC.Conx!rstCust.Close
+	F.Intrinsic.Control.Else
+		Gui.F_EFaktur.txtCustName.Text(V.Local.sCustomerName.Trim)
+	F.Intrinsic.Control.EndIf
+	
+	F.Intrinsic.Control.If(V.DataTable.dtInvoice.Exists,=,True)
+		F.Data.DataTable.Close("dtInvoice")
+	F.Intrinsic.Control.EndIf
+	
+	F.Intrinsic.Control.If(V.DataTable.dtInvLine.Exists,=,True)
+		F.Data.DataTable.Close("dtInvLine")
+	F.Intrinsic.Control.EndIf
+	
+	'Retrieve invoice header information
+	F.Intrinsic.String.Build("select distinct(Invoice) as Invoice from v_shipment_header where ivc_batch = '{0}' and customer = '{1}' order by invoice",V.Local.sBatch.Trim,V.Local.sCustomer.Trim,V.Local.sSQL)
+	F.Data.DataTable.CreateFromSQL("dtInvoice","conx",V.Local.sSQL,True)
+	F.Data.DataTable.AddColumn("dtInvoice","InvoiceDate","Date",V.Local.dInvoiceDate)
+	F.Data.DataTable.AddColumn("dtInvoice","Subtotal","Integer",0)
+	F.Data.DataTable.AddColumn("dtInvoice","PPN","Integer",0)
+	F.Data.DataTable.AddColumn("dtInvoice","PPNBM","Float",0)
+	F.Data.DataTable.AddColumn("dtInvoice","Type","String","")
+	F.Data.DataTable.AddColumn("dtInvoice","Delete","Long")
+	
+	'F.Intrinsic.Control.CallSub(checke-fakturentry)
+	
+	'Prepare datatable for invoice line
+	F.Data.DataTable.Create("dtInvLine",True)
+	F.Data.DataTable.AddColumn("dtInvLine","Invoice","String")
+	F.Data.DataTable.AddColumn("dtInvLine","SO","String")
+	F.Data.DataTable.AddColumn("dtInvLine","Suffix","String")
+	F.Data.DataTable.AddColumn("dtInvLine","SOLine","String")
+	F.Data.DataTable.AddColumn("dtInvLine","Part","String")
+	F.Data.DataTable.AddColumn("dtInvLine","Description","String")
+	F.Data.DataTable.AddColumn("dtInvLine","Quantity","Float")
+	F.Data.DataTable.AddColumn("dtInvLine","Price","Float")
+	F.Data.DataTable.AddColumn("dtInvLine","Discount","Float")
+	F.Data.DataTable.AddColumn("dtInvLine","Rate","Float")
+	F.Data.DataTable.AddColumn("dtInvLine","Type","String")
+		
+	F.Intrinsic.Control.For(V.Local.i1,0,V.DataTable.dtInvoice.RowCount--,1)
+		'Retrieve invoice lines for every invoice in the batch
+		F.Intrinsic.Control.If(V.Global.iRound,=,1)
+			F.Intrinsic.String.Build("select SH.Invoice, SH.order_no as SO, SH.order_suffix as Suffix, SH.order_rec as SOLine, Part, SH.order_desc as Description, SH.qty_shipped as Quantity, Round(SH.Price*1000,0) as Price, (SH.qty_shipped*Round((SH.price-SH.discount_price)*1000,0)) as Discount, If(TAX.Rate<>'', TAX.Rate, 0) as Rate, SH.line_type as Type from v_shipment_lines SH Left Join v_ar_tax_tables TAX on SH.Tax_1 = TAX.AUTH and SH.Tax_Zone_1 = TAX.Zone where SH.invoice = '{0}' and SH.customer = '{1}' order by SH.order_no, SH.order_suffix, SH.order_rec",V.DataTable.dtInvoice(V.Local.i1).Invoice!FieldValTrim, V.Local.sCustomer.Trim, V.Local.sSQL)
+		F.Intrinsic.Control.Else
+			F.Intrinsic.String.Build("select SH.Invoice, SH.order_no as SO, SH.order_suffix as Suffix, SH.order_rec as SOLine, Part, SH.order_desc as Description, SH.qty_shipped as Quantity, Floor(SH.Price*1000) as Price, (SH.qty_shipped*Floor((SH.price-SH.discount_price)*1000)) as Discount, If(TAX.Rate<>'', TAX.Rate, 0) as Rate, SH.line_type as Type from v_shipment_lines SH Left Join v_ar_tax_tables TAX on SH.Tax_1 = TAX.AUTH and SH.Tax_Zone_1 = TAX.Zone where SH.invoice = '{0}' and SH.customer = '{1}' order by SH.order_no, SH.order_suffix, SH.order_rec",V.DataTable.dtInvoice(V.Local.i1).Invoice!FieldValTrim, V.Local.sCustomer.Trim, V.Local.sSQL)
+		F.Intrinsic.Control.EndIf
+		
+		F.Data.DataTable.CreateFromSQL("dtInvTemp","conx",V.Local.sSQL,True)
+		F.Data.DataTable.Merge("dtInvTemp","dtInvLine",True,2)
+		'Compute invoice subtotal and PPN
+		F.Data.DataTable.AddExpressionColumn("dtInvTemp","Extension","Float","(Quantity*Price)-Discount")
+		F.Data.DataTable.AddExpressionColumn("dtInvTemp","PPN","Float","Rate*Extension")
+		F.Data.DataTable.Compute("dtInvTemp","SUM(Extension)","",V.Local.fSubtotal)
+		F.Intrinsic.Math.Floor(V.Local.fSubtotal,V.Local.iSubtotal)
+		F.Data.DataTable.Compute("dtInvTemp","SUM(PPN)","",V.Local.fPPN)
+		F.Intrinsic.Math.Floor(V.Local.fPPN,V.Local.iPPN)
+		'Check invoice type
+		F.Data.DataTable.Select("dtInvTemp","Type = 'P'",V.Local.sRet)
+		F.Intrinsic.Control.If(V.Local.sRet,=,"***NORETURN***")
+			V.Local.sType.Set("Regular")
+			V.Global.iInvoiceID.Set(0)
+		F.Intrinsic.Control.Else
+			F.Intrinsic.String.Split(V.Local.sRet,"*!*",V.Local.sRet)
+			F.Intrinsic.Control.If(V.Local.sRet.UBound,=,V.DataTable.dtInvTemp.RowCount--)
+				V.Local.sType.Set("Progress")
+				V.Global.iInvoiceID.Set(1)
+			F.Intrinsic.Control.Else
+				V.Local.sType.Set("Final")
+				V.Global.iInvoiceID.Set(2)
+			F.Intrinsic.Control.EndIf
+		F.Intrinsic.Control.EndIf
+		F.Data.DataTable.SetValue("dtInvoice",V.Local.i1,"Subtotal",V.Local.iSubtotal,"PPN",V.Local.iPPN,"Type",V.Local.sType)
+		F.Data.DataTable.Close("dtInvTemp")
+	F.Intrinsic.Control.Next(V.Local.i1)
+	F.Data.DataTable.AddExpressionColumn("dtInvLine","Extension","Float","(Quantity*Price)-Discount")
+	F.Data.DataTable.AddExpressionColumn("dtInvLine","PPN","Float","Rate*Extension")
+	F.Data.DataTable.AddColumn("dtInvLine","PPNBMRate","Long",0)
+	F.Data.DataTable.AddExpressionColumn("dtInvLine","PPNBM","Float","(PPNBMRate*Extension)/100")
+	
+	F.Data.DataTable.Clone("dtInvLine","dtInvoice$dtLine",True)
+	F.Data.DataTable.Merge("dtInvLine","dtInvoice$dtLine",False,2)
+	F.Data.DataTable.AddRelation("dtInvoice","Invoice","dtInvoice$dtLine","Invoice")
+	F.Data.DataView.Create("dtInvoice","dvInvoice")
+	F.Data.DataView.Create("dtInvoice$dtLine","dvLine")
+	Gui.F_EFaktur.GsGCLine.AddGridviewFromDataview("gvInvoice","dtInvoice","dvInvoice")
+	Gui.F_EFaktur.GsGCLine.AddGridviewFromDataview("gvLine","dtInvoice","dvLine")
+	Gui.F_EFaktur.GsGCLine.MainView("gvInvoice")
+	F.Data.DataTable.Close("dtInvLine")
+	
+	Gui.F_EFaktur.GsGCLine.SetGridviewProperty("gvLine","Editable",True)
+	Gui.F_EFaktur.txtRev.Text("0")
+	F.Intrinsic.Control.CallSub(gvlineformat)
+	F.Intrinsic.Control.CallSub(e-fakturrecap)
+	
+	'Initiate transaction type
+	Gui.F_EFaktur.ddlTransType.ClearItems
+	Gui.F_EFaktur.ddlTransType.AddItem("Kepada Pihak yang Bukan Pemungut PPN",0)
+	Gui.F_EFaktur.ddlTransType.AddItem("Kepada Pemungut Bendaharawan",1)
+	Gui.F_EFaktur.ddlTransType.AddItem("Kepada Pemungut Selain Bendaharawan",2)
+	Gui.F_EFaktur.ddlTransType.AddItem("DPP Nilai Lain",3)
+	Gui.F_EFaktur.ddlTransType.AddItem("Penyerahan Lainnya, termasuk penyerahan kepada turis asing dalam rangka VAT refund",4)
+	Gui.F_EFaktur.ddlTransType.AddItem("Penyerahan yang PPN-nya Tidak Dipungut",5)
+	Gui.F_EFaktur.ddlTransType.AddItem("Penyerahan yang PPN-nya Dibebaskan",6)
+	Gui.F_EFaktur.ddlTransType.AddItem("Penyerahan Aktiva (Pasal 16D UU PPN)",7)
+	Gui.F_EFaktur.txtEFaktur.Text("")
+F.Intrinsic.Control.Else
+	F.Data.DataTable.RemoveColumn("dtCheck","CID")
+	F.Data.DataTable.RemoveColumn("dtCheck","Invoice")
+	F.Data.DataTable.RemoveColumn("dtCheck","Inv_Date")
+	
+	'Get table ID and retrieve header information
+	F.Intrinsic.String.Build("E_Faktur = '{0}'", V.DataTable.dtCheck(0).E_Faktur!FieldValTrim, V.Local.sFilter)
+	F.Data.DataTable.Select("dtCheck",V.Local.sFilter,V.Local.sRet)
+	F.Intrinsic.String.Split(V.Local.sRet,"*!*",V.Local.sRet)
+	V.Global.iFakturID.Set(V.DataTable.dtCheck(0).ID!FieldValLong)
+	'Lock e-faktur textbox so it cannot be modified
+	Gui.F_EFaktur.txtEFaktur.Locked(True)
+	Gui.F_EFaktur.txtEFaktur.Text(V.DataTable.dtCheck(0).E_Faktur!FieldValTrim)
+	V.Local.dFaktur.Set(V.DataTable.dtCheck(0).Date_Faktur!FieldValPervasiveDate)
+	Gui.F_EFaktur.dtpDateFaktur.Value(V.Local.dFaktur)
+'	Gui.F_EFaktur.txtInvoice.Text(V.Local.sRet(2).Trim)
+'	V.Local.sInvoice.Set(V.Local.sRet(2).Trim)
+	Gui.F_EFaktur.txtCustomer.Text(V.DataTable.dtCheck(0).Customer!FieldValTrim)
+	V.Local.sCustomer.Set(V.DataTable.dtCheck(0).Customer!FieldValTrim)
+	Gui.F_EFaktur.txtUserID.Text(V.DataTable.dtCheck(0).UserID!FieldValTrim)
+	
+	'Initiate transaction type
+	Gui.F_EFaktur.ddlTransType.ClearItems
+	Gui.F_EFaktur.ddlTransType.AddItem("Kepada Pihak yang Bukan Pemungut PPN",0)
+	Gui.F_EFaktur.ddlTransType.AddItem("Kepada Pemungut Bendaharawan",1)
+	Gui.F_EFaktur.ddlTransType.AddItem("Kepada Pemungut Selain Bendaharawan",2)
+	Gui.F_EFaktur.ddlTransType.AddItem("DPP Nilai Lain",3)
+	Gui.F_EFaktur.ddlTransType.AddItem("Penyerahan Lainnya, termasuk penyerahan kepada turis asing dalam rangka VAT refund",4)
+	Gui.F_EFaktur.ddlTransType.AddItem("Penyerahan yang PPN-nya Tidak Dipungut",5)
+	Gui.F_EFaktur.ddlTransType.AddItem("Penyerahan yang PPN-nya Dibebaskan",6)
+	Gui.F_EFaktur.ddlTransType.AddItem("Penyerahan Aktiva (Pasal 16D UU PPN)",7)
+	
+	'Retrieve e-faktur transaction type
+	F.Intrinsic.String.Build("select trans_type, extra_id from gab_4769_efaktur_hf where e_faktur = {0}",V.DataTable.dtCheck(0).E_Faktur!FieldValTrim,V.Local.sSQL)
+	F.ODBC.Connection!Conx.OpenLocalRecordsetRO("rst",V.Local.sSQL)
+	'Transaction type and additional info
+	F.Intrinsic.Control.If(V.ODBC.Conx!rst.FieldValLong!trans_type,=,1)
+		Gui.F_EFaktur.ddlTransType.Text("Kepada Pihak yang Bukan Pemungut PPN")
+	F.Intrinsic.Control.ElseIf(V.ODBC.Conx!rst.FieldValLong!trans_type,=,2)
+		Gui.F_EFaktur.ddlTransType.Text("Kepada Pemungut Bendaharawan")
+	F.Intrinsic.Control.ElseIf(V.ODBC.Conx!rst.FieldValLong!trans_type,=,3)
+		Gui.F_EFaktur.ddlTransType.Text("Kepada Pemungut Selain Bendaharawan")
+	F.Intrinsic.Control.ElseIf(V.ODBC.Conx!rst.FieldValLong!trans_type,=,4)
+		Gui.F_EFaktur.ddlTransType.Text("DPP Nilai Lain")
+	F.Intrinsic.Control.ElseIf(V.ODBC.Conx!rst.FieldValLong!trans_type,=,6)
+		Gui.F_EFaktur.ddlTransType.Text("Penyerahan Lainnya, termasuk penyerahan kepada turis asing dalam rangka VAT refund")
+	F.Intrinsic.Control.ElseIf(V.ODBC.Conx!rst.FieldValLong!trans_type,=,7)
+		Gui.F_EFaktur.ddlTransType.Text("Penyerahan yang PPN-nya Tidak Dipungut")
+		F.Intrinsic.Control.If(V.ODBC.Conx!rst.FieldValLong!extra_id,=,1)
+			Gui.F_EFaktur.ddlExtra.Text("Untuk Kawasan Bebas")
+		F.Intrinsic.Control.ElseIf(V.ODBC.Conx!rst.FieldValLong!extra_id,=,2)
+			Gui.F_EFaktur.ddlExtra.Text("Untuk Tempat Penimbunan Berikat")
+		F.Intrinsic.Control.ElseIf(V.ODBC.Conx!rst.FieldValLong!extra_id,=,3)
+			Gui.F_EFaktur.ddlExtra.Text("Untuk Hibah dan Bantuan Luar Negeri")
+		F.Intrinsic.Control.ElseIf(V.ODBC.Conx!rst.FieldValLong!extra_id,=,4)
+			Gui.F_EFaktur.ddlExtra.Text("Untuk Avtur")
+		F.Intrinsic.Control.ElseIf(V.ODBC.Conx!rst.FieldValLong!extra_id,=,5)
+			Gui.F_EFaktur.ddlExtra.Text("Untuk Lainnya")
+		F.Intrinsic.Control.ElseIf(V.ODBC.Conx!rst.FieldValLong!extra_id,=,6)
+			Gui.F_EFaktur.ddlExtra.Text("Untuk Kontraktor Perjanjian Karya Pengusahaan Pertambangan Batubara Generasi I")
+		F.Intrinsic.Control.EndIf
+	F.Intrinsic.Control.ElseIf(V.ODBC.Conx!rst.FieldValLong!trans_type,=,8)
+		Gui.F_EFaktur.ddlTransType.Text("Penyerahan yang PPN-nya Dibebaskan")
+		F.Intrinsic.Control.If(V.ODBC.Conx!rst.FieldValLong!extra_id,=,1)
+			Gui.F_EFaktur.ddlExtra.Text("Untuk BKP dan JKP Tertentu")
+		F.Intrinsic.Control.ElseIf(V.ODBC.Conx!rst.FieldValLong!extra_id,=,2)
+			Gui.F_EFaktur.ddlExtra.Text("Untuk BKP Tertentu Yang Bersifat Strategis")
+		F.Intrinsic.Control.ElseIf(V.ODBC.Conx!rst.FieldValLong!extra_id,=,3)
+			Gui.F_EFaktur.ddlExtra.Text("Untuk Jasa Kebandarudaraan")
+		F.Intrinsic.Control.ElseIf(V.ODBC.Conx!rst.FieldValLong!extra_id,=,4)
+			Gui.F_EFaktur.ddlExtra.Text("Untuk Lainnya")
+		F.Intrinsic.Control.EndIf
+	F.Intrinsic.Control.ElseIf(V.ODBC.Conx!rst.FieldValLong!trans_type,=,9)
+		Gui.F_EFaktur.ddlTransType.Text("Penyerahan Aktiva (Pasal 16D UU PPN)")
+	F.Intrinsic.Control.EndIf
+	F.ODBC.Conx!rst.Close
+	Gui.F_EFaktur.dtpDateFaktur.Value(V.DataTable.dtCheck(0).Date_Faktur!FieldValPervasiveDate)
+	Gui.F_EFaktur.dtpDateFaktur.Enabled(True)
+	
+	'Process customer name
+	'Check how many customers in 1 invoice batch
+	F.Intrinsic.String.Build("select distinct(shp.customer) as customer, cust.name_customer as name from v_shipment_header shp left join v_customer_master cust on shp.customer = cust.customer where shp.ivc_batch = '{0}'",V.Local.sBatch.Trim,V.Local.sSQL)
+	F.Data.DataTable.CreateFromSQL("dtCustomer","conx",V.Local.sSQL)
+	F.Intrinsic.Control.If(V.DataTable.dtCustomer.RowCount,=,1)
+		V.Local.sCustomer.Set(V.DataTable.dtCustomer(0).customer!FieldValTrim)
+		V.Local.sCustomerName.Set(V.DataTable.dtCustomer(0).name!FieldValTrim)	
+		
+	F.Intrinsic.Control.Else
+		F.Intrinsic.String.Split("Customer*!*Customer Name","*!*",V.Local.sTitles)
+		F.Intrinsic.String.Split("800*!*2000","*!*",V.Local.iWidths)
+		F.Intrinsic.UI.SetBrowserHotTypeAhead(True)
+		F.Intrinsic.UI.Browser("Select a Customer","conx",V.Local.sSQL,V.Local.sTitles,V.Local.iWidths,V.Local.sRet)
+		F.Intrinsic.Control.If(V.Local.sRet,<>,"***CANCEL***")
+			F.Intrinsic.String.Split(V.Local.sRet,"*!*",V.Local.sRet)
+			V.Local.sCustomer.Set(V.Local.sRet(0).Trim)
+			V.Local.sCustomerName.Set(V.Local.sRet(1).Trim)
+		F.Intrinsic.Control.Else
+			F.Intrinsic.UI.Msgbox("A customer must be selected","E-Faktur [APAC]")
+			F.Intrinsic.Control.CallSub(unload)
+		F.Intrinsic.Control.EndIf
+	F.Intrinsic.Control.EndIf
+	F.Data.DataTable.Close("dtCustomer")
+	
+	Gui.F_EFaktur.txtCustomer.Text(V.Local.sCustomer.Trim)
+	F.ODBC.Connection!Conx.TableExists("GAB_Customer_Long",V.Local.bExist)
+	F.Intrinsic.Control.If(V.Local.bExist,=,True)
+		F.Intrinsic.String.Build("select customerlong from gab_customer_long where customer = '{0}' and rtrim(customerlong) <> ''",V.Local.sCustomer.Trim,V.Local.sSQL)
+		F.ODBC.Connection!Conx.OpenLocalRecordsetRO("rstCust",V.Local.sSQL)
+		F.Intrinsic.Control.If(V.ODBC.Conx!rstCust.EOF,=,False)
+			Gui.F_EFaktur.txtCustName.Text(V.ODBC.Conx!rstCust.FieldValTrim!customerlong)
+		F.Intrinsic.Control.Else
+			Gui.F_EFaktur.txtCustName.Text(V.Local.sCustomerName.Trim)
+		F.Intrinsic.Control.EndIf
+		F.ODBC.Conx!rstCust.Close
+	F.Intrinsic.Control.Else
+		Gui.F_EFaktur.txtCustName.Text(V.Local.sCustomerName.Trim)
+	F.Intrinsic.Control.EndIf
+	
+	F.Intrinsic.Control.If(V.DataTable.dtInvoice.Exists,=,True)
+		F.Data.DataTable.Close("dtInvoice")
+	F.Intrinsic.Control.EndIf
+	
+	F.Intrinsic.Control.If(V.DataTable.dtInvLine.Exists,=,True)
+		F.Data.DataTable.Close("dtInvLine")
+	F.Intrinsic.Control.EndIf
+	
+	'Retrieve invoice header information based on the selected e-faktur
+'	V.Global.iFakturID.Set(V.Local.iID)
+	F.Intrinsic.String.Build("select distinct(Invoice) as Invoice, date_invoice as InvoiceDate from gab_4769_efaktur_ln where id = {0} order by line",V.DataTable.dtCheck(0).ID!FieldValLong,V.Local.sSQL)
+	F.Data.DataTable.CreateFromSQL("dtInvoice","conx",V.Local.sSQL,True)
+	F.Data.DataTable.AddColumn("dtInvoice","Subtotal","Float",0)
+	F.Data.DataTable.AddColumn("dtInvoice","PPN","Float",0)
+	F.Data.DataTable.AddColumn("dtInvoice","PPNBM","Float",0)
+	F.Data.DataTable.AddColumn("dtInvoice","Type","String","")
+	F.Data.DataTable.AddColumn("dtInvoice","Delete","Long")
+	
+	'Prepare datatable for invoice line
+	F.Intrinsic.Control.If(V.Global.iRound,=,1)
+		F.Intrinsic.String.Build("select iv.invoice as Invoice, iv.order_no as SO, iv.order_suffix as Suffix, iv.order_line as SOLine, hist.part as Part, hist.order_desc as Description, iv.quantity as Quantity, Round(iv.price,0) as Price, iv.discount as Discount, tax.rate as Rate, hist.line_type as Type, rate_ppnbm as PPNBMRate from gab_4769_efaktur_ln iv left join v_shipment_lines hist on iv.invoice = hist.invoice and iv.order_no = hist.order_no and iv.order_suffix = hist.order_suffix and iv.order_line = hist.order_rec left join v_ar_tax_tables tax on hist.tax_1 = tax.auth and hist.tax_zone_1 = tax.zone where iv.id = {0}",V.DataTable.dtCheck(0).ID!FieldValLong,V.Local.sSQL)
+	F.Intrinsic.Control.Else
+		F.Intrinsic.String.Build("select iv.invoice as Invoice, iv.order_no as SO, iv.order_suffix as Suffix, iv.order_line as SOLine, hist.part as Part, hist.order_desc as Description, iv.quantity as Quantity, Floor(iv.price) as Price, iv.discount as Discount, tax.rate as Rate, hist.line_type as Type, rate_ppnbm as PPNBMRate from gab_4769_efaktur_ln iv left join v_shipment_lines hist on iv.invoice = hist.invoice and iv.order_no = hist.order_no and iv.order_suffix = hist.order_suffix and iv.order_line = hist.order_rec left join v_ar_tax_tables tax on hist.tax_1 = tax.auth and hist.tax_zone_1 = tax.zone where iv.id = {0}",V.DataTable.dtCheck(0).ID!FieldValLong,V.Local.sSQL)
+	F.Intrinsic.Control.EndIf
+	
+	F.Data.DataTable.CreateFromSQL("dtInvLine","conx",V.Local.sSQL,True)
+	F.Data.DataTable.AddExpressionColumn("dtInvLine","Extension","Float","(Quantity*Price)-Discount")
+	F.Data.DataTable.AddExpressionColumn("dtInvLine","PPN","Float","Rate*Extension")
+	F.Data.DataTable.AddExpressionColumn("dtInvLine","PPNBM","Float","(PPNBMRate*Extension)/100")
+		
+	F.Intrinsic.Control.For(V.Local.i1,0,V.DataTable.dtInvoice.RowCount--,1)
+		F.Intrinsic.String.Build("Invoice = '{0}'",V.DataTable.dtInvoice(V.Local.i1).Invoice!FieldValTrim,V.Local.sFilter)
+		F.Data.DataTable.Compute("dtInvLine","SUM(Extension)",V.Local.sFilter,V.Local.fSubtotal)
+		F.Intrinsic.Math.Round(V.Local.fSubtotal,0,V.Global.iRound,V.Local.fSubtotal)
+		F.Data.DataTable.Compute("dtInvLine","SUM(PPN)",V.Local.sFilter,V.Local.fPPN)
+		F.Intrinsic.Math.Round(V.Local.fPPN,0,V.Global.iRound,V.Local.fPPN)
+
+		'Check invoice type
+		F.Data.DataTable.Select("dtInvLine","Type = 'P'",V.Local.sRet)
+		F.Intrinsic.Control.If(V.Local.sRet,=,"***NORETURN***")
+			V.Local.sType.Set("Regular")
+		F.Intrinsic.Control.Else
+			F.Intrinsic.String.Split(V.Local.sRet,"*!*",V.Local.sRet)
+			F.Intrinsic.Control.If(V.Local.sRet.UBound,=,V.DataTable.dtInvLine.RowCount--)
+				V.Local.sType.Set("Progress")
+			F.Intrinsic.Control.Else
+				V.Local.sType.Set("Final")
+			F.Intrinsic.Control.EndIf
+		F.Intrinsic.Control.EndIf
+		F.Data.DataTable.SetValue("dtInvoice",V.Local.i1,"Subtotal",V.Local.fSubtotal,"PPN",V.Local.fPPN,"Type",V.Local.sType)
+	F.Intrinsic.Control.Next(V.Local.i1)
+	
+	F.Data.DataTable.Clone("dtInvLine","dtInvoice$dtLine",True)
+	F.Data.DataTable.Merge("dtInvLine","dtInvoice$dtLine",False,2)
+
+	F.Data.DataTable.AddRelation("dtInvoice","Invoice","dtInvoice$dtLine","Invoice")
+	F.Data.DataView.Create("dtInvoice","dvInvoice")
+	F.Data.DataView.Create("dtInvoice$dtLine","dvLine")
+	Gui.F_EFaktur.GsGCLine.AddGridviewFromDataview("gvInvoice","dtInvoice","dvInvoice")
+	Gui.F_EFaktur.GsGCLine.AddGridviewFromDataview("gvLine","dtInvoice","dvLine")
+	Gui.F_EFaktur.GsGCLine.MainView("gvInvoice")
+	F.Data.DataTable.Close("dtInvLine")
+	
+	Gui.F_EFaktur.GsGCLine.SetGridviewProperty("gvLine","Editable",True)
+	Gui.F_EFaktur.txtRev.Text(V.DataTable.dtCheck(0).Revision!FieldValTrim)
+	F.Intrinsic.Control.CallSub(gvlineformat)
+	F.Intrinsic.Control.CallSub(e-fakturrecap)
+	Gui.F_EFaktur.cmdCSV.Visible(True)
+F.Intrinsic.Control.EndIf
+F.Data.DataTable.Close("dtCheck")
+Program.Sub.NewE-Faktur.End
+
+Program.Sub.E-FakturRecap.Start
+V.Local.fInvoice.Declare
+'V.Local.fTotalInvoice.Declare(Float,0)
+V.Local.iTotalInvoice.Declare
+'V.Local.fTotalPPNInvoice.Declare(Float,0)
+V.Local.iTotalPPNInvoice.Declare
+V.Local.fTotalPPNInvoice.Declare
+V.Local.fTotalPPNBMInvoice.Declare(Float,0)
+V.Local.fTotalProgress.Declare(Float,0)
+V.Local.fTotalPPNProgress.Declare(Float,0)
+V.Local.fTotalPPNBMProgress.Declare(Float,0)
+V.Local.i1.Declare
+V.Local.sFilter.Declare
+
+F.Data.DataTable.Compute("dtInvoice","SUM(Subtotal)","",V.Local.iTotalInvoice)
+F.Data.DataTable.Compute("dtInvoice","SUM(PPN)","",V.Local.iTotalPPNInvoice)
+F.Data.DataTable.Compute("dtInvoice","SUM(PPNBM)","",V.Local.fTotalPPNBMInvoice)
+
+'Check if there is any final invoice and get the progress bill total
+F.Intrinsic.Control.For(V.Local.i1,0,V.DataTable.dtInvoice.RowCount--,1)
+	F.Intrinsic.Control.If(V.DataTable.dtInvoice(V.Local.i1).Type!FieldValTrim,=,"Final")
+		F.Intrinsic.String.Build("Invoice = '{0}' and Type = 'P'",V.DataTable.dtInvoice(V.Local.i1).Invoice!FieldValTrim,V.Local.sFilter)
+		F.Data.DataTable.Compute("dtInvoice$dtLine","SUM(Extension)",V.Local.sFilter,V.Local.fInvoice)
+		F.Intrinsic.Math.Abs(V.Local.fInvoice,V.Local.fInvoice)
+		F.Intrinsic.Math.Add(V.Local.fTotalProgress,V.Local.fInvoice,V.Local.fTotalProgress)
+		F.Data.DataTable.Compute("dtInvoice$dtLine","SUM(PPN)",V.Local.sFilter,V.Local.fInvoice)
+		F.Intrinsic.Math.Abs(V.Local.fInvoice,V.Local.fInvoice)
+		F.Intrinsic.Math.Add(V.Local.fTotalPPNProgress,V.Local.fInvoice,V.Local.fTotalPPNProgress)
+		F.Data.DataTable.Compute("dtInvoice$dtLine","SUM(PPNBM)",V.Local.sFilter,V.Local.fInvoice)
+		F.Intrinsic.Math.Abs(V.Local.fInvoice,V.Local.fInvoice)
+		F.Intrinsic.Math.Add(V.Local.fTotalPPNBMProgress,V.Local.fInvoice,V.Local.fTotalPPNBMProgress)
+	F.Intrinsic.Control.EndIf
+F.Intrinsic.Control.Next(V.Local.i1)
+
+'F.Intrinsic.Math.Round(V.Local.fTotalInvoice,0,V.Local.fTotalInvoice)
+F.Intrinsic.Math.Round(V.Local.fTotalPPNInvoice,0,V.Global.iRound,V.Local.fTotalPPNInvoice)
+F.Intrinsic.Math.Round(V.Local.fTotalPPNBMInvoice,0,V.Global.iRound,V.Local.fTotalPPNBMInvoice)
+F.Intrinsic.Math.Round(V.Local.fTotalProgress,0,V.Global.iRound,V.Local.fTotalProgress)
+F.Intrinsic.Math.Round(V.Local.fTotalPPNProgress,0,V.Global.iRound,V.Local.fTotalPPNProgress)
+F.Intrinsic.Math.Round(V.Local.fTotalPPNBMProgress,0,V.Global.iRound,V.Local.fTotalPPNBMProgress)
+
+'Recap line data for summary
+F.Intrinsic.Control.If(V.DataTable.dtSummary.Exists,=,True)
+	F.Data.DataTable.Close("dtSummary")
+F.Intrinsic.Control.EndIf
+F.Data.DataTable.Create("dtSummary",True)
+F.Data.DataTable.AddColumn("dtSummary","Title","String")
+F.Data.DataTable.AddColumn("dtSummary","Value","Float")
+F.Data.DataTable.AddRow("dtSummary","Title","Invoice Total","Value",V.Local.iTotalInvoice)
+F.Data.DataTable.AddRow("dtSummary","Title","Invoice PPN Total","Value",V.Local.iTotalPPNInvoice)
+F.Data.DataTable.AddRow("dtSummary","Title","Invoice PPNBM Total","Value",V.Local.fTotalPPNBMInvoice)
+F.Data.DataTable.AddRow("dtSummary","Title","Downpayment (DP) Total","Value",V.Local.fTotalProgress)
+F.Data.DataTable.AddRow("dtSummary","Title","DP PPN Total","Value",V.Local.fTotalPPNProgress)
+F.Data.DataTable.AddRow("dtSummary","Title","DP PPNBM Total","Value",V.Local.fTotalPPNBMProgress)
+
+Gui.F_EFaktur.GsGCAmount.AddGridviewFromDatatable("gvSummary","dtSummary")
+Gui.F_EFaktur.GsGCAmount.MainView("gvSummary")
+Gui.F_EFaktur.GsGCAmount.SetColumnProperty("gvSummary","Title","HeaderHAlignment","Center")
+Gui.F_EFaktur.GsGCAmount.SetColumnProperty("gvSummary","Value","HeaderHAlignment","Center")
+Gui.F_EFaktur.GsGCAmount.SetColumnProperty("gvSummary","Value","DisplayCustomNumeric","###,###,###,##0.00")
+Program.Sub.E-FakturRecap.End
+
+Program.Sub.CheckE-FakturEntry.Start
+V.Local.i1.Declare
+V.Local.iID.Declare
+V.Local.sCustomer.Declare
+V.Local.sMessage.Declare
+V.Local.sSQL.Declare
+
+V.Local.sCustomer.Set(V.Screen.F_EFaktur!txtCustomer.Text)
+'Check if the selected invoice already has e-faktur
+F.Intrinsic.Control.For(V.Local.i1,0,V.DataTable.dtInvoice.RowCount--,1)
+	F.Intrinsic.String.Build("select id from GAB_4769_EFAKTUR_LN where invoice = '{0}' and date_invoice = '{1}'",V.DataTable.dtInvoice(V.Local.i1).Invoice!FieldValTrim,V.DataTable.dtInvoice(V.Local.i1).InvoiceDate!FieldValPervasiveDate,V.Local.sSQL)
+	F.ODBC.Connection!Conx.OpenLocalRecordsetRO("rst",V.Local.sSQL)
+	F.Intrinsic.Control.If(V.ODBC.Conx!rst.EOF,=,False)
+		V.Local.iID.Set(V.ODBC.Conx!rst.FieldValLong!id)
+		F.ODBC.Conx!rst.Close
+		F.Intrinsic.String.Build("select e_faktur, customer from GAB_4769_EFAKTUR_HF where id = {0} and cancelled = 0",V.Local.iID,V.Local.sSQL)
+		F.ODBC.Connection!Conx.OpenLocalRecordsetRO("rst",V.Local.sSQL)
+		F.Intrinsic.Control.If(V.ODBC.Conx!rst.FieldValTrim!customer,=,V.Local.sCustomer)
+			F.Intrinsic.String.Build("Invoice is already included in E-Faktur {0}",V.ODBC.Conx!rst.FieldValTrim!e_faktur,V.Local.sMessage)
+			F.Intrinsic.UI.Msgbox(V.Local.sMessage,"E-Faktur [APAC]")
+			F.Intrinsic.Control.CallSub(unload)
+		F.Intrinsic.Control.EndIf
+	F.Intrinsic.Control.EndIf
+	F.ODBC.Conx!rst.Close
+F.Intrinsic.Control.Next(V.Local.i1)
+Program.Sub.CheckE-FakturEntry.End
+
+Program.Sub.GsGCLine_RowCellClick.Start
+V.Local.i1.Declare
+V.Local.iRet.Declare
+V.Local.sFaktur.Declare
+V.Local.sFilter.Declare
+V.Local.sRet.Declare
+V.Local.sSQL.Declare
+
+F.Intrinsic.Control.If(V.Args.Column,=,"Delete")
+	'If there is only 1 invoice, ask user whether e-faktur would be cancelled
+	F.Intrinsic.Control.If(V.DataTable.dtInvoice.RowCount,=,1)
+		F.Intrinsic.UI.Msgbox("Do you want to cancel this E-Faktur?","E-Faktur [APAC]",4,v.Local.iRet)
+		F.Intrinsic.Control.If(V.Local.iRet,=,6)
+			V.Local.sFaktur.Set(V.Screen.F_EFaktur!txtEFaktur.Text)
+			F.Intrinsic.Control.If(V.Local.sFaktur.Trim,<>,"")
+				F.Intrinsic.String.Build("update GAB_4769_EFAKTUR_HF set cancelled = 1 where e_faktur = '{0}'",V.Local.sFaktur.Trim,V.Local.sSQL)
+				F.ODBC.Connection!Conx.Execute(V.Local.sSQL)
+				F.Intrinsic.Control.CallSub(unload)
+			F.Intrinsic.Control.Else
+				F.Intrinsic.UI.Msgbox("Please enter E-Faktur number","E-Faktur [APAC]")
+				F.Intrinsic.Control.ExitSub
+			F.Intrinsic.Control.endif
+		F.Intrinsic.Control.EndIf
+	F.Intrinsic.Control.Else
+		'Delete invoice line
+		F.Intrinsic.String.Build("Invoice = '{0}'",V.DataTable.dtInvoice(V.Args.RowIndex).Invoice!FieldValTrim,V.Local.sFilter)
+		F.Data.DataTable.Select("dtInvoice$dtLine",V.Local.sFilter,V.Local.sRet)
+		F.Intrinsic.Control.If(V.Local.sRet,<>,"***NORETURN***")
+			F.Intrinsic.String.Split(V.Local.sRet,"*!*",V.Local.sRet)
+			F.Intrinsic.Control.For(V.Local.i1,0,V.Local.sRet.UBound,1)
+				F.Data.DataTable.DeleteRow("dtInvoice$dtLine",V.Local.sRet(V.Local.i1))
+			F.Intrinsic.Control.Next(V.Local.i1)
+		F.Intrinsic.Control.EndIf	
+		'Delete invoice entry
+		F.Data.DataTable.DeleteRow("dtInvoice",V.Args.RowIndex)
+	F.Intrinsic.Control.EndIf
+F.Intrinsic.Control.EndIf
+Program.Sub.GsGCLine_RowCellClick.End
+
+Program.Sub.AddE-Faktur.Start
+V.Local.bExist.Declare
+V.Local.dInvoiceDate.Declare(Date)
+V.Local.fPPN.Declare
+V.Local.fPPNBM.Declare
+V.Local.fSubtotal.Declare
+V.Local.i1.Declare
+V.Local.iID.Declare
+V.Local.iRev.Declare
+V.Local.iRow.Declare
+V.Local.iTransType.Declare
+V.Local.iWidths.Declare
+V.Local.sBatch.Declare
+V.Local.sCustomer.Declare
+V.Local.sCustomerName.Declare
+V.Local.sFilter.Declare
+V.Local.sRet.Declare
+V.Local.sSQL.Declare
+V.Local.sTitles.Declare
+V.Local.sTransType.Declare
+V.Local.sType.Declare
+
+'Retrieve passed variable
+F.Intrinsic.Date.ConvertDString(V.Passed.009005,"YYYYMmDd",V.Local.dInvoiceDate)
+V.Local.sBatch.Set(V.Passed.009000)
+
+'UserID
+Gui.F_EFaktur.txtUserID.Text(V.Caller.User)
+
+'Check how many customers in 1 invoice batch
+F.Intrinsic.String.Build("select distinct(shp.customer) as customer, cust.name_customer as name from v_shipment_header shp left join v_customer_master cust on shp.customer = cust.customer where shp.ivc_batch = '{0}'",V.Local.sBatch.Trim,V.Local.sSQL)
+F.Data.DataTable.CreateFromSQL("dtCustomer","conx",V.Local.sSQL)
+F.Intrinsic.Control.If(V.DataTable.dtCustomer.RowCount,=,1)
+	V.Local.sCustomer.Set(V.DataTable.dtCustomer(0).customer!FieldValTrim)
+	V.Local.sCustomerName.Set(V.DataTable.dtCustomer(0).name!FieldValTrim)
+F.Intrinsic.Control.Else
+	F.Intrinsic.String.Split("Customer*!*Customer Name","*!*",V.Local.sTitles)
+	F.Intrinsic.String.Split("800*!*2000","*!*",V.Local.iWidths)
+	F.Intrinsic.UI.SetBrowserHotTypeAhead(True)
+	F.Intrinsic.UI.Browser("Select a Customer","conx",V.Local.sSQL,V.Local.sTitles,V.Local.iWidths,V.Local.sRet)
+	F.Intrinsic.Control.If(V.Local.sRet,<>,"***CANCEL***")
+		F.Intrinsic.String.Split(V.Local.sRet,"*!*",V.Local.sRet)
+		V.Local.sCustomer.Set(V.Local.sRet(0).Trim)
+		V.Local.sCustomerName.Set(V.Local.sRet(1).Trim)
+	F.Intrinsic.Control.Else
+		F.Intrinsic.UI.Msgbox("A customer must be selected","E-Faktur [APAC]")
+		F.Intrinsic.Control.CallSub(unload)
+	F.Intrinsic.Control.EndIf
+F.Intrinsic.Control.EndIf
+F.Data.DataTable.Close("dtCustomer")
+
+'Retrieve invoice header information
+F.Intrinsic.String.Build("select distinct(Invoice) as Invoice, If(TAX.Rate<>'', TAX.Rate, 0) as Rate from v_shipment_header SH Left Join v_ar_tax_tables TAX on SH.Tax_1 = TAX.AUTH and SH.Tax_Zone_1 = TAX.Zone where ivc_batch = '{0}' and customer = '{1}' order by invoice",V.Local.sBatch.Trim,V.Local.sCustomer.Trim,V.Local.sSQL)
+F.Data.DataTable.CreateFromSQL("dtInvoiceN","conx",V.Local.sSQL,True)
+F.Data.DataTable.AddColumn("dtInvoiceN","InvoiceDate","Date",V.Local.dInvoiceDate)
+F.Data.DataTable.AddColumn("dtInvoiceN","Subtotal","Float",0)
+F.Data.DataTable.AddColumn("dtInvoiceN","PPN","Float",0)
+F.Data.DataTable.AddColumn("dtInvoiceN","PPNBM","Float",0)
+F.Data.DataTable.AddColumn("dtInvoiceN","Type","String","")
+F.Data.DataTable.AddColumn("dtInvoiceN","Delete","Long",0)
+
+'Prepare datatable for invoice line
+F.Data.DataTable.Create("dtInvLineN",True)
+F.Data.DataTable.AddColumn("dtInvLineN","Invoice","String")
+F.Data.DataTable.AddColumn("dtInvLineN","SO","String")
+F.Data.DataTable.AddColumn("dtInvLineN","Suffix","String")
+F.Data.DataTable.AddColumn("dtInvLineN","SOLine","String")
+F.Data.DataTable.AddColumn("dtInvLineN","Part","String")
+F.Data.DataTable.AddColumn("dtInvLineN","Description","String")
+F.Data.DataTable.AddColumn("dtInvLineN","Quantity","Float")
+F.Data.DataTable.AddColumn("dtInvLineN","Price","Float")
+F.Data.DataTable.AddColumn("dtInvLineN","Discount","Float")
+F.Data.DataTable.AddColumn("dtInvLineN","Type","String")
+
+'Check if invoice number has been selected
+F.Intrinsic.Control.For(V.Local.i1,0,V.DataTable.dtInvoiceN.RowCount--,1)
+	F.Intrinsic.String.Build("select ln.id from gab_4769_efaktur_ln ln left join gab_4769_efaktur_hf hf on ln.id = hf.id where ln.invoice = '{0}' and ln.date_invoice = '{1}' and hf.customer = '{2}'",V.DataTable.dtInvoiceN(V.Local.i1).Invoice!FieldValTrim,V.Local.dInvoiceDate.PervasiveDate,V.Local.sCustomer.Trim,V.Local.sSQL)
+	F.ODBC.Connection!Conx.OpenLocalRecordsetRO("rst",V.Local.sSQL)
+	F.Intrinsic.Control.If(V.ODBC.Conx!rst.EOF,=,False)
+		F.Data.DataTable.SetValue("dtInvoiceN",V.Local.i1,"Delete",1)
+'		F.Data.DataTable.DeleteRow("dtInvoiceN",V.Local.i1)
+	F.Intrinsic.Control.Else
+		'Retrieve invoice lines for every invoice in the batch
+		F.Intrinsic.Control.If(V.Global.iRound,=,1)
+			F.Intrinsic.String.Build("select Invoice, order_no as SO, order_suffix as Suffix, order_rec as SOLine, Part, order_desc as Description, qty_shipped as Quantity, Round(Price*1000,0) as Price, (qty_shipped*Round((price-discount_price)*1000,0)) as Discount, Convert({2}, sql_float) line_type as Type from v_shipment_lines where invoice = '{0}' and customer = '{1}' order by order_no, order_suffix, order_rec",V.DataTable.dtInvoiceN(V.Local.i1).Invoice!FieldValTrim,V.Local.sCustomer.Trim, V.DataTable.dtInvoiceN(V.Local.i1).Rate!FieldValFloat, V.Local.sSQL)
+		F.Intrinsic.Control.Else
+			F.Intrinsic.String.Build("select Invoice, order_no as SO, order_suffix as Suffix, order_rec as SOLine, Part, order_desc as Description, qty_shipped as Quantity, Floor(Price*1000) as Price, (qty_shipped*Floor((price-discount_price)*1000)) as Discount, Convert({2}, sql_float) line_type as Type from v_shipment_lines where invoice = '{0}' and customer = '{1}' order by order_no, order_suffix, order_rec",V.DataTable.dtInvoiceN(V.Local.i1).Invoice!FieldValTrim,V.Local.sCustomer.Trim, V.DataTable.dtInvoiceN(V.Local.i1).Rate!FieldValFloat, V.Local.sSQL)
+		F.Intrinsic.Control.EndIf
+		
+		F.Data.DataTable.CreateFromSQL("dtInvTemp","conx",V.Local.sSQL,True)
+		F.Data.DataTable.Merge("dtInvTemp","dtInvLineN",True,2)
+		'Compute invoice subtotal and PPN
+		F.Data.DataTable.AddExpressionColumn("dtInvTemp","Extension","Float","(Quantity*Price)-Discount")
+		F.Data.DataTable.AddExpressionColumn("dtInvTemp","PPN","Float","Rate*Extension")
+		F.Data.DataTable.Compute("dtInvTemp","SUM(Extension)","",V.Local.fSubtotal)
+		F.Intrinsic.Math.Round(V.Local.fSubtotal,0,V.Global.iRound,V.Local.fSubtotal)
+		F.Data.DataTable.Compute("dtInvTemp","SUM(PPN)","",V.Local.fPPN)
+		F.Intrinsic.Math.Round(V.Local.fPPN,0,V.Global.iRound,V.Local.fPPN)
+		'Check invoice type
+		F.Data.DataTable.Select("dtInvTemp","Type = 'P'",V.Local.sRet)
+		F.Intrinsic.Control.If(V.Local.sRet,=,"***NORETURN***")
+			V.Local.sType.Set("Regular")
+			V.Global.iInvoiceID.Set(0)
+		F.Intrinsic.Control.Else
+			F.Intrinsic.String.Split(V.Local.sRet,"*!*",V.Local.sRet)
+			F.Intrinsic.Control.If(V.Local.sRet.UBound,=,V.DataTable.dtInvTemp.RowCount--)
+				V.Local.sType.Set("Progress")
+				V.Global.iInvoiceID.Set(1)
+			F.Intrinsic.Control.Else
+				V.Local.sType.Set("Final")
+				V.Global.iInvoiceID.Set(2)
+			F.Intrinsic.Control.EndIf
+		F.Intrinsic.Control.EndIf
+		F.Data.DataTable.SetValue("dtInvoiceN",V.Local.i1,"Subtotal",V.Local.fSubtotal,"PPN",V.Local.fPPN,"Type",V.Local.sType)
+		F.Data.DataTable.Close("dtInvTemp")
+	F.Intrinsic.Control.EndIf
+	F.ODBC.Conx!rst.Close
+F.Intrinsic.Control.Next(V.Local.i1)
+
+F.Data.DataTable.Select("dtInvoiceN","Delete = 1",V.Local.sRet)
+F.Intrinsic.Control.If(V.Local.sRet,=,"***NORETURN***")
+	V.Local.iRow.Set(-1)
+F.Intrinsic.Control.Else
+	F.Intrinsic.String.Split(V.Local.sRet,"*!*",V.Local.sRet)
+	V.Local.iRow.Set(V.Local.sRet.UBound)
+F.Intrinsic.Control.EndIf
+
+'F.Intrinsic.Control.If(V.DataTable.dtInvoiceN.RowCount,=,0)
+F.Intrinsic.Control.If(V.Local.iRow,=,V.DataTable.dtInvoiceN.RowCount--)
+	'Invoice has been inputted to other e-faktur
+	F.Intrinsic.UI.Msgbox("Invoices from the selected customer have been inputted as E-Faktur","E-Faktur [APAC]")
+	F.Data.DataTable.Close("dtInvoiceN")
+	F.Data.DataTable.Close("dtInvLineN")
+	F.Intrinsic.Control.CallSub(unload)
+F.Intrinsic.Control.Else
+	F.Intrinsic.Control.If(V.Local.iRow,<>,-1)
+		F.Intrinsic.Control.For(V.Local.i1,V.Local.iRow,0,-1)
+			F.Data.DataTable.DeleteRow("dtInvoiceN",V.Local.sRet(V.Local.i1))
+		F.Intrinsic.Control.Next(V.Local.i1)
+	F.Intrinsic.Control.EndIf
+'	F.Intrinsic.Control.If(V.DataTable.dtInvoiceN.RowCount,=,1)
+'	F.Intrinsic.Control.AndIf(V.DataTable.dtInvoiceN(0).Invoice!FieldValTrim,=,"")
+'		'Invoice has been inputted to other e-faktur
+'		F.Intrinsic.UI.Msgbox("Invoices from the selected customer have been inputted as E-Faktur","E-Faktur [APAC]")
+'		F.Data.DataTable.Close("dtInvoiceN")
+'		F.Data.DataTable.Close("dtInvLineN")
+'		F.Intrinsic.Control.CallSub(unload)
+'	F.Intrinsic.Control.EndIf
+	'There is an invoice that has not been inputted as e-faktur
+	'Open browser for user to select existing e-faktur
+	F.Intrinsic.String.Split("ID*!*E-Faktur*!*E-Faktur Date*!*Revision","*!*",V.Local.sTitles)
+	F.Intrinsic.String.Split("500*!*1500*!*1200*!*600","*!*",V.Local.iWidths)
+	F.Intrinsic.String.Build("select id, e_faktur, date_faktur, revision from gab_4769_efaktur_hf where customer = '{0}' order by e_faktur desc",V.Local.sCustomer.Trim,V.Local.sSQL)
+	F.Intrinsic.UI.SetBrowserHotTypeAhead(True)
+	F.Intrinsic.UI.Browser("Select E-Faktur","conx",V.Local.sSQL,V.Local.sTitles,V.Local.iWidths,V.Local.sRet)
+	F.Intrinsic.Control.If(V.Local.sRet,<>,"***CANCEL***")
+		F.Intrinsic.String.Split(V.Local.sRet,"*!*",V.Local.sRet)
+		V.Local.iID.Set(V.Local.sRet(0))
+		V.Local.iRev.Set(V.Local.sRet(3))
+		F.Intrinsic.Math.Add(V.Local.iRev,1,V.Local.iRev)
+		Gui.F_EFaktur.txtEFaktur.Text(V.Local.sRet(1).Trim)
+		GUi.F_EFaktur.txtEFaktur.Locked(True)
+		
+		'Initiate transaction type
+		Gui.F_EFaktur.ddlTransType.ClearItems
+		Gui.F_EFaktur.ddlTransType.AddItem("Kepada Pihak yang Bukan Pemungut PPN",0)
+		Gui.F_EFaktur.ddlTransType.AddItem("Kepada Pemungut Bendaharawan",1)
+		Gui.F_EFaktur.ddlTransType.AddItem("Kepada Pemungut Selain Bendaharawan",2)
+		Gui.F_EFaktur.ddlTransType.AddItem("DPP Nilai Lain",3)
+		Gui.F_EFaktur.ddlTransType.AddItem("Penyerahan Lainnya, termasuk penyerahan kepada turis asing dalam rangka VAT refund",4)
+		Gui.F_EFaktur.ddlTransType.AddItem("Penyerahan yang PPN-nya Tidak Dipungut",5)
+		Gui.F_EFaktur.ddlTransType.AddItem("Penyerahan yang PPN-nya Dibebaskan",6)
+		Gui.F_EFaktur.ddlTransType.AddItem("Penyerahan Aktiva (Pasal 16D UU PPN)",7)
+		
+		'Retrieve e-faktur transaction type
+		F.Intrinsic.String.Build("select trans_type, extra_id from gab_4769_efaktur_hf where id = {0}",V.Local.iID,V.Local.sSQL)
+		F.ODBC.Connection!Conx.OpenLocalRecordsetRO("rst",V.Local.sSQL)
+		'Transaction type and additional info
+		F.Intrinsic.Control.If(V.ODBC.Conx!rst.FieldValLong!trans_type,=,1)
+			Gui.F_EFaktur.ddlTransType.Text("Kepada Pihak yang Bukan Pemungut PPN")
+		F.Intrinsic.Control.ElseIf(V.ODBC.Conx!rst.FieldValLong!trans_type,=,2)
+			Gui.F_EFaktur.ddlTransType.Text("Kepada Pemungut Bendaharawan")
+		F.Intrinsic.Control.ElseIf(V.ODBC.Conx!rst.FieldValLong!trans_type,=,3)
+			Gui.F_EFaktur.ddlTransType.Text("Kepada Pemungut Selain Bendaharawan")
+		F.Intrinsic.Control.ElseIf(V.ODBC.Conx!rst.FieldValLong!trans_type,=,4)
+			Gui.F_EFaktur.ddlTransType.Text("DPP Nilai Lain")
+		F.Intrinsic.Control.ElseIf(V.ODBC.Conx!rst.FieldValLong!trans_type,=,6)
+			Gui.F_EFaktur.ddlTransType.Text("Penyerahan Lainnya, termasuk penyerahan kepada turis asing dalam rangka VAT refund")
+		F.Intrinsic.Control.ElseIf(V.ODBC.Conx!rst.FieldValLong!trans_type,=,7)
+			Gui.F_EFaktur.ddlTransType.Text("Penyerahan yang PPN-nya Tidak Dipungut")
+			F.Intrinsic.Control.If(V.ODBC.Conx!rst.FieldValLong!extra_id,=,1)
+				Gui.F_EFaktur.ddlExtra.Text("Untuk Kawasan Bebas")
+			F.Intrinsic.Control.ElseIf(V.ODBC.Conx!rst.FieldValLong!extra_id,=,2)
+				Gui.F_EFaktur.ddlExtra.Text("Untuk Tempat Penimbunan Berikat")
+			F.Intrinsic.Control.ElseIf(V.ODBC.Conx!rst.FieldValLong!extra_id,=,3)
+				Gui.F_EFaktur.ddlExtra.Text("Untuk Hibah dan Bantuan Luar Negeri")
+			F.Intrinsic.Control.ElseIf(V.ODBC.Conx!rst.FieldValLong!extra_id,=,4)
+				Gui.F_EFaktur.ddlExtra.Text("Untuk Avtur")
+			F.Intrinsic.Control.ElseIf(V.ODBC.Conx!rst.FieldValLong!extra_id,=,5)
+				Gui.F_EFaktur.ddlExtra.Text("Untuk Lainnya")
+			F.Intrinsic.Control.ElseIf(V.ODBC.Conx!rst.FieldValLong!extra_id,=,6)
+				Gui.F_EFaktur.ddlExtra.Text("Untuk Kontraktor Perjanjian Karya Pengusahaan Pertambangan Batubara Generasi I")
+			F.Intrinsic.Control.EndIf
+		F.Intrinsic.Control.ElseIf(V.ODBC.Conx!rst.FieldValLong!trans_type,=,8)
+			Gui.F_EFaktur.ddlTransType.Text("Penyerahan yang PPN-nya Dibebaskan")
+			F.Intrinsic.Control.If(V.ODBC.Conx!rst.FieldValLong!extra_id,=,1)
+				Gui.F_EFaktur.ddlExtra.Text("Untuk BKP dan JKP Tertentu")
+			F.Intrinsic.Control.ElseIf(V.ODBC.Conx!rst.FieldValLong!extra_id,=,2)
+				Gui.F_EFaktur.ddlExtra.Text("Untuk BKP Tertentu Yang Bersifat Strategis")
+			F.Intrinsic.Control.ElseIf(V.ODBC.Conx!rst.FieldValLong!extra_id,=,3)
+				Gui.F_EFaktur.ddlExtra.Text("Untuk Jasa Kebandarudaraan")
+			F.Intrinsic.Control.ElseIf(V.ODBC.Conx!rst.FieldValLong!extra_id,=,4)
+				Gui.F_EFaktur.ddlExtra.Text("Untuk Lainnya")
+			F.Intrinsic.Control.EndIf
+		F.Intrinsic.Control.ElseIf(V.ODBC.Conx!rst.FieldValLong!trans_type,=,9)
+			Gui.F_EFaktur.ddlTransType.Text("Penyerahan Aktiva (Pasal 16D UU PPN)")
+		F.Intrinsic.Control.EndIf
+		F.ODBC.Conx!rst.Close
+		Gui.F_EFaktur.dtpDateFaktur.Value(V.Local.sRet(2))
+		Gui.F_EFaktur.dtpDateFaktur.Enabled(False)
+		
+		'Process customer name
+		Gui.F_EFaktur.txtCustomer.Text(V.Local.sCustomer.Trim)
+		F.ODBC.Connection!Conx.TableExists("GAB_Customer_Long",V.Local.bExist)
+		F.Intrinsic.Control.If(V.Local.bExist,=,True)
+			F.Intrinsic.String.Build("select customerlong from gab_customer_long where customer = '{0}' and rtrim(customerlong)<>''",V.Local.sCustomer.Trim,V.Local.sSQL)
+			F.ODBC.Connection!Conx.OpenLocalRecordsetRO("rstCust",V.Local.sSQL)
+			F.Intrinsic.Control.If(V.ODBC.Conx!rstCust.EOF,=,False)
+				Gui.F_EFaktur.txtCustName.Text(V.ODBC.Conx!rstCust.FieldValTrim!customerlong)
+			F.Intrinsic.Control.Else
+				Gui.F_EFaktur.txtCustName.Text(V.Local.sCustomerName.Trim)
+			F.Intrinsic.Control.EndIf
+			F.ODBC.Conx!rstCust.Close
+		F.Intrinsic.Control.Else
+			Gui.F_EFaktur.txtCustName.Text(V.Local.sCustomerName.Trim)
+		F.Intrinsic.Control.EndIf
+		
+		F.Intrinsic.Control.If(V.DataTable.dtInvoice.Exists,=,True)
+			F.Data.DataTable.Close("dtInvoice")
+		F.Intrinsic.Control.EndIf
+		
+		F.Intrinsic.Control.If(V.DataTable.dtInvLine.Exists,=,True)
+			F.Data.DataTable.Close("dtInvLine")
+		F.Intrinsic.Control.EndIf
+		
+		'Retrieve invoice header information based on the selected e-faktur
+		V.Global.iFakturID.Set(V.Local.iID)
+		F.Intrinsic.String.Build("select distinct(Invoice) as Invoice, date_invoice as InvoiceDate from gab_4769_efaktur_ln where id = {0} order by line",V.Local.iID,V.Local.sSQL)
+		F.Data.DataTable.CreateFromSQL("dtInvoice","conx",V.Local.sSQL,True)
+		F.Data.DataTable.AddColumn("dtInvoice","Subtotal","Float",0)
+		F.Data.DataTable.AddColumn("dtInvoice","PPN","Float",0)
+		F.Data.DataTable.AddColumn("dtInvoice","PPNBM","Float",0)
+		F.Data.DataTable.AddColumn("dtInvoice","Type","String","")
+		F.Data.DataTable.AddColumn("dtInvoice","Delete","Long")
+		
+		'Prepare datatable for invoice line
+		F.Data.DataTable.Create("dtInvLine",True)
+		F.Data.DataTable.AddColumn("dtInvLine","Invoice","String")
+		F.Data.DataTable.AddColumn("dtInvLine","SO","String")
+		F.Data.DataTable.AddColumn("dtInvLine","Suffix","String")
+		F.Data.DataTable.AddColumn("dtInvLine","SOLine","String")
+		F.Data.DataTable.AddColumn("dtInvLine","Part","String")
+		F.Data.DataTable.AddColumn("dtInvLine","Description","String")
+		F.Data.DataTable.AddColumn("dtInvLine","Quantity","Float")
+		F.Data.DataTable.AddColumn("dtInvLine","Price","Float")
+		F.Data.DataTable.AddColumn("dtInvLine","Discount","Float")
+		F.Data.DataTable.AddColumn("dtInvLine","Rate","Float")
+		F.Data.DataTable.AddColumn("dtInvLine","Type","String")
+			
+		F.Intrinsic.Control.For(V.Local.i1,0,V.DataTable.dtInvoice.RowCount--,1)
+			'Retrieve invoice lines for every invoice in the batch
+			F.Intrinsic.Control.If(V.Global.iRound,=,1)
+				F.Intrinsic.String.Build("select Invoice, order_no as SO, order_suffix as Suffix, order_rec as SOLine, Part, order_desc as Description, qty_shipped as Quantity, Round(Price*1000,0) as Price, (qty_shipped*Round((price-discount_price)*1000,0)) as Discount, tax.rate as Rate, line_type as Type from v_shipment_lines SL left join v_ar_tax_tables tax on SL.tax_1 = tax.auth and SL.tax_zone_1 = tax.zone where invoice = '{0}' and customer = '{1}' order by order_no, order_suffix, order_rec",V.DataTable.dtInvoice(V.Local.i1).Invoice!FieldValTrim,V.Local.sCustomer.Trim,V.Local.sSQL)
+			F.Intrinsic.Control.Else
+				F.Intrinsic.String.Build("select Invoice, order_no as SO, order_suffix as Suffix, order_rec as SOLine, Part, order_desc as Description, qty_shipped as Quantity, Floor(Price*1000) as Price, (qty_shipped*Floor((price-discount_price)*1000)) as Discount, tax.rate as Rate, line_type as Type from v_shipment_lines SL left join v_ar_tax_tables tax on SL.tax_1 = tax.auth and SL.tax_zone_1 = tax.zone where invoice = '{0}' and customer = '{1}' order by order_no, order_suffix, order_rec",V.DataTable.dtInvoice(V.Local.i1).Invoice!FieldValTrim,V.Local.sCustomer.Trim,V.Local.sSQL)
+			F.Intrinsic.Control.EndIf
+			
+			F.Data.DataTable.CreateFromSQL("dtInvTemp","conx",V.Local.sSQL,True)
+			F.Data.DataTable.Merge("dtInvTemp","dtInvLine",True,2)
+			'Compute invoice subtotal and PPN
+			F.Data.DataTable.AddExpressionColumn("dtInvTemp","Extension","Float","(Quantity*Price)-Discount")
+			F.Data.DataTable.AddExpressionColumn("dtInvTemp","PPN","Float","Rate*Extension")
+			F.Data.DataTable.Compute("dtInvTemp","SUM(Extension)","",V.Local.fSubtotal)
+			F.Intrinsic.Math.Round(V.Local.fSubtotal,0,V.Global.iRound,V.Local.fSubtotal)
+			F.Data.DataTable.Compute("dtInvTemp","SUM(PPN)","",V.Local.fPPN)
+			F.Intrinsic.Math.Round(V.Local.fPPN,0,V.Global.iRound,V.Local.fPPN)
+			'Check invoice type
+			F.Data.DataTable.Select("dtInvTemp","Type = 'P'",V.Local.sRet)
+			F.Intrinsic.Control.If(V.Local.sRet,=,"***NORETURN***")
+				V.Local.sType.Set("Regular")
+			F.Intrinsic.Control.Else
+				F.Intrinsic.String.Split(V.Local.sRet,"*!*",V.Local.sRet)
+				F.Intrinsic.Control.If(V.Local.sRet.UBound,=,V.DataTable.dtInvTemp.RowCount--)
+					V.Local.sType.Set("Progress")
+				F.Intrinsic.Control.Else
+					V.Local.sType.Set("Final")
+				F.Intrinsic.Control.EndIf
+			F.Intrinsic.Control.EndIf
+			F.Data.DataTable.SetValue("dtInvoice",V.Local.i1,"Subtotal",V.Local.fSubtotal,"PPN",V.Local.fPPN,"Type",V.Local.sType)
+			F.Data.DataTable.Close("dtInvTemp")
+		F.Intrinsic.Control.Next(V.Local.i1)
+
+		'Merge new invoice
+		F.Data.DataTable.Merge("dtInvoiceN","dtInvoice",False,2)
+		F.Data.DataTable.Merge("dtInvLineN","dtInvLine",False,2)
+		F.Data.DataTable.AddExpressionColumn("dtInvLine","Extension","Float","(Quantity*Price)-Discount")
+		F.Data.DataTable.AddExpressionColumn("dtInvLine","PPN","Float","Rate*Extension")
+		F.Data.DataTable.AddColumn("dtInvLine","PPNBMRate","Long",0)
+		F.Data.DataTable.AddExpressionColumn("dtInvLine","PPNBM","Float","(PPNBMRate*Extension)/100")
+		
+		F.Data.DataTable.Clone("dtInvLine","dtInvoice$dtLine",True)
+		F.Data.DataTable.Merge("dtInvLine","dtInvoice$dtLine",False,2)
+		F.Data.DataTable.AddRelation("dtInvoice","Invoice","dtInvoice$dtLine","Invoice")
+		F.Data.DataView.Create("dtInvoice","dvInvoice")
+		F.Data.DataView.Create("dtInvoice$dtLine","dvLine")
+		Gui.F_EFaktur.GsGCLine.AddGridviewFromDataview("gvInvoice","dtInvoice","dvInvoice")
+		Gui.F_EFaktur.GsGCLine.AddGridviewFromDataview("gvLine","dtInvoice","dvLine")
+		Gui.F_EFaktur.GsGCLine.MainView("gvInvoice")
+		F.Data.DataTable.Close("dtInvLine")
+		
+		Gui.F_EFaktur.GsGCLine.SetGridviewProperty("gvLine","Editable",True)
+		Gui.F_EFaktur.txtRev.Text(V.Local.iRev)
+		F.Intrinsic.Control.CallSub(gvlineformat)
+		F.Intrinsic.Control.CallSub(e-fakturrecap)
+	F.Intrinsic.Control.Else
+		F.Intrinsic.UI.Msgbox("E-Faktur must be selected","E-Faktur [APAC]")
+		F.Intrinsic.Control.CallSub(unload)
+	F.Intrinsic.Control.EndIf
+	F.Data.DataTable.Close("dtInvoiceN")
+	F.Data.DataTable.Close("dtInvLineN")
+F.Intrinsic.Control.EndIf
+Program.Sub.AddE-Faktur.End
+
+Program.Sub.cmdUpdate_Click.Start
+V.Local.fPPN.Declare
+V.Local.fPPNBM.Declare
+V.Local.fSubtotal.Declare
+V.Local.i1.Declare
+V.Local.sFilter.Declare
+V.Local.sSQL.Declare
+
+F.Intrinsic.UI.InvokeWaitDialog("Updating E-Faktur invoice data","E-Faktur [APAC]")
+
+'Update quantity, price, and discount
+F.Intrinsic.Control.For(V.Local.i1,0,V.DataTable.dtInvoice$dtLine.RowCount--,1)
+	F.Intrinsic.Control.If(V.Global.iRound,=,1)
+		F.Intrinsic.String.Build("select qty_shipped as Quantity, Round(Price*1000,0) as Price, (qty_shipped*Round((price-discount_price)*1000,0)) as Discount from v_shipment_lines where invoice = '{0}' and order_no = '{1}' and order_suffix = '{2}' and order_rec = '{3}'",V.DataTable.dtInvoice$dtLine(V.Local.i1).Invoice!FieldValTrim,V.DataTable.dtInvoice$dtLine(V.Local.i1).SO!FieldValTrim,V.DataTable.dtInvoice$dtLine(V.Local.i1).Suffix!FieldValTrim,V.DataTable.dtInvoice$dtLine(V.Local.i1).SOLine!FieldValTrim,V.Local.sSQL)
+	F.Intrinsic.Control.Else
+		F.Intrinsic.String.Build("select qty_shipped as Quantity, Floor(Price*1000) as Price, (qty_shipped*Floor((price-discount_price)*1000)) as Discount from v_shipment_lines where invoice = '{0}' and order_no = '{1}' and order_suffix = '{2}' and order_rec = '{3}'",V.DataTable.dtInvoice$dtLine(V.Local.i1).Invoice!FieldValTrim,V.DataTable.dtInvoice$dtLine(V.Local.i1).SO!FieldValTrim,V.DataTable.dtInvoice$dtLine(V.Local.i1).Suffix!FieldValTrim,V.DataTable.dtInvoice$dtLine(V.Local.i1).SOLine!FieldValTrim,V.Local.sSQL)
+	F.Intrinsic.Control.EndIf
+	
+	F.ODBC.Connection!Conx.OpenLocalRecordsetRO("rst",V.Local.sSQL)
+	F.Intrinsic.Control.If(V.ODBC.Conx!rst.EOF,=,False)
+		F.Data.DataTable.SetValue("dtInvoice$dtLine",V.Local.i1,"Quantity",V.ODBC.Conx!rst.FieldVal!Quantity,"Price",V.ODBC.Conx!rst.FieldVal!Price,"Discount",V.ODBC.Conx!rst.FieldVal!Discount)
+	F.Intrinsic.Control.Else
+		'Not in shipment lines table, check order history line
+		F.ODBC.Conx!rst.Close
+		F.Intrinsic.Control.If(V.Global.iRound,=,1)
+			F.Intrinsic.String.Build("select qty_shipped as Quantity, Round(Price*1000,0) as Price, (qty_shipped*Round((price-discount_price)*1000,0)) as Discount from v_order_hist_line where invoice = '{0}' and order_no = '{1}' and order_suffix = '{2}' and order_line = '{3}'",V.DataTable.dtInvoice$dtLine(V.Local.i1).Invoice!FieldValTrim,V.DataTable.dtInvoice$dtLine(V.Local.i1).SO!FieldValTrim,V.DataTable.dtInvoice$dtLine(V.Local.i1).Suffix!FieldValTrim,V.DataTable.dtInvoice$dtLine(V.Local.i1).SOLine!FieldValTrim,V.Local.sSQL)
+		F.Intrinsic.Control.Else
+			F.Intrinsic.String.Build("select qty_shipped as Quantity, Floor(Price*1000) as Price, (qty_shipped*Floor((price-discount_price)*1000)) as Discount from v_order_hist_line where invoice = '{0}' and order_no = '{1}' and order_suffix = '{2}' and order_line = '{3}'",V.DataTable.dtInvoice$dtLine(V.Local.i1).Invoice!FieldValTrim,V.DataTable.dtInvoice$dtLine(V.Local.i1).SO!FieldValTrim,V.DataTable.dtInvoice$dtLine(V.Local.i1).Suffix!FieldValTrim,V.DataTable.dtInvoice$dtLine(V.Local.i1).SOLine!FieldValTrim,V.Local.sSQL)
+		F.Intrinsic.Control.EndIf
+		
+		F.ODBC.Connection!Conx.OpenLocalRecordsetRO("rst",V.Local.sSQL)
+		F.Intrinsic.Control.If(V.ODBC.Conx!rst.EOF,=,False)
+			F.Data.DataTable.SetValue("dtInvoice$dtLine",V.Local.i1,"Quantity",V.ODBC.Conx!rst.FieldVal!Quantity,"Price",V.ODBC.Conx!rst.FieldVal!Price,"Discount",V.ODBC.Conx!rst.FieldVal!Discount)
+		F.Intrinsic.Control.EndIf
+	F.Intrinsic.Control.EndIf
+	F.ODBC.Conx!rst.Close
+F.Intrinsic.Control.Next(V.Local.i1)
+
+'Update dtInvoice
+F.Intrinsic.Control.For(V.Local.i1,0,V.DataTable.dtInvoice.RowCount--,1)
+	F.Intrinsic.String.Build("Invoice = '{0}'",V.DataTable.dtInvoice(V.Local.i1).Invoice!FieldValTrim,V.Local.sFilter)
+	F.Data.DataTable.Compute("dtInvoice$dtLine","SUM(Extension)",V.Local.sFilter,V.Local.fSubtotal)
+	F.Intrinsic.Math.Round(V.Local.fSubtotal,0,V.Global.iRound,V.Local.fSubtotal)
+	F.Data.DataTable.Compute("dtInvoice$dtLine","SUM(PPN)",V.Local.sFilter,V.Local.fPPN)
+	F.Intrinsic.Math.Round(V.Local.fPPN,0,V.Global.iRound,V.Local.fPPN)
+	F.Data.DataTable.Compute("dtInvoice$dtLine","SUM(PPNBM)",V.Local.sFilter,V.Local.fPPNBM)
+	F.Intrinsic.Math.Round(V.Local.fPPNBM,0,V.Global.iRound,V.Local.fPPNBM)
+	F.Data.DataTable.SetValue("dtInvoice",V.Local.i1,"Subtotal",V.Local.fSubtotal,"PPN",V.Local.fPPN,"PPNBM",V.Local.fPPNBM)
+F.Intrinsic.Control.Next(V.Local.i1)
+
+F.Intrinsic.Control.CallSub(e-fakturrecap)
+
+F.Intrinsic.UI.CloseWaitDialog
+Program.Sub.cmdUpdate_Click.End
+
+Program.Sub.cmdAddInvoice_Click.Start
+V.Local.dInvoiceDate.Declare(Date)
+V.Local.fPPN.Declare
+V.Local.fPPNBM.Declare
+V.Local.fSubtotal.Declare
+V.Local.iWidths.Declare
+V.Local.sCustomer.Declare
+V.Local.sInvoice.Declare
+V.Local.sRet.Declare
+V.Local.sSQL.Declare
+V.Local.sTitles.Declare
+V.Local.sType.Declare
+V.Local.i1.Declare
+
+'Set browser query from v_order_hist_head
+V.Local.sCustomer.Set(V.Screen.F_EFaktur!txtCustomer.Text)
+F.Intrinsic.String.Build("select distinct(Invoice), date_invoice, customer_po from v_order_hist_head where customer = '{0}' order by invoice",V.Local.sCustomer.Trim,V.Local.sSQL)
+F.Intrinsic.String.Split("Invoice*!*Invoice Date*!*Customer PO","*!*",V.Local.sTitles)
+F.Intrinsic.String.Split("700*!*1200*!*1200","*!*",V.Local.iWidths)
+F.Intrinsic.UI.SetBrowserHotTypeAhead(True)
+F.Intrinsic.UI.Browser("Select an Invoice","conx",V.Local.sSQL,V.Local.sTitles,V.Local.iWidths,V.Local.sRet)
+F.Intrinsic.Control.If(V.Local.sRet,<>,"***CANCEL***")
+	F.Intrinsic.String.Split(V.Local.sRet,"*!*",V.Local.sRet)
+	V.Local.dInvoiceDate.Set(V.Local.sRet(1))
+	V.Local.sInvoice.Set(V.Local.sRet(0).Trim)
+	'Check if invoice has been inputted as e-faktur
+	F.Intrinsic.String.Build("select ln.id from gab_4769_efaktur_ln ln left join gab_4769_efaktur_hf hf on ln.id = hf.id where ln.invoice = '{0}' and ln.date_invoice = '{1}' and hf.customer = '{2}'",V.Local.sInvoice.Trim,V.Local.dInvoiceDate.PervasiveDate,V.Local.sCustomer.Trim,V.Local.sSQL)
+	F.ODBC.Connection!Conx.OpenLocalRecordsetRO("rst",V.Local.sSQL)
+	F.Intrinsic.Control.If(V.ODBC.Conx!rst.EOF,=,True)
+		'Get invoice line info
+		F.Intrinsic.String.Build("select order_no as SO, order_suffix as Suffix, order_line as SOLine, Part, Description, qty_shipped as Quantity, Price, (qty_shipped*(price-price_discount)) as Discount, Tax_Rate_1 as Rate, line_type as Type from v_order_hist_line where invoice = '{0}' and customer = '{1}' and date_invoice = '{2}'",V.Local.sInvoice.Trim,V.Local.sCustomer.Trim,V.Local.dInvoiceDate.PervasiveDate,V.Local.sSQL)
+		F.Data.DataTable.CreateFromSQL("dtInvTemp","conx",V.Local.sSQL,True)
+		F.Data.DataTable.AddExpressionColumn("dtInvTemp","Extension","Float","(Quantity*Price)-Discount")
+		F.Data.DataTable.AddExpressionColumn("dtInvTemp","PPN","Float","Rate*Extension")
+		F.Data.DataTable.AddColumn("dtInvTemp","PPNBMRate","Long",0)
+		F.Data.DataTable.AddExpressionColumn("dtInvTemp","PPNBM","Float","(PPNBMRate*Extension)/100")
+		F.Data.DataTable.Compute("dtInvTemp","SUM(Extension)","",V.Local.fSubtotal)
+		F.Intrinsic.Math.Round(V.Local.fSubtotal,0,V.Global.iRound,V.Local.fSubtotal)
+		F.Data.DataTable.Compute("dtInvTemp","SUM(PPN)","",V.Local.fPPN)
+		F.Intrinsic.Math.Round(V.Local.fPPN,0,V.Global.iRound,V.Local.fPPN)
+		F.Data.DataTable.Compute("dtInvTemp","SUM(PPNBM)","",V.Local.fPPNBM)
+		F.Intrinsic.Math.Round(V.Local.fPPNBM,0,V.Global.iRound,V.Local.fPPNBM)
+		'Check invoice type
+		F.Data.DataTable.Select("dtInvTemp","Type = 'P'",V.Local.sRet)
+		F.Intrinsic.Control.If(V.Local.sRet,=,"***NORETURN***")
+			V.Local.sType.Set("Regular")
+		F.Intrinsic.Control.Else
+			F.Intrinsic.String.Split(V.Local.sRet,"*!*",V.Local.sRet)
+			F.Intrinsic.Control.If(V.Local.sRet.UBound,=,V.DataTable.dtInvTemp.RowCount--)
+				V.Local.sType.Set("Progress")
+			F.Intrinsic.Control.Else
+				V.Local.sType.Set("Final")
+			F.Intrinsic.Control.EndIf
+		F.Intrinsic.Control.EndIf
+		F.Data.DataTable.Merge("dtInvTemp","dtInvoice$dtLine",False,2)
+		'F.Data.DataTable.Close("dtInvTemp")
+		'Enter new entry in dtInvoice
+		F.Data.DataTable.AddRow("dtInvoice","Invoice",V.Local.sInvoice.Trim,"InvoiceDate",V.Local.dInvoiceDate,"Subtotal",V.Local.fSubtotal,"PPN",V.Local.fPPN,"PPNBM",V.Local.fPPNBM,"Type",V.Local.sType.Trim)
+		
+		F.Intrinsic.Control.For(V.Local.i1,0,V.DataTable.dtInvTemp.RowCount--,1)
+			F.Data.DataTable.AddRow("dtInvoice$dtLine","Invoice",V.Local.sInvoice.Trim, "SO",V.DataTable.dtInvTemp(V.Local.i1).SO!FieldValTrim, "Suffix",V.DataTable.dtInvTemp(V.Local.i1).Suffix!FieldValTrim, "SOLine",V.DataTable.dtInvTemp(V.Local.i1).SOLine!FieldValTrim, "Part",V.DataTable.dtInvTemp(V.Local.i1).Part!FieldValTrim, "Description",V.DataTable.dtInvTemp(V.Local.i1).Description!FieldValTrim, "Quantity",V.DataTable.dtInvTemp(V.Local.i1).Quantity!FieldValFloat, "Price",V.DataTable.dtInvTemp(V.Local.i1).Price!FieldValFloat, "Discount",V.DataTable.dtInvTemp(V.Local.i1).Discount!FieldValFloat, "Type",V.DataTable.dtInvTemp(V.Local.i1).Type!FieldValTrim)
+		F.Intrinsic.Control.Next(V.Local.i1)
+		F.Data.DataTable.AcceptChanges("dtInvoice$dtLine")
+		F.Data.DataTable.Close("dtInvTemp")
+		F.Intrinsic.Control.CallSub(e-fakturrecap)
+	F.Intrinsic.Control.Else
+		F.Intrinsic.UI.Msgbox("Invoices from the selected customer have been inputted as E-Faktur","E-Faktur [APAC]")
+		F.Intrinsic.Control.CallSub(unload)
+	F.Intrinsic.Control.EndIf
+F.Intrinsic.Control.EndIf
+Program.Sub.cmdAddInvoice_Click.End
+
+Program.Sub.Comments.Start
+${$0$}$GAB_EFAKTUR$}$MHERTANTO$}$8/9/2017 16:14:42$}$False
+${$3$}$0$}$$}$0$}$-1$}$$}$00:00:00$}$E-Faktur program for tax reporting on outgoing invoices to Indonesian Tax Authority. The output is a csv file following the requirements of Indonesia Ministry of Finance.
+${$5$}$2.0.0.0$}$2
+${$6$}$dyunus$}$20231113153646036$}$xZ6SHi8g7O0Qsxe6AiO2NH3PnOKQRy0TCVytgylKSyIkPIXEb6TLRe0FDPaxDT/UgDYnGaBqf9k=
+Program.Sub.Comments.End
