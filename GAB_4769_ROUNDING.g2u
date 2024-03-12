@@ -1,0 +1,87 @@
+﻿Program.Sub.ScreenSU.Start
+Gui.Form..Create(BaseForm)
+Gui.Form..Caption("Rounding Decimal E-Faktur")
+Gui.Form..Size(5775,1095)
+Gui.Form..MinX(0)
+Gui.Form..MinY(0)
+Gui.Form..Position(0,0)
+Gui.Form..AlwaysOnTop(False)
+Gui.Form..FontName("Tahoma")
+Gui.Form..FontSize(8.25)
+Gui.Form..ControlBox(True)
+Gui.Form..MaxButton(True)
+Gui.Form..MinButton(True)
+Gui.Form..MousePointer(0)
+Gui.Form..Moveable(True)
+Gui.Form..Sizeable(True)
+Gui.Form..ShowInTaskBar(True)
+Gui.Form..TitleBar(True)
+Gui.Form..Event(UnLoad,Unload)
+Gui.Form.ddlRounding.Create(DropDownList)
+Gui.Form.ddlRounding.Enabled(True)
+Gui.Form.ddlRounding.Visible(True)
+Gui.Form.ddlRounding.Zorder(0)
+Gui.Form.ddlRounding.Size(4155,300)
+Gui.Form.ddlRounding.Position(120,180)
+Gui.Form.ddlRounding.FontName("Tahoma")
+Gui.Form.ddlRounding.FontSize(8.25)
+Gui.Form.cmdSave.Create(Button)
+Gui.Form.cmdSave.Enabled(True)
+Gui.Form.cmdSave.Visible(True)
+Gui.Form.cmdSave.Zorder(0)
+Gui.Form.cmdSave.Size(990,495)
+Gui.Form.cmdSave.Position(4575,75)
+Gui.Form.cmdSave.Caption("Save")
+Gui.Form.cmdSave.FontName("Tahoma")
+Gui.Form.cmdSave.FontSize(8.25)
+Gui.Form.cmdSave.Event(Click,cmdSave_Click)
+Program.Sub.ScreenSU.End
+
+Program.Sub.Preflight.Start
+Program.Sub.Preflight.End
+Program.Sub.Main.Start
+V.Local.sType.Declare
+V.Local.bExist.Declare
+
+F.ODBC.Connection!conx.OpenCompanyConnection(300)
+
+F.ODBC.Connection!conx.TableExists("GAB_4769_ROUNDING",V.Local.bExist)
+F.Intrinsic.Control.If(V.Local.bExist,=,False)
+	F.ODBC.Connection!Conx.Execute("CREATE TABLE GAB_4769_ROUNDING (TYPE CHAR);")
+	F.ODBC.Connection!conx.Execute("INSERT INTO GAB_4769_ROUNDING(TYPE) values('1');")
+F.Intrinsic.Control.EndIf
+
+Gui.Form.ddlRounding.AddItem("Default (0.5 = 1)",1)
+Gui.Form.ddlRounding.AddItem("Round Down (0.5 = 0)",2)
+
+F.ODBC.Connection!conx.ExecuteAndReturn("SELECT * FROM GAB_4769_ROUNDING",V.Local.sType)
+F.Intrinsic.Control.If(V.Local.sType,=,"2")
+	Gui.Form.ddlRounding.Text("Round Down (0.5 = 0)")
+F.Intrinsic.Control.Else
+	Gui.Form.ddlRounding.Text("Default (0.5 = 1)")
+F.Intrinsic.Control.EndIf
+
+Gui.Form..Show
+
+Program.Sub.Main.End
+
+Program.Sub.cmdSave_Click.Start
+F.Intrinsic.Control.If(V.Screen.Form!ddlRounding.Text,=,"Round Down (0.5 = 0)")
+	F.ODBC.Connection!conx.Execute("UPDATE GAB_4769_ROUNDING SET TYPE = '2';")
+F.Intrinsic.Control.Else
+	F.ODBC.Connection!conx.Execute("UPDATE GAB_4769_ROUNDING SET TYPE = '1';")
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.UI.Msgbox("Saved!","Rounding Decimal E-Faktur (4769)")
+
+Program.Sub.cmdSave_Click.End
+Program.Sub.Unload.Start
+F.ODBC.Connection!conx.Close
+F.Intrinsic.Control.End
+
+Program.Sub.Unload.End
+
+Program.Sub.Comments.Start
+${$5$}$20.1.8649.24509$}$1
+${$6$}$dyunus$}$20231113134448218$}$xZ6SHi8g7O0Qsxe6AiO2NH3PnOKQRy0TCVytgylKSyL7i3/zuUu6GPtbUwVSuX1Vrg3xd6Q1d3M=
+Program.Sub.Comments.End
