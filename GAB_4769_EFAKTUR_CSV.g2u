@@ -1,0 +1,341 @@
+﻿Program.Sub.ScreenSU.Start
+Gui.F_EFakturCSV..Create
+Gui.F_EFakturCSV..Caption("E-Faktur CSV Print")
+Gui.F_EFakturCSV..Size(7530,8895)
+Gui.F_EFakturCSV..MinX(0)
+Gui.F_EFakturCSV..MinY(0)
+Gui.F_EFakturCSV..Position(0,0)
+Gui.F_EFakturCSV..FontSize(9)
+Gui.F_EFakturCSV..BackColor(-2147483633)
+Gui.F_EFakturCSV..MousePointer(0)
+Gui.F_EFakturCSV..Event(UnLoad,Unload)
+Gui.F_EFakturCSV.frame1.Create(Frame)
+Gui.F_EFakturCSV.frame1.Size(7050,7395)
+Gui.F_EFakturCSV.frame1.Position(120,825)
+Gui.F_EFakturCSV.frame1.Caption("E-Faktur Selections")
+Gui.F_EFakturCSV.frame1.FontSize(9)
+Gui.F_EFakturCSV.GsGCCSV.Create(GsGridControl)
+Gui.F_EFakturCSV.GsGCCSV.Size(6870,7050)
+Gui.F_EFakturCSV.GsGCCSV.Position(105,240)
+Gui.F_EFakturCSV.GsGCCSV.Parent("frame1")
+Gui.F_EFakturCSV.GsGCCSV.Event(RowCellClick,GsGCCSV_RowCellClick)
+Gui.F_EFakturCSV.cmdCSV.Create(Button)
+Gui.F_EFakturCSV.cmdCSV.Size(2700,660)
+Gui.F_EFakturCSV.cmdCSV.Position(4485,105)
+Gui.F_EFakturCSV.cmdCSV.Caption("Generate CSV")
+Gui.F_EFakturCSV.cmdCSV.FontSize(9)
+Gui.F_EFakturCSV.cmdCSV.Event(Click,cmdCSV_Click)
+Gui.F_EFakturCSV.lbl1.Create(Label,"Customer",True,1935,255,0,105,195,True,0,"Arial",9,-2147483633,0)
+Gui.F_EFakturCSV.txtCust.Create(TextBox,"",True,1110,315,0,150,405,True,0,"Arial",9,-2147483643,1)
+Gui.F_EFakturCSV.txtCust.Locked(True)
+Program.Sub.ScreenSU.End
+
+Program.Sub.Preflight.Start
+Program.Sub.Preflight.End
+
+Program.Sub.Main.Start
+V.Local.sIcon.Declare
+
+F.Intrinsic.String.Build("{0}\GSS2.ico",V.Caller.GasDir,V.Local.sIcon)
+Gui.F_EFakturCSV..Icon(V.Local.sIcon)
+'F.ODBC.Connection!Conx.OpenConnection(V.Ambient.PDSN,V.Ambient.PUser,V.Ambient.PPass)
+
+F.ODBC.Connection!conx.OpenCompanyConnection(300)
+F.Intrinsic.Control.CallSub(checkrv)
+
+Gui.F_EFakturCSV.frame1.Anchor(15)
+Gui.F_EFakturCSV.GsGCCSV.Anchor(15)
+Gui.F_EFakturCSV..Show
+Program.Sub.Main.End
+
+Program.Sub.CheckRV.Start
+V.Local.bExist.Declare
+V.Local.iID.Declare
+V.Local.sSQL.Declare
+
+'Create datatable
+F.Intrinsic.Variable.PassedExists("iID",V.Local.bExist)
+F.Intrinsic.Control.If(V.Local.bExist,=,True)
+	'If there is an argument, add it to datatable
+	V.Local.iID.Set(V.Passed.iID)
+	F.Intrinsic.String.Build("select e_faktur as Faktur, date_faktur as FakturDate, id as ID from gab_4769_efaktur_hf where id = {0}",V.Local.iID,V.Local.sSQL)
+	F.Data.DataTable.CreateFromSQL("dtCSV","conx",V.Local.sSQL,True)
+	F.Data.DataTable.AddColumn("dtCSV","Delete","Long")
+	F.Data.DataTable.AddRow("dtCSV","Faktur","")
+
+	F.Intrinsic.String.Build("select customer from gab_4769_efaktur_hf where id = {0}",V.Local.iID,V.Local.sSQL)
+	F.ODBC.Connection!Conx.OpenLocalRecordsetRO("rst",V.Local.sSQL)
+	Gui.F_EFakturCSV.txtCust.Text(V.ODBC.Conx!rst.FieldValTrim!customer)
+	F.ODBC.Conx!rst.Close
+F.Intrinsic.Control.Else
+	F.Data.DataTable.Create("dtCSV",True)
+	F.Data.DataTable.AddColumn("dtCSV","Faktur","String")
+	F.Data.DataTable.AddColumn("dtCSV","FakturDate","Date")
+	F.Data.DataTable.AddColumn("dtCSV","ID","Long")
+	F.Data.DataTable.AddColumn("dtCSV","Delete","Long")
+	F.Data.DataTable.AddRow("dtCSV","Faktur","")
+F.Intrinsic.Control.EndIf
+
+Gui.F_EFakturCSV.GsGCCSV.AddGridviewFromDatatable("gvCSV","dtCSV")
+Gui.F_EFakturCSV.GsGCCSV.MainView("gvCSV")
+Gui.F_EFakturCSV.GsGCCSV.SetColumnProperty("gvCSV","Faktur","HeaderHAlignment","Center")
+Gui.F_EFakturCSV.GsGCCSV.SetColumnProperty("gvCSV","FakturDate","HeaderHAlignment","Center")
+Gui.F_EFakturCSV.GsGCCSV.SetColumnProperty("gvCSV","ID","HeaderHAlignment","Center")
+Gui.F_EFakturCSV.GsGCCSV.SetColumnProperty("gvCSV","Faktur","Caption","E-Faktur")
+Gui.F_EFakturCSV.GsGCCSV.SetColumnProperty("gvCSV","FakturDate","Caption","Date")
+Gui.F_EFakturCSV.GsGCCSV.SetColumnProperty("gvCSV","FakturDate","CellHAlignment","Center")
+Gui.F_EFakturCSV.GsGCCSV.SetColumnProperty("gvCSV","ID","CellHAlignment","Center")
+Gui.F_EFakturCSV.GsGCCSV.SetColumnProperty("gvCSV","Delete","ShowCaption",False)
+Gui.F_EFakturCSV.GsGCCSV.SetColumnProperty("gvCSV","Faktur","AllowEdit",False)
+Gui.F_EFakturCSV.GsGCCSV.SetColumnProperty("gvCSV","FakturDate","AllowEdit",False)
+Gui.F_EFakturCSV.GsGCCSV.SetColumnProperty("gvCSV","ID","AllowEdit",False)
+Gui.F_EFakturCSV.GsGCCSV.SetColumnProperty("gvCSV","Delete","AllowEdit",False)
+Gui.F_EFakturCSV.GsGCCSV.SetColumnProperty("gvCSV","Faktur","MinWidth","140")
+Gui.F_EFakturCSV.GsGCCSV.SetColumnProperty("gvCSV","FakturDate","MinWidth","110")
+Gui.F_EFakturCSV.GsGCCSV.SetColumnProperty("gvCSV","ID","AllowEdit","50")
+Gui.F_EFakturCSV.GsGCCSV.SetColumnProperty("gvCSV","Delete","MinWidth","60")
+Gui.F_EFakturCSV.GsGCCSV.SetColumnProperty("gvCSV","FakturDate","DisplayCustomDatetime","d")
+Gui.F_EFakturCSV.GsGCCSV.ColumnEdit("gvCSV","Delete","EditorButton","Delete")
+Program.Sub.CheckRV.End
+
+Program.Sub.Unload.Start
+F.Data.DataTable.Close("dtCSV")
+F.ODBC.Connection!Conx.Close
+F.Intrinsic.Control.End
+
+Program.Sub.Unload.End
+
+Program.Sub.GsGCCSV_RowCellClick.Start
+V.Local.iWidths.Declare
+V.Local.sBrowser.Declare
+V.Local.sCustomer.Declare
+V.Local.sFilter.Declare
+V.Local.sTitles.Declare
+V.Local.sRet.Declare
+V.Local.sSQL.Declare
+
+F.Intrinsic.Control.If(V.Args.Column,=,"Delete")
+	F.Intrinsic.Control.If(V.DataTable.dtCSV(V.Args.RowIndex).Faktur!FieldValTrim,<>,"")
+		F.Data.DataTable.DeleteRow("dtCSV",V.Args.RowIndex)
+		F.Intrinsic.Control.If(V.DataTable.dtCSV.RowCount,=,1)
+			Gui.F_EFakturCSV.txtCust.Text("")
+		F.Intrinsic.Control.EndIf
+	F.Intrinsic.Control.EndIf
+F.Intrinsic.Control.Else
+	F.Intrinsic.Control.If(V.DataTable.dtCSV(V.Args.RowIndex).Faktur!FieldValTrim,=,"")
+		V.Local.sCustomer.Set(V.Screen.F_EFakturCSV!txtCust.Text)
+		F.Intrinsic.String.Split("E-Faktur*!*E-Faktur Date*!*Customer*!*ID","*!*",V.Local.sTitles)
+		F.Intrinsic.String.Split("1500*!*1200*!*900*!*500","*!*",V.Local.iWidths)
+		F.Intrinsic.Control.If(V.Local.sCustomer.Trim,<>,"")
+			F.Intrinsic.String.Build("select e_faktur, date_faktur, customer, id from gab_4769_efaktur_hf where customer = '{0}' and cancelled = 0 order by e_faktur desc",V.Local.sCustomer.Trim,V.Local.sSQL)
+		F.Intrinsic.Control.Else
+			V.Local.sSQL.Set("select e_faktur, date_faktur, customer, id from gab_4769_efaktur_hf where cancelled = 0 order by e_faktur desc")
+		F.Intrinsic.Control.EndIf
+		F.Intrinsic.UI.SetBrowserHotTypeAhead(True)
+		F.Intrinsic.UI.Browser("Select E-Faktur","conx",V.Local.sSQL,V.Local.sTitles,V.Local.iWidths,V.Local.sRet)
+		F.Intrinsic.Control.If(V.Local.sRet,<>,"***CANCEL***")
+			F.Intrinsic.String.Split(V.Local.sRet,"*!*",V.Local.sBrowser)
+			'Check if ID has been selected
+			F.Intrinsic.String.Build("ID = {0}",V.Local.sBrowser(3),V.Local.sFilter)
+			F.Data.DataTable.Select("dtCSV",V.Local.sFilter,V.Local.sRet)
+			F.Intrinsic.Control.If(V.Local.sRet,=,"***NORETURN***")
+				Gui.F_EFakturCSV.txtCust.Text(V.Local.sBrowser(2).Trim)
+				F.Data.DataTable.SetValue("dtCSV",V.Args.RowIndex,"Faktur",V.Local.sBrowser(0).Trim,"FakturDate",V.Local.sBrowser(1),"ID",V.Local.sBrowser(3))
+				F.Data.DataTable.AddRow("dtCSV","Faktur","")
+			F.Intrinsic.Control.Else
+				F.Intrinsic.UI.Msgbox("E-Faktur has been selected","E-Faktur [APAC]")
+			F.Intrinsic.Control.EndIf
+		F.Intrinsic.Control.EndIf
+	F.Intrinsic.Control.EndIf
+F.Intrinsic.Control.EndIf
+Program.Sub.GsGCCSV_RowCellClick.End
+
+Program.Sub.cmdCSV_Click.Start
+V.Local.bExist.Declare
+V.Local.dFaktur.Declare(Date)
+V.Local.fDiscount.Declare
+V.Local.fDPP.Declare
+V.Local.fDPPUM.Declare
+V.Local.fExtension.Declare
+V.Local.fExtensionDisc.Declare
+V.Local.fPPN.Declare
+V.Local.fPPNUM.Declare
+V.Local.fPPNBM.Declare
+V.Local.fPPNBMUM.Declare
+V.Local.fPrice.Declare
+V.Local.i1.Declare
+V.Local.i2.Declare
+V.Local.iExtra.Declare
+V.Local.iInvoiceID.Declare
+V.Local.iLast.Declare
+V.Local.iPeriod.Declare
+V.Local.iRev.Declare
+V.Local.iTransType.Declare
+V.Local.iYear.Declare
+V.Local.sCSVFile.Declare
+V.Local.sCSVFileName.Declare
+V.Local.sCSVFileRow.Declare
+V.Local.sCustomer.Declare
+V.Local.sCustomerAddress.Declare
+V.Local.sCustomerName.Declare
+V.Local.sDateFaktur.Declare
+V.Local.sEFaktur.Declare
+V.Local.sExtraID.Declare
+V.Local.sInvoice.Declare
+V.Local.sNPWP.Declare
+V.Local.sPartInfo.Declare
+V.Local.sRet.Declare
+V.Local.sSQL.Declare
+V.Local.sTransType.Declare
+
+'Check if 1 e-faktur has been selected at least
+V.Local.sCustomer.Set(V.Screen.F_EFakturCSV!txtCust.Text)
+F.Intrinsic.Control.If(V.Local.sCustomer.Trim,=,"")
+	F.Intrinsic.UI.Msgbox("Please select at least 1 E-Faktur to be generated","E-Faktur [APAC]")
+	F.Intrinsic.Control.ExitSub
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.UI.ShowSaveFileDialog("",".csv|",V.Local.sCSVFileName)
+F.Intrinsic.Control.If(V.Local.sCSVFileName,<>,"***CANCEL***")
+	F.Intrinsic.UI.InvokeWaitDialog("Generating CSV","E-Faktur [APAC]")
+	'Field titles
+	F.Intrinsic.String.Build("{0}FK{0},{0}KD_JENIS_TRANSAKSI{0},{0}FG_PENGGANTI{0},{0}NOMOR_FAKTUR{0},{0}MASA_PAJAK{0},{0}TAHUN_PAJAK{0},{0}TANGGAL_FAKTUR{0},{0}NPWP{0},{0}NAMA{0},{0}ALAMAT_LENGKAP{0},{0}JUMLAH_DPP{0},{0}JUMLAH_PPN{0},{0}JUMLAH_PPNBM{0},{0}ID_KETERANGAN_TAMBAHAN{0},{0}FG_UANG_MUKA{0},{0}UANG_MUKA_DPP{0},{0}UANG_MUKA_PPN{0},{0}UANG_MUKA_PPNBM{0},{0}REFERENSI{0}",V.Ambient.DblQuote,V.Local.sCSVFile)
+'	V.Local.sCSVFile.Set("FK,KD_JENIS_TRANSAKSI,FG_PENGGANTI,NOMOR_FAKTUR,MASA_PAJAK,TAHUN_PAJAK,TANGGAL_FAKTUR,NPWP,NAMA,ALAMAT_LENGKAP,JUMLAH_DPP,JUMLAH_PPN,JUMLAH_PPNBM,ID_KETERANGAN_TAMBAHAN,FG_UANG_MUKA,UANG_MUKA_DPP,UANG_MUKA_PPN,UANG_MUKA_PPNBM,REFERENSI")
+	F.Intrinsic.String.Build("{0}LT{0},{0}NPWP{0},{0}NAMA{0},{0}JALAN{0},{0}BLOK{0},{0}NOMOR{0},{0}RT{0},{0}RW{0},{0}KECAMATAN{0},{0}KELURAHAN{0},{0}KABUPATEN{0},{0}PROPINSI{0},{0}KODE_POS{0},{0}NOMOR_TELEPON{0}",V.Ambient.DblQuote,V.Local.sCSVFileRow)
+'	V.Local.sCSVFileRow.Set("LT,NPWP,NAMA,JALAN,BLOK,NOMOR,RT,RW,KECAMATAN,KELURAHAN,KABUPATEN,PROPINSI,KODE_POS,NOMOR_TELEPON")
+	F.Intrinsic.String.Concat(V.Local.sCSVFile,V.Ambient.NewLine,V.Local.sCSVFileRow,V.Local.sCSVFile)
+	F.Intrinsic.String.Build("{0}OF{0},{0}KODE_OBJEK{0},{0}NAMA{0},{0}HARGA_SATUAN{0},{0}JUMLAH_BARANG{0},{0}HARGA_TOTAL{0},{0}DISKON{0},{0}DPP{0},{0}PPN{0},{0}TARIF_PPNBM{0},{0}PPNBM{0}",V.Ambient.DblQuote,V.Local.sCSVFileRow)
+'	V.Local.sCSVFileRow.Set("OF,KODE_OBJEK,NAMA,HARGA_SATUAN,JUMLAH_BARANG,HARGA_TOTAL,DISKON,DPP,PPN,TARIF_PPNBM,PPNBM")
+	F.Intrinsic.String.Concat(V.Local.sCSVFile,V.Ambient.NewLine,V.Local.sCSVFileRow,V.Local.sCSVFile)
+
+	'Go through selected e-faktur
+	F.Intrinsic.Math.Sub(V.DataTable.dtCSV.RowCount--,1,V.Local.iLast)
+	F.Intrinsic.Control.For(V.Local.i1,0,V.Local.iLast,1)
+		'Header info
+		V.Local.sEFaktur.Set(V.DataTable.dtCSV(V.Local.i1).Faktur!FieldValTrim)
+		F.Intrinsic.String.Format(V.DataTable.dtCSV(V.Local.i1).FakturDate!FieldVal,"dd/mm/yyyy",V.Local.sDateFaktur)
+		F.Intrinsic.Date.Month(V.DataTable.dtCSV(V.Local.i1).FakturDate!FieldVal,V.Local.iPeriod)
+		F.Intrinsic.Date.Year(V.DataTable.dtCSV(V.Local.i1).FakturDate!FieldVal,V.Local.iYear)
+		F.Intrinsic.String.Build("select revision, trans_type, extra_id, faktur_id, total_dpp, total_ppn, total_ppnbm, dp_dpp, dp_ppn, dp_ppnbm from gab_4769_efaktur_hf where id = '{0}'",V.DataTable.dtCSV(V.Local.i1).ID!FieldValLong,V.Local.sSQL)
+		F.ODBC.Connection!Conx.OpenLocalRecordsetRO("rst",V.Local.sSQL)
+		'Revision
+		F.Intrinsic.Control.If(V.ODBC.Conx!rst.FieldValLong!revision,>,0)
+			V.Local.iRev.Set(1)
+		F.Intrinsic.Control.Else
+			V.Local.iRev.Set(0)
+		F.Intrinsic.Control.EndIf
+		V.Local.iTransType.Set(V.ODBC.Conx!rst.FieldValLong!trans_type)
+		V.Local.iExtra.Set(V.ODBC.Conx!rst.FieldValLong!extra_id)
+		V.Local.iInvoiceID.Set(V.ODBC.Conx!rst.FieldValLong!faktur_id)
+		'Convert trans type and extra ID
+		F.Intrinsic.String.LPad(V.Local.iTransType,"0",2,V.Local.sTransType)
+		F.Intrinsic.Control.If(V.Local.iExtra,=,0)
+			V.Local.sExtraID.Set("")
+		F.Intrinsic.Control.Else
+			F.Intrinsic.String.LPad(V.Local.iExtra,"0",2,V.Local.sExtraID)
+		F.Intrinsic.Control.EndIf
+		'Total 
+		V.Local.fDPP.Set(V.ODBC.Conx!rst.FieldValFloat!total_dpp)
+		V.Local.fPPN.Set(V.ODBC.Conx!rst.FieldValFloat!total_ppn)
+		V.Local.fPPNBM.Set(V.ODBC.Conx!rst.FieldValFloat!total_ppnbm)
+		V.Local.fDPPUM.Set(V.ODBC.Conx!rst.FieldValFloat!dp_dpp)
+		V.Local.fPPNUM.Set(V.ODBC.Conx!rst.FieldValFloat!dp_ppn)
+		V.Local.fPPNBMUM.Set(V.ODBC.Conx!rst.FieldValFloat!dp_ppnbm)
+		F.ODBC.Conx!rst.Close
+		'Customer info
+		'Process customer name
+		F.ODBC.Connection!Conx.TableExists("GAB_Customer_Long",V.Local.bExist)
+		F.Intrinsic.Control.If(V.Local.bExist,=,True)
+			F.Intrinsic.String.Build("select customerlong from gab_customer_long where customer = '{0}'",V.Local.sCustomer.Trim,V.Local.sSQL)
+			F.ODBC.Connection!Conx.OpenLocalRecordsetRO("rstCust",V.Local.sSQL)
+			F.Intrinsic.Control.If(V.ODBC.Conx!rstCust.EOF,=,False)
+				V.Local.sCustomerName.Set(V.ODBC.Conx!rstCust.FieldValTrim!customerlong)
+			F.Intrinsic.Control.Else
+				F.ODBC.Conx!rstCust.Close
+				F.Intrinsic.String.Build("select name_customer from v_customer_master where customer = '{0}'",V.Local.sCustomer.Trim,V.Local.sSQL)
+				F.ODBC.Connection!Conx.OpenLocalRecordsetRO("rstCust",V.Local.sSQL)
+				V.Local.sCustomerName.set(V.ODBC.Conx!rstCust.FieldValTrim!name_customer)
+			F.Intrinsic.Control.EndIf
+			F.ODBC.Conx!rstCust.Close
+		F.Intrinsic.Control.Else
+			F.Intrinsic.String.Build("select name_customer from v_customer_master where customer = '{0}'",V.Local.sCustomer.Trim,V.Local.sSQL)
+			F.ODBC.Connection!Conx.OpenLocalRecordsetRO("rstCust",V.Local.sSQL)
+			V.Local.sCustomerName.set(V.ODBC.Conx!rstCust.FieldValTrim!name_customer)
+			F.ODBC.Conx!rstCust.Close
+		F.Intrinsic.Control.EndIf
+		'Customer Tax ID number
+		F.Intrinsic.String.Build("select regstr_no as NPWP from v_customer_vat where cust = '{0}'",V.Local.sCustomer.Trim,V.Local.sSQL)
+		F.ODBC.Connection!Conx.OpenLocalRecordsetRO("rst",V.Local.sSQL)
+		V.Local.sNPWP.Set(V.ODBC.Conx!rst.FieldValTrim!NPWP)
+		F.ODBC.Conx!rst.Close
+		'Customer's address
+		F.Intrinsic.String.Build("select c1.address1 as Address1, c1.address2 as Address2, c2.address3 as Address3, c2.address4 as Address4, c2.address5 as Address5 from v_customer_master c1 left join v_customer_intl c2 on c1.customer = c2.customer where c1.customer = '{0}'",V.Local.sCustomer.Trim,V.Local.sSQL)
+		F.ODBC.Connection!Conx.OpenLocalRecordsetRO("rst",V.Local.sSQL)
+		F.Intrinsic.String.Build("{0} {1}",V.ODBC.Conx!rst.FieldValTrim!Address1,V.ODBC.Conx!rst.FieldValTrim!Address2,V.Local.sCustomerAddress)
+		F.Intrinsic.String.Build("{0} {1}",V.Local.sCustomerAddress.Trim,V.ODBC.Conx!rst.FieldValTrim!Address3,V.Local.sCustomerAddress)
+		F.Intrinsic.String.Build("{0} {1}",V.Local.sCustomerAddress.Trim,V.ODBC.Conx!rst.FieldValTrim!Address4,V.Local.sCustomerAddress)
+		F.Intrinsic.String.Build("{0} {1}",V.Local.sCustomerAddress.Trim,V.ODBC.Conx!rst.FieldValTrim!Address5,V.Local.sCustomerAddress)
+		F.ODBC.Conx!rst.Close
+
+		'Compile invoice number in 1 e-faktur (Invoice/Reference)
+		F.Intrinsic.String.Build("select distinct(Invoice) as Invoice, date_invoice as InvoiceDate from gab_4769_efaktur_ln where id = {0} order by line",V.DataTable.dtCSV(V.Local.i1).ID!FieldValLong,V.Local.sSQL)
+		F.Data.DataTable.CreateFromSQL("dtInvoice","conx",V.Local.sSQL)
+		V.Local.sInvoice.Set("Dengan No. Faktur :")
+		F.Intrinsic.Control.For(V.Local.i2,0,V.DataTable.dtInvoice.RowCount--,1)
+			F.Intrinsic.Control.If(V.Local.i2,=,0)
+				F.Intrinsic.String.Build("{0} {1}",V.Local.sInvoice.Trim,V.DataTable.dtInvoice(V.Local.i2).Invoice!FieldValTrim,V.Local.sInvoice)
+			F.Intrinsic.Control.Else
+				F.Intrinsic.String.Build("{0}, {1}",V.Local.sInvoice.Trim,V.DataTable.dtInvoice(V.Local.i2).Invoice!FieldValTrim,V.Local.sInvoice)
+			F.Intrinsic.Control.EndIf
+		F.Intrinsic.Control.Next(V.Local.i2)
+		F.Data.DataTable.Close("dtInvoice")
+		F.Intrinsic.String.Concat(V.Local.sInvoice,".",V.Local.sInvoice)
+		'Compile FK line
+		F.Intrinsic.String.Build("{0}FK{0},{0}{1}{0},{0}{2}{0},{0}{3}{0},{0}{4}{0},{0}{5}{0},{0}{6}{0},{0}{7}{0},{0}{8}{0},{0}{9}{0},{0}{10}{0},{0}{11}{0},{0}{12}{0},{0}{13}{0},{0}{14}{0},{0}{15}{0},{0}{16}{0},{0}{17}{0},{0}{18}{0}",V.Ambient.DblQuote,V.Local.sTransType.Trim,V.Local.iRev,V.Local.sEFaktur,V.Local.iPeriod,V.Local.iYear,V.Local.sDateFaktur,V.Local.sNPWP,V.Local.sCustomerName.Trim,V.Local.sCustomerAddress,V.Local.fDPP,V.Local.fPPN,V.Local.fPPNBM,V.Local.sExtraID.Trim,V.Local.iInvoiceID,V.Local.fDPPUM,V.Local.fPPNUM,V.Local.fPPNBMUM,V.Local.sInvoice,V.Local.sCSVFileRow)
+'		F.Intrinsic.String.Concat("FK,",V.Local.sTransType.Trim,",",V.Local.iRev,",",V.Local.sEFaktur,",",V.Local.iPeriod,",",V.Local.iYear,",",V.Local.sDateFaktur,",",V.Local.sNPWP,",",V.Local.sCustomerName.Trim,",",V.Local.sCustomerAddress,",",V.Local.fDPP,",",V.Local.fPPN,",",V.Local.fPPNBM,",",V.Local.sExtraID.Trim,",",V.Local.iInvoiceID,",",V.Local.fDPPUM,",",V.Local.fPPNUM,",",V.Local.fPPNBMUM,",",V.Local.sInvoice,V.Local.sCSVFileRow)
+		F.Intrinsic.String.Concat(V.Local.sCSVFile,V.Ambient.NewLine,V.Local.sCSVFileRow,V.Local.sCSVFile)
+
+		'Line Info
+		F.Intrinsic.String.Build("select invoice, order_no, order_suffix, order_line, quantity, price, discount, extension, ext_ppn, rate_ppnbm, ext_ppnbm from gab_4769_efaktur_ln where id = {0} order by line",V.DataTable.dtCSV(V.Local.i1).ID!FieldValLong,V.Local.sSQL)
+		F.Data.DataTable.CreateFromSQL("dtInvLine","conx",V.Local.sSQL)
+		F.Intrinsic.Control.For(V.Local.i2,0,V.DataTable.dtInvLine.RowCount--,1)
+			'Get part and description info from either v_shipment_lines or v_order_hist_line
+			F.Intrinsic.String.Build("select part, um_inventory as um, order_desc as description from v_shipment_lines where order_no = '{0}' and order_suffix = '{1}' and order_rec = '{2}' and invoice = '{3}'",V.DataTable.dtInvLine(V.Local.i2).order_no!FieldValTrim,V.DataTable.dtInvLine(V.Local.i2).order_suffix!FieldValTrim,V.DataTable.dtInvLine(V.Local.i2).order_line!FieldValTrim,V.DataTable.dtInvLine(V.Local.i2).invoice!FieldValTrim,V.Local.sSQL)
+			F.ODBC.Connection!conx.OpenLocalRecordsetRO("rst",V.Local.sSQL)
+			F.Intrinsic.Control.If(V.ODBC.conx!rst.EOF,=,False)
+				F.Intrinsic.String.Build("{0} {1} {2} ({3})",V.DataTable.dtInvLine(V.Local.i2).quantity!FieldValFloat,V.ODBC.conx!rst.FieldValTrim!um,V.ODBC.conx!rst.FieldValTrim!description,V.ODBC.conx!rst.FieldValTrim!part,V.Local.sPartInfo)
+			F.Intrinsic.Control.Else
+				F.ODBC.conx!rst.Close
+				F.Intrinsic.String.Build("select part, um, description from v_order_hist_line where order_no = '{0}' and order_suffix = '{1}' and order_line = '{2}' and invoice = '{3}' and customer = '{4}'",V.DataTable.dtInvLine(V.Local.i2).order_no!FieldValTrim,V.DataTable.dtInvLine(V.Local.i2).order_suffix!FieldValTrim,V.DataTable.dtInvLine(V.Local.i2).order_line!FieldValTrim,V.DataTable.dtInvLine(V.Local.i2).invoice!FieldValTrim,V.Local.sCustomer.Trim,V.Local.sSQL)
+				F.ODBC.Connection!conx.OpenLocalRecordsetRO("rst",V.Local.sSQL)
+				F.Intrinsic.String.Build("{0} {1} {2} ({3})",V.DataTable.dtInvLine(V.Local.i2).quantity!FieldValFloat,V.ODBC.conx!rst.FieldValTrim!um,V.ODBC.conx!rst.FieldValTrim!description,V.ODBC.conx!rst.FieldValTrim!part,V.Local.sPartInfo)
+			F.Intrinsic.Control.EndIf
+			F.ODBC.conx!rst.Close
+			F.Intrinsic.Math.Mult(V.DataTable.dtInvLine(V.Local.i2).quantity!FieldVal,V.DataTable.dtInvLine(V.Local.i2).price!FieldValFloat,V.Local.fExtension)
+			F.Intrinsic.Math.Round(V.Local.fExtension,2,V.Local.fExtension)
+			F.Intrinsic.String.Build("{0}OF{0},{0}{0},{0}{1}{0},{0}{2}{0},{0}{3}{0},{0}{4}{0},{0}{5}{0},{0}{6}{0},{0}{7}{0},{0}{8}{0},{0}{9}{0}",V.Ambient.DblQuote,V.Local.sPartInfo.Trim,V.DataTable.dtInvLine(V.Local.i2).price!FieldValFloat,V.DataTable.dtInvLine(V.Local.i2).quantity!FieldValFloat,V.DataTable.dtInvLine(V.Local.i2).extension!FieldValFloat,V.DataTable.dtInvLine(V.Local.i2).discount!FieldValFloat,V.DataTable.dtInvLine(V.Local.i2).extension!FieldValFloat,V.DataTable.dtInvLine(V.Local.i2).ext_ppn!FieldValFloat,V.DataTable.dtInvLine(V.Local.i2).rate_ppnbm!FieldValFloat,V.DataTable.dtInvLine(V.Local.i2).ext_ppnbm!FieldValFloat,V.Local.sCSVFileRow)
+'			F.Intrinsic.String.Concat("OF,,",V.Local.sPartInfo.Trim,",",V.DataTable.dtInvLine(V.Local.i2).price!FieldValFloat,",",V.DataTable.dtInvLine(V.Local.i2).quantity!FieldValLong,",",V.Local.fExtension,",",V.DataTable.dtInvLine(V.Local.i2).discount!FieldValFloat,",",V.DataTable.dtInvLine(V.Local.i2).extension!FieldValFloat,",",V.DataTable.dtInvLine(V.Local.i2).ext_ppn!FieldValFloat,",",V.DataTable.dtInvLine(V.Local.i2).rate_ppnbm!FieldValFloat,",",V.DataTable.dtInvLine(V.Local.i2).ext_ppnbm!FieldValFloat,V.Local.sCSVFileRow)
+			F.Intrinsic.String.Concat(V.Local.sCSVFile,V.Ambient.NewLine,V.Local.sCSVFileRow,V.Local.sCSVFile)
+		F.Intrinsic.Control.Next(V.Local.i2)
+		F.Data.DataTable.Close("dtInvLine")
+	F.Intrinsic.Control.Next(V.Local.i1)
+
+	'Saving the file
+	F.Intrinsic.String.Concat(V.Local.sCSVFileName,".csv",V.Local.sCSVFileName)
+	F.Intrinsic.File.String2File(V.Local.sCSVFileName,V.Local.sCSVFile)
+	'Clean the grid and customer textbox
+	F.Intrinsic.Control.For(V.Local.i1,V.Local.iLast,0,-1)
+		F.Data.DataTable.DeleteRow("dtCSV",V.Local.i1)
+		Gui.F_EFakturCSV.txtCust.Text("")
+	F.Intrinsic.Control.Next(V.Local.i1)
+	F.Intrinsic.UI.CloseWaitDialog
+	F.Intrinsic.Control.CallSub(Unload)
+F.Intrinsic.Control.EndIf
+Program.Sub.cmdCSV_Click.End
+
+Program.Sub.Comments.Start
+${$0$}$E-Faktur CSV Print$}$MHERTANTO$}$28/12/2017 10:53:51 AM$}$False
+${$3$}$0$}$$}$0$}$-1$}$$}$12:00:00 AM$}$This program is used to generate CSV file for submission to Indonesian Tax Authority following the approved format.
+${$5$}$2.0.0.0$}$2
+${$6$}$dyunus$}$20231113114826282$}$xZ6SHi8g7O0Qsxe6AiO2NH3PnOKQRy0TCVytgylKSyK3kV0zcT/BM9sKuoJIphfAKuBVX0mgMCg=
+Program.Sub.Comments.End
