@@ -1,0 +1,900 @@
+﻿Program.Sub.ScreenSU.Start
+Gui.frmReceipts..Create
+Gui.frmReceipts..Caption("E-Faktur Dashboard")
+Gui.frmReceipts..Size(15045,10095)
+Gui.frmReceipts..MinX(15045)
+Gui.frmReceipts..MinY(10095)
+Gui.frmReceipts..Position(0,0)
+Gui.frmReceipts..BackColor(-2147483633)
+Gui.frmReceipts..MousePointer(0)
+Gui.frmReceipts..Event(UnLoad,Unload)
+Gui.frmReceipts.picGSSLogo.Create(PictureBox)
+Gui.frmReceipts.picGSSLogo.Size(4125,960)
+Gui.frmReceipts.picGSSLogo.Position(5700,45)
+Gui.frmReceipts.tabReceipts.Create(Tab)
+Gui.frmReceipts.tabReceipts.Size(14865,7875)
+Gui.frmReceipts.tabReceipts.Position(30,1095)
+Gui.frmReceipts.tabReceipts.Tabs(1)
+Gui.frmReceipts.tabReceipts.SetTab(0)
+Gui.frmReceipts.tabReceipts.Caption("E-Faktur")
+'Gui.frmReceipts.tabReceipts.SetTab(1)
+'Gui.frmReceipts.tabReceipts.Caption("Stand Alone")
+Gui.frmReceipts.frameCutoff.Create(Frame)
+Gui.frmReceipts.frameCutoff.Size(2590,1070)
+Gui.frmReceipts.frameCutoff.Position(30,60)
+Gui.frmReceipts.frameCutoff.Caption("Cutoff Date")
+Gui.frmReceipts.lblBeg.Create(Label,"Beg. Date",True,1215,255,0,90,325,True,0,"Arial",8,-2147483633,0)
+Gui.frmReceipts.lblBeg.Parent("frameCutoff")
+Gui.frmReceipts.dtpFromCutoff.Create(DatePicker)
+Gui.frmReceipts.dtpFromCutoff.Size(1485,285)
+Gui.frmReceipts.dtpFromCutoff.Position(960,225)
+Gui.frmReceipts.dtpFromCutoff.Parent("frameCutoff")
+Gui.frmReceipts.dtpFromCutoff.Enabled(False)
+Gui.frmReceipts.lblEnd.Create(Label,"End. Date",True,1215,255,0,90,800,True,0,"Arial",8,-2147483633,0)
+Gui.frmReceipts.lblEnd.Parent("frameCutoff")
+Gui.frmReceipts.dtpCutoff.Create(DatePicker)
+Gui.frmReceipts.dtpCutoff.Size(1485,285)
+Gui.frmReceipts.dtpCutoff.Position(960,700)
+Gui.frmReceipts.dtpCutoff.Parent("frameCutoff")
+Gui.frmReceipts.dtpCutoff.Enabled(False)
+Gui.frmReceipts.chkSelectAll.Create(CheckBox)
+Gui.frmReceipts.chkSelectAll.Size(1350,225)
+Gui.frmReceipts.chkSelectAll.Position(2700,890)
+Gui.frmReceipts.chkSelectAll.Caption("Select All")
+'Gui.frmReceipts.chkSelectAll.Parent("frameLine")
+Gui.frmReceipts.chkSelectAll.Event(Click,ChkSelectAll)
+Gui.frmReceipts.lblStatus.Create(Label,"Loading Data....",False,1935,255,0,2700,90,True,0,"Arial",8,-2147483633,0)
+Gui.frmReceipts.pbStatus.Create(ProgressBar)
+Gui.frmReceipts.pbStatus.Size(1935,255)
+Gui.frmReceipts.pbStatus.Position(2700,300)
+Gui.frmReceipts.pbStatus.Visible(False)
+Gui.frmReceipts.GsGCEfaktur.Create(GsGridControl)
+Gui.frmReceipts.GsGCEfaktur.Parent("tabReceipts",0)
+Gui.frmReceipts.GsGCEfaktur.Size(14765,7575)
+Gui.frmReceipts.GsGCEfaktur.Position(0,0)
+Gui.frmReceipts.GsGCEfaktur.Event(ColumnFilterChanged,GsGCEfaktur_ColumnFilterChanged)
+Gui.frmReceipts.GsGCEfaktur.Event(RowCellClick,CellClick)
+'Gui.frmReceipts.GsGCSA.Create(GsGridControl)
+'Gui.frmReceipts.GsGCSA.Parent("tabReceipts",1)
+'Gui.frmReceipts.GsGCSA.Size(14765,7575)
+'Gui.frmReceipts.GsGCSA.Position(0,0)
+'Gui.frmReceipts.GsGCSA.Event(ColumnFilterChanged,GsGCSA_ColumnFilterChanged)
+Gui.frmReceipts.cmdRefresh.Create(Button)
+Gui.frmReceipts.cmdRefresh.Size(975,345)
+Gui.frmReceipts.cmdRefresh.Position(2700,440)
+Gui.frmReceipts.cmdRefresh.Caption("REFRESH")
+Gui.frmReceipts.cmdRefresh.Event(Click,ClickRefresh)
+Program.Sub.ScreenSU.End
+
+Program.Sub.Preflight.Start
+	V.Global.bLoadDate.Declare
+	V.Global.sGvReceipts.Declare
+	V.Global.sgvEfaktur.Declare
+	V.Global.sXStatus.Declare
+	V.Global.iReportID.Declare
+	V.Global.sFilter.Declare
+	V.Global.bFilter.Declare
+	V.Global.iRowCount.Declare
+Program.Sub.Preflight.End
+
+Program.Sub.Main.Start
+	F.Intrinsic.Control.Try
+	V.Local.sError.Declare
+
+	V.Local.sGSSLogo.Declare
+	V.Local.sIcon.Declare
+	V.Local.sDir.Declare
+	V.Local.bDir.Declare
+	V.Local.sPDSN.Declare
+	V.Local.bExist.Declare
+
+	F.Intrinsic.String.Build("{0}\GAB\GAS\gss2.ico",V.Caller.PluginsDir,v.Local.sIcon)
+	F.Intrinsic.String.Build("{0}\GAB\GAS\GAB_GSS_Logo_Green_Dash.png",V.Caller.PluginsDir,V.Local.sGssLogo)
+	Gui.frmReceipts.picGSSLogo.Picture(V.Local.sGSSLogo)
+	Gui.frmReceipts..Icon(V.Local.sIcon)
+	Gui.frmReceipts.dtpCutoff.Enabled(True)
+	Gui.frmReceipts.dtpFromCutoff.Enabled(True)
+
+	F.Intrinsic.Control.CallSub(SetAnchors)
+	F.Intrinsic.Control.CallSub(SetContextMenus)
+
+	F.ODBC.Connection!conx.OpenCompanyConnection(300)
+	
+	F.ODBC.Connection!conx.TableExists("GAB_4769_ROUNDING",V.Local.bExist)
+	F.Intrinsic.Control.If(V.Local.bExist,=,False)
+		F.Intrinsic.UI.Msgbox("Please setup rounding decimal type first from System Support > Administration > Setup Rounding Decimal (4769) before running this menu.","Indonesian E-faktur (4769)")
+		F.Intrinsic.Control.CallSub(Unload)	
+	F.Intrinsic.Control.EndIf
+	
+	F.ODBC.Connection!Conx.TableExists("GAB_4769_EFAKTUR_HF",V.Local.bExist)
+	F.Intrinsic.Control.If(V.Local.bExist,=,False)
+		F.Intrinsic.UI.InvokeWaitDialog("E-Faktur program is run for the first time. Please wait while custom tables are generated.","E-Faktur [APAC]")
+		F.ODBC.Connection!Conx.Execute("CREATE TABLE GAB_4769_EFAKTUR_HF (ID IDENTITY NOT NULL, TRANS_TYPE INTEGER, REVISION INTEGER, E_FAKTUR VARCHAR(19), DATE_FAKTUR DATE, CUSTOMER VARCHAR(6), EXTRA_ID INTEGER, FAKTUR_ID INTEGER, TOTAL_DPP DOUBLE, TOTAL_PPN DOUBLE, TOTAL_PPNBM DOUBLE, DP_DPP DOUBLE, DP_PPN DOUBLE, DP_PPNBM DOUBLE, USERID VARCHAR(8), CANCELLED INTEGER, PRIMARY KEY (ID));")
+		F.ODBC.Connection!Conx.Execute("CREATE TABLE GAB_4769_EFAKTUR_LN (ID INTEGER, LINE INTEGER, INVOICE VARCHAR(6), DATE_INVOICE DATE, ORDER_NO VARCHAR(7), ORDER_SUFFIX VARCHAR(4), ORDER_LINE VARCHAR(4), QUANTITY INTEGER, PRICE DOUBLE, DISCOUNT DOUBLE, EXTENSION DOUBLE, EXT_PPN DOUBLE, RATE_PPNBM INTEGER, EXT_PPNBM DOUBLE, PRIMARY KEY (ID,LINE));")
+		F.Intrinsic.UI.CloseWaitDialog
+	F.Intrinsic.Control.EndIf
+
+	'Check Directory
+	F.Intrinsic.String.Build("{0}\Grids",V.Caller.GasDir,V.Caller.User,V.Local.sDir)
+	F.Intrinsic.File.DirExists(V.Local.sDir,V.Local.bDir)
+	F.Intrinsic.Control.If(V.Local.bDir,=,False)
+		F.Intrinsic.File.CreateDir(V.Local.sDir)
+	F.Intrinsic.Control.EndIf
+	
+	F.Global.BI.GetIDFromName("SF_PDK_COFC.rpt",V.Global.iReportID)
+
+	'Set Serialize Files
+	F.Intrinsic.String.Build("{0}\Grids\GAB_{1}_CofCDashboard.txt",V.Caller.GasDir,V.Caller.User,V.Global.sGvReceipts)
+
+'	Gui.frmReceipts.tabInv.TabVisible(1,False)
+'	Gui.frmReceipts.tabInv.TabVisible(2,False)
+	Gui.frmReceipts.tabReceipts.SetTab(0)
+
+	Gui.frmReceipts..Show
+	F.Intrinsic.Control.CallSub(SetTabAnchors)
+
+	F.Intrinsic.Control.Catch
+		F.Intrinsic.String.Build("Project: {0}{1}{1}Subroutine: {2}{1}Error Occurred {3} with description {4}{1}{1}GAB Version: {5}",V.Ambient.ScriptPath,V.Ambient.Newline,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Ambient.GABVersion,V.Local.sError)
+		F.Intrinsic.UI.Msgbox(V.Local.sError)
+		F.Intrinsic.Control.End
+
+	F.Intrinsic.Control.EndTry
+Program.Sub.Main.End
+
+Program.Sub.CellClick.Start
+V.Local.sTitles.Declare
+V.Local.iWidths.Declare
+V.Local.sRet.Declare
+V.Local.sQuery.Declare
+V.Local.sRows.Declare
+V.Local.sFilter.Declare
+V.Local.i1.Declare
+
+F.Intrinsic.Control.If(V.Args.Column,=,"Checklist")
+	F.Intrinsic.Control.If(V.DataTable.dtEfaktur(V.Args.RowIndex).Checklist!FieldVal,=,False)
+			F.Data.DataTable.SetValue("dtEfaktur",V.Args.RowIndex,"Checklist",True)
+	F.Intrinsic.Control.Else
+			F.Data.DataTable.SetValue("dtEfaktur",V.Args.RowIndex,"Checklist",False)
+	F.Intrinsic.Control.EndIf
+F.Intrinsic.Control.EndIf	
+Program.Sub.CellClick.End
+
+Program.Sub.ChkSelectAll.Start
+V.Local.i1.Declare
+V.Local.iLastIndex.Declare
+V.Local.iLine.Declare
+V.Local.iWidths.Declare
+V.Local.sCustomer.Declare
+V.Local.sRet.Declare
+V.Local.sSQL.Declare
+V.Local.sTitles.Declare
+V.Local.bFilter.Declare
+V.Local.sFilter.Declare
+V.Local.iRow.Declare
+V.Local.sRows.Declare
+
+
+'	Function.Intrinsic.Control.If(V.Global.bFilter,=,True)
+F.Intrinsic.Control.If(V.Screen.frmReceipts!chkSelectAll.value,=,0)
+		F.Intrinsic.Control.If(V.DataTable.dtEfaktur.Exists,=,True)
+'		F.Intrinsic.Control.If(V.DataTable.dtEfaktur.RowCount,>,0)
+		Gui.frmReceipts.GsGCEfaktur.GetRowCount("gvEfaktur",V.Local.iRow)
+		F.Intrinsic.Math.Sub(V.Local.iRow,1,V.Local.iRow)
+		F.Data.DataTable.Select("dtEfaktur",V.Global.sFilter,V.Local.sRows)
+		F.Intrinsic.String.Split(V.Local.sRows,"*!*",V.Local.sRows)
+		F.Intrinsic.Control.If(V.Local.sRows.UBound,>=,0)
+			F.Intrinsic.Control.For(V.Local.i1,0,V.Local.sRows.UBound,1)
+'			F.Intrinsic.Control.For(V.Local.i1,0,V.Global.iRowCount,1)
+		F.Data.DataTable.SetValue("dtEfaktur",V.Local.sRows(V.Local.i1),"Checklist",False)
+		F.Intrinsic.Control.Next(V.Local.i1)
+		F.Intrinsic.Control.EndIf	
+	F.Intrinsic.Control.EndIf
+F.Intrinsic.Control.Else
+	F.Intrinsic.Control.If(V.DataTable.dtEfaktur.Exists,=,True)
+'		F.Intrinsic.Control.If(V.DataTable.dtEfaktur.RowCount,>,0)
+		Gui.frmReceipts.GsGCEfaktur.GetRowCount("gvEfaktur",V.Local.iRow)
+		F.Intrinsic.Math.Sub(V.Local.iRow,1,V.Local.iRow)
+		F.Data.DataTable.Select("dtEfaktur",V.Global.sFilter,V.Local.sRows)
+		F.Intrinsic.String.Split(V.Local.sRows,"*!*",V.Local.sRows)
+		F.Intrinsic.Control.If(V.Local.sRows.UBound,>=,0)
+			F.Intrinsic.Control.For(V.Local.i1,0,V.Local.sRows.UBound,1)
+'			F.Intrinsic.Control.For(V.Local.i1,0,V.Global.iRowCount,1)
+		F.Data.DataTable.SetValue("dtEfaktur",V.Local.sRows(V.Local.i1),"Checklist",True)
+		F.Intrinsic.Control.Next(V.Local.i1)
+		F.Intrinsic.Control.EndIf	
+	F.Intrinsic.Control.EndIf
+F.Intrinsic.Control.EndIf
+Program.Sub.ChkSelectAll.End
+
+Program.Sub.Unload.Start
+	F.Intrinsic.Control.Try
+	V.Local.sError.Declare
+
+	F.Intrinsic.Control.If(V.Global.bLoadDate)
+		F.Intrinsic.Control.CallSub(Serialize)
+	F.Intrinsic.Control.EndIf
+
+	F.ODBC.Connection!conx.Close
+	F.Intrinsic.Control.End
+
+	F.Intrinsic.Control.Catch
+		F.Intrinsic.String.Build("Project: {0}{1}{1}Subroutine: {2}{1}Error Occurred {3} with description {4}{1}{1}GAB Version: {5}",V.Ambient.ScriptPath,V.Ambient.Newline,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Ambient.GABVersion,V.Local.sError)
+		F.Intrinsic.UI.Msgbox(V.Local.sError)
+		F.Intrinsic.Control.End
+
+	F.Intrinsic.Control.EndTry
+Program.Sub.Unload.End
+
+Program.Sub.SetAnchors.Start
+	F.Intrinsic.Control.Try
+	V.Local.sError.Declare
+
+	'0 - None
+	'1 - Top
+	'2 - Bottom
+	'4 - Left
+	'8 - Right
+
+	Gui.frmReceipts.picGssLogo.Anchor(1)
+	Gui.frmReceipts.tabReceipts.Anchor(15)
+'	Gui.frmReceipts.frameTotals.Anchor(10)
+'	Gui.frmReceipts.cmdDelete.Anchor(9)
+
+	'Align TextBoxes Right
+'	Gui.frmReceipts.txtQtyOnHand.Alignment(1)
+'	Gui.frmReceipts.txtQtyOnOrder.Alignment(1)
+'	Gui.frmReceipts.txtQtyReqd.Alignment(1)
+'	Gui.frmReceipts.txtPrice.Alignment(1)
+'	Gui.frmReceipts.txtCost.Alignment(1)
+'	Gui.frmReceipts.txtExtPrice.Alignment(1)
+'	Gui.frmReceipts.txtExtCost.Alignment(1)
+
+	F.Intrinsic.Control.Catch
+		F.Intrinsic.String.Build("Project: {0}{1}{1}Subroutine: {2}{1}Error Occurred {3} with description {4}{1}{1}GAB Version: {5}",V.Ambient.ScriptPath,V.Ambient.Newline,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Ambient.GABVersion,V.Local.sError)
+		F.Intrinsic.UI.Msgbox(V.Local.sError)
+		F.Intrinsic.Control.End
+
+	F.Intrinsic.Control.EndTry
+Program.Sub.SetAnchors.End
+
+Program.Sub.SetTabAnchors.Start
+	F.Intrinsic.Control.Try
+	V.Local.sError.Declare
+
+	'0 - None
+	'1 - Top
+	'2 - Bottom
+	'4 - Left
+	'8 - Right
+
+'	Gui.frmReceipts.GsGCSA.Anchor(15)
+	Gui.frmReceipts.GsGCEfaktur.Anchor(15)
+
+	F.Intrinsic.Control.Catch
+		F.Intrinsic.String.Build("Project: {0}{1}{1}Subroutine: {2}{1}Error Occurred {3} with description {4}{1}{1}GAB Version: {5}",V.Ambient.ScriptPath,V.Ambient.Newline,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Ambient.GABVersion,V.Local.sError)
+		F.Intrinsic.UI.Msgbox(V.Local.sError)
+		F.Intrinsic.Control.End 
+	F.Intrinsic.Control.EndTry
+Program.Sub.SetTabAnchors.End
+
+Program.Sub.SetContextMenus.Start
+	F.Intrinsic.Control.Try
+	V.Local.sError.Declare
+	V.Local.bEditGrp.Declare
+	
+	F.Global.Security.IsInGroup(v.Caller.User,"EFAKTUR",v.Local.bEditGrp)
+	F.Intrinsic.Control.If(V.Local.bEditGrp,=,True)
+	Gui.frmReceipts..ContextMenuCreate("ctxXStatus")
+	Gui.frmReceipts.GsGCEfaktur.ContextMenuAttach("ctxXStatus")
+	Gui.frmReceipts..ContextMenuAddItem("ctxXStatus","Refresh",0,"Refresh")
+	Gui.frmReceipts..ContextMenuAddItem("ctxXStatus","Export",0,"Export Excel")
+	Gui.frmReceipts..ContextMenuAddItem("ctxXStatus","Print",0,"Export CSV")	
+	Gui.frmReceipts..ContextMenuAddItem("ctxXStatus","ResetColumns",0,"Reset Columns")
+	Gui.frmReceipts..ContextMenuAddItem("ctxXStatus","Delete",0,"Delete")
+	Gui.frmReceipts..ContextMenuSetItemEventHandler("ctxXStatus","Refresh","LoaddtEfaktur")
+	Gui.frmReceipts..ContextMenuSetItemEventHandler("ctxXStatus","Export","MenuClickExport")
+	Gui.frmReceipts..ContextMenuSetItemEventHandler("ctxXStatus","Print","MenuClickPrint")
+	Gui.frmReceipts..ContextMenuSetItemEventHandler("ctxXStatus","ResetColumns","MenuClickResetColumns")
+	Gui.frmReceipts..ContextMenuSetItemEventHandler("ctxXStatus","Delete","MenuClickDelete")
+	F.Intrinsic.Control.Else
+	Gui.frmReceipts..ContextMenuCreate("ctxXStatus")
+	Gui.frmReceipts.GsGCEfaktur.ContextMenuAttach("ctxXStatus")
+	Gui.frmReceipts..ContextMenuAddItem("ctxXStatus","Refresh",0,"Refresh")
+	Gui.frmReceipts..ContextMenuAddItem("ctxXStatus","Export",0,"Export Excel")
+	Gui.frmReceipts..ContextMenuAddItem("ctxXStatus","Print",0,"Export CSV")	
+	Gui.frmReceipts..ContextMenuAddItem("ctxXStatus","ResetColumns",0,"Reset Columns")
+	Gui.frmReceipts..ContextMenuSetItemEventHandler("ctxXStatus","Refresh","LoaddtEfaktur")
+	Gui.frmReceipts..ContextMenuSetItemEventHandler("ctxXStatus","Export","MenuClickExport")
+	Gui.frmReceipts..ContextMenuSetItemEventHandler("ctxXStatus","Print","MenuClickPrint")
+	Gui.frmReceipts..ContextMenuSetItemEventHandler("ctxXStatus","ResetColumns","MenuClickResetColumns")
+
+	F.Intrinsic.Control.EndIf
+
+	F.Intrinsic.Control.Catch
+		F.Intrinsic.String.Build("Project: {0}{1}{1}Subroutine: {2}{1}Error Occurred {3} with description {4}{1}{1}GAB Version: {5}",V.Ambient.ScriptPath,V.Ambient.Newline,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Ambient.GABVersion,V.Local.sError)
+		F.Intrinsic.UI.Msgbox(V.Local.sError)
+		F.Intrinsic.Control.End
+
+	F.Intrinsic.Control.EndTry
+Program.Sub.SetContextMenus.End
+
+Program.Sub.MenuClickExport.Start
+	F.Intrinsic.Control.Try
+	V.Local.sError.Declare
+
+	V.Local.sFileExport.Declare
+	V.Local.bExcel.Declare
+	V.Local.bFileLocked.Declare
+	V.Local.sMsg.Declare
+
+	F.Automation.MSExcel.CheckPresence(V.Local.bExcel)
+
+F.Intrinsic.Control.If(V.Screen.frmReceipts!tabReceipts.Tab,=,0)	
+	F.Intrinsic.Control.If(V.Local.bExcel)
+		F.Intrinsic.String.Build("{0}\GAB_4769_EFAKTUR.xlsx",V.Caller.LocalGssTempDir,V.Local.sFileExport)
+		F.Intrinsic.File.IsFileLocked(V.Local.sFileExport,V.Local.bFileLocked)
+		F.Intrinsic.Control.If(V.Local.bFileLocked)
+			F.Intrinsic.String.Build("File is already open. Please close and export again.{0}File: {1}",V.Ambient.NewLine,V.Local.sFileExport,V.Local.sMsg)
+			F.Intrinsic.UI.Msgbox(V.Local.sMsg,"File In Use")
+		F.Intrinsic.Control.Else
+			Gui.frmReceipts.GsGCEfaktur.Export(V.Local.sFileExport,"xlsx")
+			F.Intrinsic.Task.ShellExec(0,"",V.Local.sFileExport,"","",1)
+		F.Intrinsic.Control.EndIf
+	F.Intrinsic.Control.Else
+		F.Intrinsic.String.Build("{0}\GAB_4769_EFAKTUR.csv",V.Caller.LocalGssTempDir,V.Local.sFileExport)
+		F.Intrinsic.File.IsFileLocked(V.Local.sFileExport,V.Local.bFileLocked)
+		F.Intrinsic.Control.If(V.Local.bFileLocked)
+			F.Intrinsic.String.Build("File is already open. Please close and export again.{0}File: {1}",V.Ambient.NewLine,V.Local.sFileExport,V.Local.sMsg)
+			F.Intrinsic.UI.Msgbox(V.Local.sMsg,"File In Use")
+		F.Intrinsic.Control.Else
+			Gui.frmReceipts.GsGCEfaktur.Export(V.Local.sFileExport,"csv")
+		F.Intrinsic.Control.EndIf
+		F.Intrinsic.Task.ShellExec(0,"",V.Local.sFileExport,"","",1)
+	F.Intrinsic.Control.EndIf
+F.Intrinsic.Control.elseIf(V.Screen.frmReceipts!tabReceipts.Tab,=,1)		
+	F.Intrinsic.Control.If(V.Local.bExcel)
+		F.Intrinsic.String.Build("{0}\GAB_4769_EFAKTUR.xlsx",V.Caller.LocalGssTempDir,V.Local.sFileExport)
+		F.Intrinsic.File.IsFileLocked(V.Local.sFileExport,V.Local.bFileLocked)
+		F.Intrinsic.Control.If(V.Local.bFileLocked)
+			F.Intrinsic.String.Build("File is already open. Please close and export again.{0}File: {1}",V.Ambient.NewLine,V.Local.sFileExport,V.Local.sMsg)
+			F.Intrinsic.UI.Msgbox(V.Local.sMsg,"File In Use")
+		F.Intrinsic.Control.Else
+			'Gui.frmReceipts.GsGCSA.Export(V.Local.sFileExport,"xlsx")
+			F.Intrinsic.Task.ShellExec(0,"",V.Local.sFileExport,"","",1)
+		F.Intrinsic.Control.EndIf
+	F.Intrinsic.Control.Else
+		F.Intrinsic.String.Build("{0}\GAB_4769_EFAKTUR.csv",V.Caller.LocalGssTempDir,V.Local.sFileExport)
+		F.Intrinsic.File.IsFileLocked(V.Local.sFileExport,V.Local.bFileLocked)
+		F.Intrinsic.Control.If(V.Local.bFileLocked)
+			F.Intrinsic.String.Build("File is already open. Please close and export again.{0}File: {1}",V.Ambient.NewLine,V.Local.sFileExport,V.Local.sMsg)
+			F.Intrinsic.UI.Msgbox(V.Local.sMsg,"File In Use")
+		F.Intrinsic.Control.Else
+			'Gui.frmReceipts.GsGCSA.Export(V.Local.sFileExport,"csv")
+		F.Intrinsic.Control.EndIf
+		F.Intrinsic.Task.ShellExec(0,"",V.Local.sFileExport,"","",1)
+	F.Intrinsic.Control.EndIf
+F.Intrinsic.Control.EndIf
+
+	F.Intrinsic.Control.Catch
+		F.Intrinsic.String.Build("Project: {0}{1}{1}Subroutine: {2}{1}Error Occurred {3} with description {4}{1}{1}GAB Version: {5}",V.Ambient.ScriptPath,V.Ambient.Newline,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Ambient.GABVersion,V.Local.sError)
+		F.Intrinsic.UI.Msgbox(V.Local.sError)
+		F.Intrinsic.Control.End
+
+	F.Intrinsic.Control.EndTry
+Program.Sub.MenuClickExport.End
+
+Program.Sub.MenuClickResetColumns.Start
+	F.Intrinsic.Control.Try
+	V.Local.sError.Declare
+
+	V.Local.bSerialize.Declare
+
+	F.Intrinsic.Control.SelectCase(V.Args.MenuName)
+		F.Intrinsic.Control.Case("CTXXSTATUS")
+			F.Intrinsic.File.Exists(V.Global.sXStatus,V.Local.bSerialize)
+			F.Intrinsic.Control.If(V.Local.bSerialize)
+				F.Intrinsic.File.DeleteFile(V.Global.sXStatus)
+			F.Intrinsic.Control.EndIf
+'			F.Intrinsic.Control.CallSub(LoadDtSA)
+			F.Intrinsic.Control.CallSub(loaddtEfaktur)
+	F.Intrinsic.Control.EndSelect
+
+	F.Intrinsic.Control.Catch
+		F.Intrinsic.String.Build("Project: {0}{1}{1}Subroutine: {2}{1}Error Occurred {3} with description {4}{1}{1}GAB Version: {5}",V.Ambient.ScriptPath,V.Ambient.Newline,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Ambient.GABVersion,V.Local.sError)
+		F.Intrinsic.UI.Msgbox(V.Local.sError)
+		F.Intrinsic.Control.End
+
+	F.Intrinsic.Control.EndTry
+Program.Sub.MenuClickResetColumns.End
+
+Program.Sub.ClickRefresh.Start
+	F.Intrinsic.Control.Try
+	V.Local.sError.Declare
+
+	F.Intrinsic.Control.If(V.Global.bLoadDate)
+		F.Intrinsic.Control.CallSub(Serialize)
+	F.Intrinsic.Control.EndIf
+
+'	F.Intrinsic.Control.If(V.DataTable.dtEfaktur.Exists)
+'		F.ODBC.Connection!conx.Close
+'	F.Intrinsic.Control.EndIf
+
+	F.Intrinsic.Control.BlockEvents
+	F.Intrinsic.Control.CallSub(loaddtEfaktur)
+'	F.Intrinsic.Control.CallSub(LoadDtSA)
+	F.Intrinsic.Control.UnBlockEvents
+	F.Intrinsic.Control.CallSub(Deserialize)
+
+	F.Intrinsic.Control.Catch
+		F.Intrinsic.String.Build("Project: {0}{1}{1}Subroutine: {2}{1}Error Occurred {3} with description {4}{1}{1}GAB Version: {5}",V.Ambient.ScriptPath,V.Ambient.Newline,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Ambient.GABVersion,V.Local.sError)
+		F.Intrinsic.UI.Msgbox(V.Local.sError)
+		F.Intrinsic.Control.End
+
+	F.Intrinsic.Control.EndTry
+Program.Sub.ClickRefresh.End
+
+Program.Sub.MenuClickPrint.Start
+V.Local.bExist.Declare
+V.Local.dFaktur.Declare(Date)
+V.Local.fDiscount.Declare
+V.Local.fDPP.Declare
+V.Local.fDPPUM.Declare
+V.Local.fExtension.Declare
+V.Local.fExtensionDisc.Declare
+V.Local.fPPN.Declare
+V.Local.fPPNUM.Declare
+V.Local.fPPNBM.Declare
+V.Local.fPPNBMUM.Declare
+V.Local.fPrice.Declare
+V.Local.i1.Declare
+V.Local.i2.Declare
+V.Local.iExtra.Declare
+V.Local.iInvoiceID.Declare
+V.Local.iLast.Declare
+V.Local.iPeriod.Declare
+V.Local.iRev.Declare
+V.Local.iTransType.Declare
+V.Local.iYear.Declare
+V.Local.sCSVFile.Declare
+V.Local.sCSVFileName.Declare
+V.Local.sCSVFileRow.Declare
+V.Local.sCustomer.Declare
+V.Local.sCustomerAddress.Declare
+V.Local.sCustomerName.Declare
+V.Local.sDateFaktur.Declare
+V.Local.sEFaktur.Declare
+V.Local.sExtraID.Declare
+V.Local.sInvoice.Declare
+V.Local.sNPWP.Declare
+V.Local.sPartInfo.Declare
+V.Local.sRet.Declare
+V.Local.sSQL.Declare
+V.Local.sTransType.Declare
+
+'Check if 1 e-faktur has been selected at least
+'V.Local.sCustomer.Set(V.Screen.F_EFakturCSV!txtCust.Text)
+'F.Intrinsic.Control.If(V.Local.sCustomer.Trim,=,"")
+'	F.Intrinsic.UI.Msgbox("Please select at least 1 E-Faktur to be generated","E-Faktur [APAC]")
+'	F.Intrinsic.Control.ExitSub
+'F.Intrinsic.Control.EndIf
+
+Gui.frmReceipts.GsGCEfaktur.Visible(False)
+
+F.Intrinsic.UI.ShowSaveFileDialog("",".csv|",V.Local.sCSVFileName)
+F.Intrinsic.Control.If(V.Local.sCSVFileName,<>,"***CANCEL***")
+	F.Intrinsic.UI.InvokeWaitDialog("Generating CSV","E-Faktur [APAC]")
+	'Field titles
+	F.Intrinsic.String.Build("{0}FK{0},{0}KD_JENIS_TRANSAKSI{0},{0}FG_PENGGANTI{0},{0}NOMOR_FAKTUR{0},{0}MASA_PAJAK{0},{0}TAHUN_PAJAK{0},{0}TANGGAL_FAKTUR{0},{0}NPWP{0},{0}NAMA{0},{0}ALAMAT_LENGKAP{0},{0}JUMLAH_DPP{0},{0}JUMLAH_PPN{0},{0}JUMLAH_PPNBM{0},{0}ID_KETERANGAN_TAMBAHAN{0},{0}FG_UANG_MUKA{0},{0}UANG_MUKA_DPP{0},{0}UANG_MUKA_PPN{0},{0}UANG_MUKA_PPNBM{0},{0}REFERENSI{0}",V.Ambient.DblQuote,V.Local.sCSVFile)
+'	V.Local.sCSVFile.Set("FK,KD_JENIS_TRANSAKSI,FG_PENGGANTI,NOMOR_FAKTUR,MASA_PAJAK,TAHUN_PAJAK,TANGGAL_FAKTUR,NPWP,NAMA,ALAMAT_LENGKAP,JUMLAH_DPP,JUMLAH_PPN,JUMLAH_PPNBM,ID_KETERANGAN_TAMBAHAN,FG_UANG_MUKA,UANG_MUKA_DPP,UANG_MUKA_PPN,UANG_MUKA_PPNBM,REFERENSI")
+	F.Intrinsic.String.Build("{0}LT{0},{0}NPWP{0},{0}NAMA{0},{0}JALAN{0},{0}BLOK{0},{0}NOMOR{0},{0}RT{0},{0}RW{0},{0}KECAMATAN{0},{0}KELURAHAN{0},{0}KABUPATEN{0},{0}PROPINSI{0},{0}KODE_POS{0},{0}NOMOR_TELEPON{0}",V.Ambient.DblQuote,V.Local.sCSVFileRow)
+'	V.Local.sCSVFileRow.Set("LT,NPWP,NAMA,JALAN,BLOK,NOMOR,RT,RW,KECAMATAN,KELURAHAN,KABUPATEN,PROPINSI,KODE_POS,NOMOR_TELEPON")
+	F.Intrinsic.String.Concat(V.Local.sCSVFile,V.Ambient.NewLine,V.Local.sCSVFileRow,V.Local.sCSVFile)
+	F.Intrinsic.String.Build("{0}OF{0},{0}KODE_OBJEK{0},{0}NAMA{0},{0}HARGA_SATUAN{0},{0}JUMLAH_BARANG{0},{0}HARGA_TOTAL{0},{0}DISKON{0},{0}DPP{0},{0}PPN{0},{0}TARIF_PPNBM{0},{0}PPNBM{0}",V.Ambient.DblQuote,V.Local.sCSVFileRow)
+'	V.Local.sCSVFileRow.Set("OF,KODE_OBJEK,NAMA,HARGA_SATUAN,JUMLAH_BARANG,HARGA_TOTAL,DISKON,DPP,PPN,TARIF_PPNBM,PPNBM")
+	F.Intrinsic.String.Concat(V.Local.sCSVFile,V.Ambient.NewLine,V.Local.sCSVFileRow,V.Local.sCSVFile)
+
+	'Go through selected e-faktur
+'	F.Intrinsic.Math.Sub(V.DataTable.dtEfaktur.RowCount--,1,V.Local.iLast)
+	F.Intrinsic.Control.For(V.Local.i1,0,V.DataTable.dtEfaktur.RowCount--,1)
+		'Header info
+		F.Intrinsic.Control.If(V.DataTable.dtEfaktur(V.Local.i1).Checklist!FieldVal,=,True)
+		V.Local.sCustomer.Set(V.DataTable.dtEfaktur(V.Local.i1).Customer!FieldValTrim)
+		V.Local.sEFaktur.Set(V.DataTable.dtEfaktur(V.Local.i1).EFaktur!FieldValTrim)
+		F.Intrinsic.String.Format(V.DataTable.dtEfaktur(V.Local.i1).Date_Faktur!FieldVal,"dd/mm/yyyy",V.Local.sDateFaktur)
+		F.Intrinsic.Date.Month(V.DataTable.dtEfaktur(V.Local.i1).Date_Faktur!FieldVal,V.Local.iPeriod)
+		F.Intrinsic.Date.Year(V.DataTable.dtEfaktur(V.Local.i1).Date_Faktur!FieldVal,V.Local.iYear)
+		F.Intrinsic.String.Build("select revision, trans_type, extra_id, faktur_id, total_dpp, total_ppn, total_ppnbm, dp_dpp, dp_ppn, dp_ppnbm from gab_4769_efaktur_hf where id = '{0}'",V.DataTable.dtEfaktur(V.Local.i1).ID!FieldValLong,V.Local.sSQL)
+		F.ODBC.Connection!conx.OpenLocalRecordsetRO("rst",V.Local.sSQL)
+		'Revision
+		F.Intrinsic.Control.If(V.ODBC.conx!rst.FieldValLong!revision,>,0)
+			V.Local.iRev.Set(1)
+		F.Intrinsic.Control.Else
+			V.Local.iRev.Set(0)
+		F.Intrinsic.Control.EndIf
+		V.Local.iTransType.Set(V.ODBC.conx!rst.FieldValLong!trans_type)
+		V.Local.iExtra.Set(V.ODBC.conx!rst.FieldValLong!extra_id)
+		V.Local.iInvoiceID.Set(V.ODBC.conx!rst.FieldValLong!faktur_id)
+		'Convert trans type and extra ID
+		F.Intrinsic.String.LPad(V.Local.iTransType,"0",2,V.Local.sTransType)
+		F.Intrinsic.control.If(V.Local.iExtra,=,0)
+			V.Local.sExtraID.Set("")
+		F.Intrinsic.Control.Else
+			F.Intrinsic.String.LPad(V.Local.iExtra,"0",2,V.Local.sExtraID)
+		F.Intrinsic.Control.EndIf
+		'Total 
+		V.Local.fDPP.Set(V.ODBC.conx!rst.FieldValFloat!total_dpp)
+		V.Local.fPPN.Set(V.ODBC.conx!rst.FieldValFloat!total_ppn)
+		V.Local.fPPNBM.Set(V.ODBC.conx!rst.FieldValFloat!total_ppnbm)
+		V.Local.fDPPUM.Set(V.ODBC.conx!rst.FieldValFloat!dp_dpp)
+		V.Local.fPPNUM.Set(V.ODBC.conx!rst.FieldValFloat!dp_ppn)
+		V.Local.fPPNBMUM.Set(V.ODBC.conx!rst.FieldValFloat!dp_ppnbm)
+		F.ODBC.conx!rst.Close
+		'Customer info
+		'Process customer name
+		F.ODBC.Connection!conx.TableExists("GAB_Customer_Long",V.Local.bExist)
+		F.Intrinsic.Control.If(V.Local.bExist,=,True)
+			F.Intrinsic.String.Build("select customerlong from gab_customer_long where customer = '{0}'",V.Local.sCustomer.Trim,V.Local.sSQL)
+			F.ODBC.Connection!conx.OpenLocalRecordsetRO("rstCust",V.Local.sSQL)
+			F.Intrinsic.Control.If(V.ODBC.conx!rstCust.EOF,=,False)
+				V.Local.sCustomerName.Set(V.ODBC.conx!rstCust.FieldValTrim!customerlong)
+			F.Intrinsic.Control.Else
+				F.ODBC.conx!rstCust.Close
+				F.Intrinsic.String.Build("select name_customer from v_customer_master where customer = '{0}'",V.Local.sCustomer.Trim,V.Local.sSQL)
+				F.ODBC.Connection!conx.OpenLocalRecordsetRO("rstCust",V.Local.sSQL)
+				V.Local.sCustomerName.set(V.ODBC.conx!rstCust.FieldValTrim!name_customer)
+			F.Intrinsic.Control.EndIf
+			F.ODBC.conx!rstCust.Close
+		F.Intrinsic.Control.Else
+			F.Intrinsic.String.Build("select name_customer from v_customer_master where customer = '{0}'",V.Local.sCustomer.Trim,V.Local.sSQL)
+			F.ODBC.Connection!conx.OpenLocalRecordsetRO("rstCust",V.Local.sSQL)
+			V.Local.sCustomerName.set(V.ODBC.conx!rstCust.FieldValTrim!name_customer)
+			F.ODBC.conx!rstCust.Close
+		F.Intrinsic.Control.EndIf
+		'Customer Tax ID number
+		F.Intrinsic.String.Build("select regstr_no as NPWP from v_customer_vat where cust = '{0}'",V.Local.sCustomer.Trim,V.Local.sSQL)
+		F.ODBC.Connection!conx.OpenLocalRecordsetRO("rst",V.Local.sSQL)
+		V.Local.sNPWP.Set(V.ODBC.conx!rst.FieldValTrim!NPWP)
+		F.ODBC.conx!rst.Close
+		'Customer's address
+		F.Intrinsic.String.Build("select c1.address1 as Address1, c1.address2 as Address2, c2.address3 as Address3, c2.address4 as Address4, c2.address5 as Address5 from v_customer_master c1 left join v_customer_intl c2 on c1.customer = c2.customer where c1.customer = '{0}'",V.Local.sCustomer.Trim,V.Local.sSQL)
+		F.ODBC.Connection!conx.OpenLocalRecordsetRO("rst",V.Local.sSQL)
+		F.Intrinsic.String.Build("{0} {1}",V.ODBC.conx!rst.FieldValTrim!Address1,V.ODBC.conx!rst.FieldValTrim!Address2,V.Local.sCustomerAddress)
+		F.Intrinsic.String.Build("{0} {1}",V.Local.sCustomerAddress.Trim,V.ODBC.conx!rst.FieldValTrim!Address3,V.Local.sCustomerAddress)
+		F.Intrinsic.String.Build("{0} {1}",V.Local.sCustomerAddress.Trim,V.ODBC.conx!rst.FieldValTrim!Address4,V.Local.sCustomerAddress)
+		F.Intrinsic.String.Build("{0} {1}",V.Local.sCustomerAddress.Trim,V.ODBC.conx!rst.FieldValTrim!Address5,V.Local.sCustomerAddress)
+		F.ODBC.conx!rst.Close
+
+		'Compile invoice number in 1 e-faktur (Invoice/Reference)
+		F.Intrinsic.String.Build("select distinct(Invoice) as Invoice, date_invoice as InvoiceDate from gab_4769_efaktur_ln where id = {0} order by line",V.DataTable.dtEfaktur(V.Local.i1).ID!FieldValLong,V.Local.sSQL)
+		F.Data.DataTable.CreateFromSQL("dtInvoice","conx",V.Local.sSQL)
+		V.Local.sInvoice.Set("Dengan No. Faktur :")
+		F.Intrinsic.Control.For(V.Local.i2,0,V.DataTable.dtInvoice.RowCount--,1)
+			F.Intrinsic.Control.If(V.Local.i2,=,0)
+				F.Intrinsic.String.Build("{0} {1}",V.Local.sInvoice.Trim,V.DataTable.dtInvoice(V.Local.i2).Invoice!FieldValTrim,V.Local.sInvoice)
+			F.Intrinsic.Control.Else
+				F.Intrinsic.String.Build("{0}, {1}",V.Local.sInvoice.Trim,V.DataTable.dtInvoice(V.Local.i2).Invoice!FieldValTrim,V.Local.sInvoice)
+			F.Intrinsic.Control.EndIf
+		F.Intrinsic.Control.Next(V.Local.i2)
+		F.Data.DataTable.Close("dtInvoice")
+		F.Intrinsic.String.Concat(V.Local.sInvoice,".",V.Local.sInvoice)
+		'Compile FK line
+		F.Intrinsic.String.Build("{0}FK{0},{0}{1}{0},{0}{2}{0},{0}{3}{0},{0}{4}{0},{0}{5}{0},{0}{6}{0},{0}{7}{0},{0}{8}{0},{0}{9}{0},{0}{10}{0},{0}{11}{0},{0}{12}{0},{0}{13}{0},{0}{14}{0},{0}{15}{0},{0}{16}{0},{0}{17}{0},{0}{18}{0}",V.Ambient.DblQuote,V.Local.sTransType.Trim,V.Local.iRev,V.Local.sEFaktur,V.Local.iPeriod,V.Local.iYear,V.Local.sDateFaktur,V.Local.sNPWP,V.Local.sCustomerName.Trim,V.Local.sCustomerAddress,V.Local.fDPP,V.Local.fPPN,V.Local.fPPNBM,V.Local.sExtraID.Trim,V.Local.iInvoiceID,V.Local.fDPPUM,V.Local.fPPNUM,V.Local.fPPNBMUM,V.Local.sInvoice,V.Local.sCSVFileRow)
+'		F.Intrinsic.String.Concat("FK,",V.Local.sTransType.Trim,",",V.Local.iRev,",",V.Local.sEFaktur,",",V.Local.iPeriod,",",V.Local.iYear,",",V.Local.sDateFaktur,",",V.Local.sNPWP,",",V.Local.sCustomerName.Trim,",",V.Local.sCustomerAddress,",",V.Local.fDPP,",",V.Local.fPPN,",",V.Local.fPPNBM,",",V.Local.sExtraID.Trim,",",V.Local.iInvoiceID,",",V.Local.fDPPUM,",",V.Local.fPPNUM,",",V.Local.fPPNBMUM,",",V.Local.sInvoice,V.Local.sCSVFileRow)
+		F.Intrinsic.String.Concat(V.Local.sCSVFile,V.Ambient.NewLine,V.Local.sCSVFileRow,V.Local.sCSVFile)
+
+		'Line Info
+		F.Intrinsic.String.Build("select invoice, order_no, order_suffix, order_line, quantity, price, discount, extension, ext_ppn, rate_ppnbm, ext_ppnbm from gab_4769_efaktur_ln where id = {0} order by line",V.DataTable.dtEfaktur(V.Local.i1).ID!FieldValLong,V.Local.sSQL)
+		F.Data.DataTable.CreateFromSQL("dtInvLine","conx",V.Local.sSQL)
+		F.Intrinsic.Control.For(V.Local.i2,0,V.DataTable.dtInvLine.RowCount--,1)
+			'Get part and description info from either v_shipment_lines or v_order_hist_line
+			F.Intrinsic.String.Build("select part, um_inventory as um, order_desc as description from v_shipment_lines where order_no = '{0}' and order_suffix = '{1}' and order_rec = '{2}' and invoice = '{3}'",V.DataTable.dtInvLine(V.Local.i2).order_no!FieldValTrim,V.DataTable.dtInvLine(V.Local.i2).order_suffix!FieldValTrim,V.DataTable.dtInvLine(V.Local.i2).order_line!FieldValTrim,V.DataTable.dtInvLine(V.Local.i2).invoice!FieldValTrim,V.Local.sSQL)
+			F.ODBC.Connection!conx.OpenLocalRecordsetRO("rst",V.Local.sSQL)
+			F.Intrinsic.Control.If(V.ODBC.conx!rst.EOF,=,False)
+				F.Intrinsic.String.Build("{0} {1} {2} ({3})",V.DataTable.dtInvLine(V.Local.i2).quantity!FieldValFloat,V.ODBC.conx!rst.FieldValTrim!um,V.ODBC.conx!rst.FieldValTrim!description,V.ODBC.conx!rst.FieldValTrim!part,V.Local.sPartInfo)
+			F.Intrinsic.Control.Else
+				F.ODBC.conx!rst.Close
+				F.Intrinsic.String.Build("select part, um, description from v_order_hist_line where order_no = '{0}' and order_suffix = '{1}' and order_line = '{2}' and invoice = '{3}' and customer = '{4}'",V.DataTable.dtInvLine(V.Local.i2).order_no!FieldValTrim,V.DataTable.dtInvLine(V.Local.i2).order_suffix!FieldValTrim,V.DataTable.dtInvLine(V.Local.i2).order_line!FieldValTrim,V.DataTable.dtInvLine(V.Local.i2).invoice!FieldValTrim,V.Local.sCustomer.Trim,V.Local.sSQL)
+				F.ODBC.Connection!conx.OpenLocalRecordsetRO("rst",V.Local.sSQL)
+				F.Intrinsic.String.Build("{0} {1} {2} ({3})",V.DataTable.dtInvLine(V.Local.i2).quantity!FieldValFloat,V.ODBC.conx!rst.FieldValTrim!um,V.ODBC.conx!rst.FieldValTrim!description,V.ODBC.conx!rst.FieldValTrim!part,V.Local.sPartInfo)
+			F.Intrinsic.Control.EndIf
+			F.ODBC.conx!rst.Close
+			F.Intrinsic.Math.Mult(V.DataTable.dtInvLine(V.Local.i2).quantity!FieldVal,V.DataTable.dtInvLine(V.Local.i2).price!FieldValFloat,V.Local.fExtension)
+			F.Intrinsic.Math.Round(V.Local.fExtension,2,V.Local.fExtension)
+			F.Intrinsic.String.Build("{0}OF{0},{0}{0},{0}{1}{0},{0}{2}{0},{0}{3}{0},{0}{4}{0},{0}{5}{0},{0}{6}{0},{0}{7}{0},{0}{8}{0},{0}{9}{0}",V.Ambient.DblQuote,V.Local.sPartInfo.Trim,V.DataTable.dtInvLine(V.Local.i2).price!FieldValFloat,V.DataTable.dtInvLine(V.Local.i2).quantity!FieldValFloat,V.DataTable.dtInvLine(V.Local.i2).extension!FieldValFloat,V.DataTable.dtInvLine(V.Local.i2).discount!FieldValFloat,V.DataTable.dtInvLine(V.Local.i2).extension!FieldValFloat,V.DataTable.dtInvLine(V.Local.i2).ext_ppn!FieldValFloat,V.DataTable.dtInvLine(V.Local.i2).rate_ppnbm!FieldValFloat,V.DataTable.dtInvLine(V.Local.i2).ext_ppnbm!FieldValFloat,V.Local.sCSVFileRow)
+'			F.Intrinsic.String.Concat("OF,,",V.Local.sPartInfo.Trim,",",V.DataTable.dtInvLine(V.Local.i2).price!FieldValFloat,",",V.DataTable.dtInvLine(V.Local.i2).quantity!FieldValLong,",",V.Local.fExtension,",",V.DataTable.dtInvLine(V.Local.i2).discount!FieldValFloat,",",V.DataTable.dtInvLine(V.Local.i2).extension!FieldValFloat,",",V.DataTable.dtInvLine(V.Local.i2).ext_ppn!FieldValFloat,",",V.DataTable.dtInvLine(V.Local.i2).rate_ppnbm!FieldValFloat,",",V.DataTable.dtInvLine(V.Local.i2).ext_ppnbm!FieldValFloat,V.Local.sCSVFileRow)
+			F.Intrinsic.String.Concat(V.Local.sCSVFile,V.Ambient.NewLine,V.Local.sCSVFileRow,V.Local.sCSVFile)
+		F.Intrinsic.Control.Next(V.Local.i2)
+		F.Data.DataTable.Close("dtInvLine")
+		F.Intrinsic.Control.EndIf
+		F.Data.DataTable.SetValue("dtEfaktur",V.Local.i1,"Checklist",False)
+	F.Intrinsic.Control.Next(V.Local.i1)
+
+	'Saving the file
+	F.Intrinsic.String.Concat(V.Local.sCSVFileName,".csv",V.Local.sCSVFileName)
+	F.Intrinsic.File.String2File(V.Local.sCSVFileName,V.Local.sCSVFile)
+	'Clean the grid and customer textbox
+'	F.Intrinsic.Control.For(V.Local.i1,V.Local.iLast,0,-1)
+'		F.Data.DataTable.DeleteRow("dtEfaktur",V.Local.i1)
+'		Gui.F_EFakturCSV.txtCust.Text("")
+'	F.Intrinsic.Control.Next(V.Local.i1)
+	F.Intrinsic.UI.CloseWaitDialog
+F.Intrinsic.Control.EndIf
+
+Gui.frmReceipts.GsGCEfaktur.Visible(True)
+Program.Sub.MenuClickPrint.End
+
+Program.Sub.MenuClickDelete.Start
+V.Local.bExist.Declare
+V.Local.dFaktur.Declare(Date)
+V.Local.fDiscount.Declare
+V.Local.fDPP.Declare
+V.Local.fDPPUM.Declare
+V.Local.fExtension.Declare
+V.Local.fExtensionDisc.Declare
+V.Local.fPPN.Declare
+V.Local.fPPNUM.Declare
+V.Local.fPPNBM.Declare
+V.Local.fPPNBMUM.Declare
+V.Local.fPrice.Declare
+V.Local.i1.Declare
+V.Local.i2.Declare
+V.Local.iExtra.Declare
+V.Local.iInvoiceID.Declare
+V.Local.iLast.Declare
+V.Local.iPeriod.Declare
+V.Local.iRev.Declare
+V.Local.iTransType.Declare
+V.Local.iYear.Declare
+V.Local.sCSVFile.Declare
+V.Local.sCSVFileName.Declare
+V.Local.sCSVFileRow.Declare
+V.Local.sCustomer.Declare
+V.Local.sCustomerAddress.Declare
+V.Local.sCustomerName.Declare
+V.Local.sDateFaktur.Declare
+V.Local.sEFaktur.Declare
+V.Local.sExtraID.Declare
+V.Local.sInvoice.Declare
+V.Local.sNPWP.Declare
+V.Local.sPartInfo.Declare
+V.Local.sRet.Declare
+V.Local.sSQL.Declare
+V.Local.sTransType.Declare
+V.Local.iRet.Declare
+
+'Check if 1 e-faktur has been selected at least
+'V.Local.sCustomer.Set(V.Screen.F_EFakturCSV!txtCust.Text)
+'F.Intrinsic.Control.If(V.Local.sCustomer.Trim,=,"")
+'	F.Intrinsic.UI.Msgbox("Please select at least 1 E-Faktur to be generated","E-Faktur [APAC]")
+'	F.Intrinsic.Control.ExitSub
+'F.Intrinsic.Control.EndIf
+
+Gui.frmReceipts.GsGCEfaktur.Visible(False)
+
+F.Intrinsic.UI.Msgbox("Delete this E-Faktur?","Pudak E-Faktur",4,V.Local.iRet)
+
+F.Intrinsic.Control.If(V.Local.iRet,=,6)
+
+
+	'Go through selected e-faktur
+	F.Intrinsic.Control.For(V.Local.i1,0,V.DataTable.dtEfaktur.RowCount--,1)
+		'Header info
+		F.Intrinsic.Control.If(V.DataTable.dtEfaktur(V.Local.i1).Checklist!FieldVal,=,True)
+		F.Intrinsic.String.Build("delete from GAB_4769_EFAKTUR_LN where id = {0}",V.DataTable.dtEfaktur(V.Local.i1).ID!FieldVal,V.Local.sSQL)
+		F.ODBC.Connection!conx.Execute(V.Local.sSQL)
+		F.Intrinsic.String.Build("delete from GAB_4769_EFAKTUR_HF where id = {0}",V.DataTable.dtEfaktur(V.Local.i1).ID!FieldVal,V.Local.sSQL)
+		F.ODBC.Connection!conx.Execute(V.Local.sSQL)
+		F.Intrinsic.Control.EndIf
+	F.Intrinsic.Control.Next(V.Local.i1)
+
+	F.Intrinsic.Control.CallSub(clickrefresh)
+	F.Intrinsic.Control.EndIf
+
+Gui.frmReceipts.GsGCEfaktur.Visible(True)
+Program.Sub.MenuClickDelete.End
+
+Program.Sub.LoaddtEfaktur.Start
+	F.Intrinsic.Control.Try
+	V.Local.sError.Declare
+	V.Local.sSQL.Declare
+	V.Local.dFromDate.Declare
+	V.Local.dUntilDate.Declare
+	V.Local.sActiveFilterString.Declare
+
+	Gui.frmReceipts.lblStatus.Visible(True)
+
+'	F.ODBC.Connection!conx.OpenCompanyConnection(300)
+
+	F.Intrinsic.Control.If(V.DataTable.dtEfaktur.Exists)
+		F.Data.DataTable.Close("dtEfaktur")
+	F.Intrinsic.Control.EndIf
+
+	V.Local.dFromDate.Set(V.Screen.frmReceipts!dtpFromCutoff.Value)
+	V.Local.dUntilDate.Set(V.Screen.frmReceipts!dtpCutoff.Value)
+
+'	F.Intrinsic.String.Build("select Cast(0 As Bit) As Checklist,'PC'+cast(B.id as varchar(10))+'/'+left(Right(cast(B.Date_Cofc as varchar(10)),5),2)+'/'+Left(cast(B.Date_Cofc as varchar(10)),4) AS CofC, A.CofC_Suffix, B.Created_By, B.id, B.Date_Cofc, B.KC, B.Other, A.Pck_No, A.Order_No, A.Order_Suffix, A.Order_Line, B.Customer, A.Customer_PO, A.PO_Line, A.Part, A.Description, A.Lot, A.Qty, A.ref_rm, A.ref_out from ina_cofc_pdk_line A left join ina_cofc_pdk_head B On A.CofC_ID = B.ID and A.CofC_suffix = B.Suffix Where B.Date_Cofc Between '{0}' And '{1}' Order By 'PC'+cast(B.id as varchar(10))+'/'+left(Right(cast(B.Date_Cofc as varchar(10)),5),2)+'/'+Left(cast(B.Date_Cofc as varchar(10)),4) Desc;",V.Local.dFromDate.PervasiveDate,V.Local.dUntilDate.PervasiveDate,v.Local.sSQL)
+	F.Intrinsic.String.Build("select Cast(0 As Bit) As Checklist, ID, E_Faktur as Efaktur, A.Revision, A.Date_Faktur, A.Customer, B.CustomerName, C.Regstr_No as NPWP, A.Total_DPP, A.Total_PPN from GAB_4769_EFaktur_HF A Left Join (Select A.CUstomer, if (B.Customerlong <> '', B.Customerlong, A.Name_Customer) AS CustomerName From V_Customer_Master A Left Join Gab_Customer_Long B On A.Customer = B.Customer) B On A.Customer = B.Customer left Join customer_vat C on A.Customer = C.Cust Where A.Date_Faktur Between '{0}' And '{1}' Order By A.Date_Faktur;",V.Local.dFromDate.PervasiveDate,V.Local.dUntilDate.PervasiveDate,v.Local.sSQL)
+	F.Data.DataTable.CreateFromSQL("dtEfaktur","conx",V.Local.sSQL,True)
+'	F.Data.DataTable.AddColumn("dtEfaktur","-",String,"")
+
+'	F.ODBC.Connection!conx.Close
+
+	F.Data.DataView.Create("dtEfaktur","dvEfaktur",22,"","")
+
+	F.Intrinsic.Control.CallSub(LoadgvEfaktur)
+	Gui.frmReceipts.lblStatus.Visible(False)
+
+	F.Intrinsic.Control.Catch
+		F.Intrinsic.String.Build("Project: GAB_4409_Labor_Perf.g2u{0}{0}Subroutine: {1}{0}Error Occurred {2} with description {3}.",V.Ambient.Newline,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Local.sError)
+		F.Intrinsic.UI.Msgbox(V.Local.sError)
+		F.Intrinsic.Control.End 
+	F.Intrinsic.Control.EndTry
+Program.Sub.LoaddtEfaktur.End
+
+Program.Sub.LoadgvEfaktur.Start
+	F.Intrinsic.Control.Try
+	V.Local.sError.Declare
+
+'	Gui.frmReceipts.GsGCEfaktur.AddGridviewFromDatatable("gvEfaktur","dtEfaktur")
+	Gui.frmReceipts.GsGCEfaktur.AddGridviewFromDataview("gvEfaktur","dtEfaktur","dvEfaktur")
+	Gui.frmReceipts.GsGCEfaktur.MainView("gvEfaktur")
+	Gui.frmReceipts.GsGCEfaktur.SuspendLayout()
+	Gui.frmReceipts.GsGCEfaktur.SetGridViewProperty("gvEfaktur","ShowGroupPanel",True)
+	
+	Gui.frmReceipts.GsGCEfaktur.SetColumnProperty("gvEfaktur","Checklist","ShowCaption",False)
+	Gui.frmReceipts.GsGCEfaktur.SetColumnProperty("gvEfaktur","Customer","Visible",False)
+	Gui.frmReceipts.GsGCEfaktur.SetColumnProperty("gvEfaktur","ID","Visible",False)
+
+	Gui.frmReceipts.GsGCEfaktur.SetColumnProperty("gvEfaktur","Efaktur","Caption","E-Faktur")
+	Gui.frmReceipts.GsGCEfaktur.SetColumnProperty("gvEfaktur","Revision","Caption","Rev")
+	Gui.frmReceipts.GsGCEfaktur.SetColumnProperty("gvEfaktur","Date_Faktur","Caption","Date")
+	Gui.frmReceipts.GsGCEfaktur.SetColumnProperty("gvEfaktur","CustomerName","Caption","Customer Name")
+	Gui.frmReceipts.GsGCEfaktur.SetColumnProperty("gvEfaktur","Total_DPP","Caption","Total DPP")
+	Gui.frmReceipts.GsGCEfaktur.SetColumnProperty("gvEfaktur","Total_PPN","Caption","Total PPN")
+
+	Gui.frmReceipts.GsGCEfaktur.SetColumnProperty("gvEfaktur","Checklist","AllowEdit",False)
+	Gui.frmReceipts.GsGCEfaktur.SetColumnProperty("gvEfaktur","Efaktur","AllowEdit",False)
+	Gui.frmReceipts.GsGCEfaktur.SetColumnProperty("gvEfaktur","Revision","AllowEdit",False)
+	Gui.frmReceipts.GsGCEfaktur.SetColumnProperty("gvEfaktur","Date_Faktur","AllowEdit",False)
+	Gui.frmReceipts.GsGCEfaktur.SetColumnProperty("gvEfaktur","CustomerName","AllowEdit",False)
+	Gui.frmReceipts.GsGCEfaktur.SetColumnProperty("gvEfaktur","NPWP","AllowEdit",False)
+	Gui.frmReceipts.GsGCEfaktur.SetColumnProperty("gvEfaktur","Total_DPP","AllowEdit",False)
+	Gui.frmReceipts.GsGCEfaktur.SetColumnProperty("gvEfaktur","Total_PPN","AllowEdit",False)
+
+	Gui.frmReceipts.GsGCEfaktur.SetColumnProperty("gvEfaktur","Checklist","MinWidth","50")
+	Gui.frmReceipts.GsGCEfaktur.SetColumnProperty("gvEfaktur","Efaktur","MinWidth","100")
+	Gui.frmReceipts.GsGCEfaktur.SetColumnProperty("gvEfaktur","Revision","MinWidth","50")
+	Gui.frmReceipts.GsGCEfaktur.SetColumnProperty("gvEfaktur","Date_Faktur","MinWidth","100")
+	Gui.frmReceipts.GsGCEfaktur.SetColumnProperty("gvEfaktur","CustomerName","MinWidth","150")
+	Gui.frmReceipts.GsGCEfaktur.SetColumnProperty("gvEfaktur","NPWP","MinWidth","70")
+	Gui.frmReceipts.GsGCEfaktur.SetColumnProperty("gvEfaktur","Total_DPP","MinWidth","150")
+	Gui.frmReceipts.GsGCEfaktur.SetColumnProperty("gvEfaktur","Total_PPN","MinWidth","150")
+
+	Gui.frmReceipts.GsGCEfaktur.SetColumnProperty("gvEfaktur","Efaktur","HeaderFontBold",True)
+	Gui.frmReceipts.GsGCEfaktur.SetColumnProperty("gvEfaktur","Revision","HeaderFontBold",True)
+	Gui.frmReceipts.GsGCEfaktur.SetColumnProperty("gvEfaktur","CustomerName","HeaderFontBold",True)
+	Gui.frmReceipts.GsGCEfaktur.SetColumnProperty("gvEfaktur","Date_Faktur","HeaderFontBold",True)
+	Gui.frmReceipts.GsGCEfaktur.SetColumnProperty("gvEfaktur","NPWP","HeaderFontBold",True)
+	Gui.frmReceipts.GsGCEfaktur.SetColumnProperty("gvEfaktur","Total_DPP","HeaderFontBold",True)
+	Gui.frmReceipts.GsGCEfaktur.SetColumnProperty("gvEfaktur","Total_PPN","HeaderFontBold",True)
+
+	Gui.frmReceipts.GsGCEfaktur.SetColumnProperty("gvEfaktur","Efaktur","HeaderHAlignment","Center")
+	Gui.frmReceipts.GsGCEfaktur.SetColumnProperty("gvEfaktur","Revision","HeaderHAlignment","Center")
+	Gui.frmReceipts.GsGCEfaktur.SetColumnProperty("gvEfaktur","Date_Faktur","HeaderHAlignment","Center")
+	Gui.frmReceipts.GsGCEfaktur.SetColumnProperty("gvEfaktur","CustomerName","HeaderHAlignment","Center")
+	Gui.frmReceipts.GsGCEfaktur.SetColumnProperty("gvEfaktur","NPWP","HeaderHAlignment","Center")
+	Gui.frmReceipts.GsGCEfaktur.SetColumnProperty("gvEfaktur","Total_DPP","HeaderHAlignment","Center")
+	Gui.frmReceipts.GsGCEfaktur.SetColumnProperty("gvEfaktur","Total_PPN","HeaderHAlignment","Center")
+	
+	Gui.frmReceipts.GsGCEfaktur.SetColumnProperty("gvEfaktur","Total_DPP","DisplayCustomNumeric","###,###,###,##0.00")
+	Gui.frmReceipts.GsGCEfaktur.SetColumnProperty("gvEfaktur","Total_PPN","DisplayCustomNumeric","###,###,###,##0.00")
+
+	Gui.frmReceipts.GsGCEfaktur.SetColumnProperty("gvEfaktur","Date_Faktur","DisplayCustomDatetime","d")
+
+	Gui.frmReceipts.GsGCEfaktur.ResumeLayout()
+
+	F.Intrinsic.Control.Catch
+		F.Intrinsic.String.Build("Project: {0}{1}{1}Subroutine: {2}{1}Error Occurred {3} with description {4}{1}{1}GAB Version: {5}",V.Ambient.ScriptPath,V.Ambient.Newline,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Ambient.GABVersion,V.Local.sError)
+		F.Intrinsic.UI.Msgbox(V.Local.sError)
+		F.Intrinsic.Control.End
+
+	F.Intrinsic.Control.EndTry
+Program.Sub.LoadgvEfaktur.End
+
+Program.Sub.GsGCEfaktur_ColumnFilterChanged.Start
+	F.Intrinsic.Control.Try
+	V.Local.sError.Declare
+
+	V.Local.bFilter.Declare	
+	V.Local.sFilter.Declare
+	V.Local.sInvalid.Declare
+	V.Local.bRet.Declare
+	V.Local.iCnt.Declare
+	V.Local.iCounter.Declare(Long,0)
+	V.Local.sMsg.Declare
+
+	F.Intrinsic.String.Split("StartsWith*!*Between*!*Contains*!*EndsWith*!*IsNullOrEmpty*!*?*!*IsOutlookInterval","*!*",V.Local.sInvalid)
+	F.Intrinsic.String.IsNullOrWhiteSpace(V.Args.ActiveFilterExpression,V.Global.bFilter)
+	Function.Intrinsic.Control.If(V.Global.bFilter,=,True)
+	V.Global.sFilter.Set("")
+	Function.Intrinsic.Control.Else
+		F.Intrinsic.String.Replace(V.Args.ActiveFilterExpression,"[","",V.Local.sFilter)
+		F.Intrinsic.String.Replace(V.Local.sFilter,"]","",V.Local.sFilter)
+		F.Intrinsic.String.Replace(V.Local.sFilter,"0m","",V.Global.sFilter)
+		
+'		F.Intrinsic.UI.Msgbox(V.Global.sFilter)
+		
+		F.Intrinsic.Math.Sub(V.Args.ActiveFilterRowCount,0,V.Global.iRowCount)
+
+		F.Intrinsic.Control.For(V.Local.iCnt,0,V.Local.sInvalid.UBound,1)
+			F.Intrinsic.String.IsInString(V.Local.sFilter,V.Local.sInvalid(V.Local.iCnt),False,V.Local.bRet)
+			F.Intrinsic.Control.If(V.Local.bRet,=,True)
+				F.Intrinsic.Math.Add(V.Local.iCounter,1,V.Local.iCounter)
+			F.Intrinsic.Control.EndIf
+		F.Intrinsic.Control.Next(V.Local.iCnt)
+
+		F.Intrinsic.Control.If(V.Local.iCounter,=,1)
+			Function.Intrinsic.String.Build("Grid will be filtered, but totals will not be recalculated, because one of the filters entered is an invalid filter for recalculating totals.{0}{0}Invalid Filters for recalculating totals:{0}- Is between{0}- Is not between{0}- Contains{0}- Does not contain{0}- Beings with{0}- Ends with{0}- Is blank{0}- Is not blank{0}- ?{0}- Calendar Checkboxes",V.Ambient.NewLine,V.Local.sMsg)
+			Function.Intrinsic.UI.Msgbox(V.Local.sMsg,"Filter Validation")
+		F.Intrinsic.Control.ElseIf(V.Local.iCounter,>,1)
+			Function.Intrinsic.String.Build("Grid will be filtered, but totals will not be recalculated, because more than one filter entered is an invalid filter for recalculating totals.{0}{0}Invalid Filters for recalculating totals:{0}- Is between{0}- Is not between{0}- Contains{0}- Does not contain{0}- Beings with{0}- Ends with{0}- Is blank{0}- Is not blank{0}- ?{0}- Calendar Checkboxes",V.Ambient.NewLine,V.Local.sMsg)
+			Function.Intrinsic.UI.Msgbox(V.Local.sMsg,"Filter Validation")
+		F.Intrinsic.Control.EndIf
+	Function.Intrinsic.Control.EndIf
+
+	F.Intrinsic.Control.Catch
+		F.Intrinsic.String.Build("Project: {0}{1}{1}Subroutine: {2}{1}Error Occurred {3} with description {4}{1}{1}GAB Version: {5}",V.Ambient.ScriptPath,V.Ambient.Newline,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Ambient.GABVersion,V.Local.sError)
+		F.Intrinsic.UI.Msgbox(V.Local.sError)
+		F.Intrinsic.Control.End 
+	F.Intrinsic.Control.EndTry
+Program.Sub.GsGCEfaktur_ColumnFilterChanged.End
+
+Program.Sub.Serialize.Start
+	F.Intrinsic.Control.Try
+	V.Local.sError.Declare
+
+	V.Local.sSerialize.Declare
+	V.Local.sSerializePO.Declare
+
+	'gvEfaktur
+	Gui.frmReceipts.GsGCEfaktur.Serialize("gvEfaktur",V.Local.sSerializePO)
+	F.Intrinsic.File.String2File(V.Global.sGvReceipts,V.Local.sSerializePO)
+
+	F.Intrinsic.Control.Catch
+		F.Intrinsic.String.Build("Project: {0}{1}{1}Subroutine: {2}{1}Error Occurred {3} with description {4}{1}{1}GAB Version: {5}",V.Ambient.ScriptPath,V.Ambient.Newline,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Ambient.GABVersion,V.Local.sError)
+		F.Intrinsic.UI.Msgbox(V.Local.sError)
+		F.Intrinsic.Control.End
+
+	F.Intrinsic.Control.EndTry
+Program.Sub.Serialize.End
+
+Program.Sub.Deserialize.Start
+	F.Intrinsic.Control.Try
+	V.Local.sError.Declare
+
+	V.Local.sSerialize.Declare
+	V.Local.sSerializePO.Declare
+	V.Local.bFile.Declare
+	V.Local.bFilePO.Declare
+
+	'gvEfaktur
+	F.Intrinsic.File.Exists(V.Global.sGvReceipts,V.Local.bFilePO)
+	F.Intrinsic.Control.If(V.Local.bFilePO)
+		F.Intrinsic.File.File2String(V.Global.sGvReceipts,V.Local.sSerializePO)
+		Gui.frmReceipts.GsGCEfaktur.Deserialize(V.Local.sSerializePO)
+	F.Intrinsic.Control.EndIf
+
+	F.Intrinsic.Control.Catch
+		F.Intrinsic.String.Build("Project: {0}{1}{1}Subroutine: {2}{1}Error Occurred {3} with description {4}{1}{1}GAB Version: {5}",V.Ambient.ScriptPath,V.Ambient.Newline,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Ambient.GABVersion,V.Local.sError)
+		F.Intrinsic.UI.Msgbox(V.Local.sError)
+		F.Intrinsic.Control.End
+
+	F.Intrinsic.Control.EndTry
+Program.Sub.Deserialize.End
+
+Program.Sub.Comments.Start
+${$0$}$$}$$}$00:00:00$}$False
+${$3$}$0$}$$}$0$}$-1$}$$}$00:00:00$}$This program is used to create a Certificate of Conformity for PT Pudak Scientific based on their CofC for Claverhampton. The CofC is taken from shipment and related work order info.
+${$5$}$2.0.0.0$}$2
+${$6$}$dyunus$}$20231113140337098$}$xZ6SHi8g7O0Qsxe6AiO2NH3PnOKQRy0TCVytgylKSyKlKidCHoFztBq/uH70giYM+IMg+HyyPyQ=
+Program.Sub.Comments.End
